@@ -1,0 +1,1318 @@
+﻿<!DOCTYPE html>
+<html lang="en" ng-app="myApp" ng-controller="BasicController">
+<head>
+    <title>ERPSystem Equipment Details</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="images/icons/favicon.ico">
+    <link rel="apple-touch-icon" href="images/icons/favicon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/icons/favicon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/icons/favicon-114x114.png">
+    <!--Loading bootstrap css-->
+    <link type="text/css" rel="stylesheet" href="vendors/font-awesome/css/font-awesome.min.css">
+    <link type="text/css" rel="stylesheet" href="vendors/bootstrap/css/bootstrap.min.css">
+    <!--Loading style vendors-->
+    <link type="text/css" rel="stylesheet" href="vendors/animate.css/animate.css">
+    <link type="text/css" rel="stylesheet" href="vendors/iCheck/skins/all.css">
+    <link rel="stylesheet" type="text/css" href="css/treasure-overlay-spinner.css">
+    <!--Loading style-->
+    <link type="text/css" rel="stylesheet" href="css/themes/Custom.css" id="theme-change" class="style-change color-change">
+    <link type="text/css" rel="stylesheet" href="css/style-responsive.css">
+    <link type="text/css" rel="stylesheet" href="vendors/jquery-treetable/stylesheets/jquery.treetable.css">
+    <link type="text/css" rel="stylesheet" href="vendors/jquery-treetable/stylesheets/jquery.treetable.theme.custom.css">
+</head>
+<body ng-init="GetAssetConfig();">
+    <!--BEGIN BACK TO TOP--><a id="totop" href="#"><i class="fa fa-angle-up"></i></a><!--END BACK TO TOP--><!--BEGIN TOPBAR-->
+    <div id="header-topbar-option-demo" class="page-header-topbar">
+        <nav id="topbar" role="navigation" style="margin-bottom: 0;" data-step="3" class="navbar navbar-default navbar-static-top">
+            <div class="navbar-header">
+                <button type="button" data-toggle="collapse" data-target=".sidebar-collapse" class="navbar-toggle"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
+                <!--<a id="logo" href="index.html" class="navbar-brand"><span class="fa fa-rocket"></span><span class="logo-text">EES EM Portal</span><span style="display: none" class="logo-text-icon">µ</span></a>-->
+            </div>
+            <div class="topbar-main">
+                <a id="menu-toggle" href="#" class="hidden-xs"><i class="fa fa-bars"></i></a>
+                <ul class="nav navbar navbar-top-links navbar-right mbn">
+                    <li class="dropdown topbar-user">
+                        <a data-hover="dropdown" href="#" class="dropdown-toggle"><img src="images/user.jpg" alt="" class="img-responsive img-circle" />&nbsp;<span class="hidden-xs" ng-cloak>{{uname}}</span>&nbsp;<span class="caret"></span></a>
+                        <ul class="dropdown-menu dropdown-user pull-right">
+                            <!--<li><a href="Users.html" data-toggle="tooltip" data-placement="right" title="Configurable list of all users in the application"><i class="fa fa-user"></i>My Profile</a></li>
+                            <li class="divider"></li>-->
+                            <li ng-controller="logoutCtrl"><a href="#" ng-click="Logout();"><i class="fa fa-sign-out"></i>Log Out</a></li>
+                            <li><a href="https://account.activedirectory.windowsazure.com/ChangePassword.aspx"><i class="fa fa-key"></i>Change Password</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <!--END TOPBAR-->
+    <div id="wrapper">
+        <!--BEGIN SIDEBAR MENU-->
+        <nav id="sidebar" role="navigation" data-step="2" data-position="right" class="navbar-default navbar-static-side">
+            <div class="sidebar-collapse menu-scroll">
+                <ul id="side-menu" class="nav">
+                    <li class="user-panel">
+                        <div class="thumb"><img src="images/user.jpg" alt="" class="img-circle" /></div>
+                        <div class="info">
+                            <p>{{uname}}</p>
+                            <ul class="list-inline list-unstyled">
+                                <!--<li><a href="Users.html" data-hover="tooltip" title="Profile"><i class="fa fa-user"></i></a></li>-->
+                                <li><a href="../login.html" data-hover="tooltip" title="Logout"><i class="fa fa-sign-out"></i></a></li>
+                            </ul>
+                        </div>
+                        <div class="clearfix"></div>
+                    </li>
+                    <li>
+                        <a href="index.html" data-toggle="tooltip" data-placement="right" title="Application Dashboard for Equipment, Types, and Jobs">
+                            <i class="fa fa-tachometer fa-fw">
+                                <div class="icon-bg bg-orange"></div>
+                            </i><span class="menu-title">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="#">
+                            <i class="fa fa-cubes fa-fw">
+                                <div class="icon-bg bg-pink"></div>
+                            </i><span class="menu-title">Equipment</span><span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                            <li ng-hide="isSuperUser == 0">
+                                <a href="AssetModels.html" data-toggle="tooltip" data-placement="right" title="Manage Equipment Type"><i class="fa fa-align-left"></i><span class="submenu-title">Equipment Type</span></a>
+                            </li>
+                            <li ng-hide="isSuperUser == 0">
+                                <a href="AssetModelDetails.html" data-toggle="tooltip" data-placement="right" title="Manage Equipment Type model details"><i class="fa fa-cubes"></i><span class="submenu-title">Type Details</span></a>
+                            </li>
+                            <li><a href="Assets.html" data-toggle="tooltip" data-placement="right" title="Manage list of equipment across locations"><i class="fa fa-align-left"></i><span class="submenu-title">Equipments List</span></a></li>
+                            <!--<li><a href="AssetsView.html" data-toggle="tooltip" data-placement="right" title="Equipment Tree Views by location and asset type"><i class="fa fa-align-left"></i><span class="submenu-title">Equipments View</span></a></li>-->
+                            <li class="active"><a href="AssetDetails.html" data-toggle="tooltip" data-placement="right" title="Manage equipment details and documents"><i class="fa fa-cubes"></i><span class="submenu-title">Equipment Details</span></a></li>
+
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-list fa-fw">
+                                <div class="icon-bg bg-violet"></div>
+                            </i><span class="menu-title">Jobs</span><span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                            <li><a href="JobsList.html" data-toggle="tooltip" data-placement="right" title="List of all active and pending jobs by location, status, or customer"><i class="fa fa-list fa-fw"></i><span class="submenu-title">Job List</span></a></li>
+                            <li><a href="JobDetails.html" data-toggle="tooltip" data-placement="right" title="Job specific details: Equipment, Personnel, 3rd Party, and Job Documents"><i class="fa fa-file-text-o"></i><span class="submenu-title">Job Details</span></a></li>
+                            <li><a href="CompletedJobList.html" data-toggle="tooltip" data-placement="right" title="Jobs marked as completed"><i class="fa fa-list fa-fw"></i><span class="submenu-title">Completed Jobs</span></a></li>
+                            <li><a href="JobPersonnel.html" data-toggle="tooltip" data-placement="right" title="Tree view of all people assigned to all jobs, by location, customer status"><i class="fa fa-file-text-o"></i><span class="submenu-title"></span>Job Personnel</a></li>
+                            <li><a href="JobEquipment.html" data-toggle="tooltip" data-placement="right" title="Tree view of all equipment assigned to all jobs, by location, customer status"><i class="fa fa-cubes"></i><span class="submenu-title"></span>Job Equipment</a></li>
+                            <li><a href="JobDocuments.html" data-toggle="tooltip" data-placement="right" title="Job specific documents"><i class="fa fa-cubes"></i><span class="submenu-title"></span>Job Documents</a></li>
+                            <!--<li><a href="Jobs.html"><i class="fa fa-exclamation"></i><span class="submenu-title"></span>Job Alerts</a></li>-->
+                            <!--<li><a href="Jobs.html"><i class="fa fa-upload"></i><span class="submenu-title">Job Notifications</span></a></li>-->
+                            <!--<li><a href="Jobs.html"><i class="fa fa-cloud-upload"></i><span class="submenu-title">Job Reports</span></a></li>-->
+                        </ul>
+                    </li>
+
+                    <li ng-hide="hidereports=1">
+                        <a href="#">
+                            <i class="fa fa-bar-chart-o fa-fw">
+                                <div class="icon-bg bg-violet"></div>
+                            </i><span class="menu-title">Reports</span><span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                            <li><a href="ReportsList.html" data-toggle="tooltip" data-placement="right" title="List of reports for the application"><i class="fa fa-file-text-o"></i><span class="submenu-title"></span>Reports List</a></li>
+                        </ul>
+                    </li>
+
+                    <li ng-hide="isSuperUser == 0">
+                        <a href="#">
+                            <i class="fa fa-group fa-fw">
+                                <div class="icon-bg bg-red"></div>
+                            </i><span class="menu-title">Users & Roles</span><span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                            <li><a href="UserDetails.html" data-toggle="tooltip" data-placement="right" title="User details for application"><i class="fa fa-user"></i><span class="submenu-title">User Details</span></a></li>
+                            <li><a href="Users.html" data-toggle="tooltip" data-placement="right" title="Configurable list of all users in the application"><i class="fa fa-user"></i><span class="submenu-title">Users List</span></a></li>
+                            <li><a href="UserRoles.html" data-toggle="tooltip" data-placement="right" title="Configurable list of all roles assigned to users in the application"><i class="fa fa-sitemap fa-fw"></i><span class="submenu-title">User Roles</span></a></li>
+
+                        </ul>
+                    </li>
+                    <!--<li>
+                        <a href="UI/#">
+                            <i class="fa fa-book fa-fw">
+                                <div class="icon-bg bg-violet"></div>
+                            </i><span class="menu-title">Help</span><span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                            <li><a href="UI/HelpResources.html"><i class="fa fa-columns"></i><span class="submenu-title"></span>Resources</a></li>
+                            <li><a href="UI/HelpSupport.html"><i class="fa fa-file-text-o"></i><span class="submenu-title"></span>Support</a></li>
+                            <li><a href="UI/HelpFAQs.html"><i class="fa fa-file-text-o"></i><span class="submenu-title"></span>FAQs</a></li>
+                        </ul>
+                    </li>-->
+                    <li>
+                        <a href="PPDocuments.html" data-toggle="tooltip" data-placement="right" title="Common document repository for documents across company.">
+                            <i class="fa fa-file-text-o">
+                                <div class="icon-bg bg-orange"></div>
+                            </i><span class="menu-title">Procedure Documents</span>
+                        </a>
+                    </li>
+                    <li ng-hide="isSuperUser == 0">
+                        <a href="#">
+                            <i class="fa fa-edit fa-fw">
+                                <div class="icon-bg bg-violet"></div>
+                            </i><span class="menu-title">Administration</span><span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                            <li><a href="TypeGroups.html" data-toggle="tooltip" data-placement="right" title="Common groups used across application"><i class="fa fa-cubes"></i><span class="submenu-title"></span>Master Data Groups</a></li>
+                            <li><a href="ObjectTypes.html" data-toggle="tooltip" data-placement="right" title="Common objects used across application"><i class="fa fa-cubes"></i><span class="submenu-title"></span>Object Types</a></li>
+                            <li><a href="Locations.html" data-toggle="tooltip" data-placement="right" title="List of operational locations"><i class="fa fa-cubes"></i><span class="submenu-title"></span>Locations</a></li>
+                            <li><a href="Types.html" data-toggle="tooltip" data-placement="right" title="Common data used across application"><i class="fa fa-cubes"></i><span class="submenu-title"></span>Master Data</a></li>
+                            <li><a href="Roles.html" data-toggle="tooltip" data-placement="right" title="Roles for the application"><i class="fa fa-cubes"></i><span class="submenu-title"></span>Roles</a></li>
+                            <!--<li><a href="ThirdParty.html"><i class="fa fa-cubes"></i><span class="submenu-title"></span>Third Party Resources</a></li>-->
+                            <li><a href="Company.html" data-toggle="tooltip" data-placement="right" title="Company specific details"><i class="fa fa-file-text-o"></i><span class="submenu-title">Company Details</span></a></li>
+                            <!--<li><a href="CompanyRoles.html"><i class="fa fa-sitemap fa-fw"></i><span class="submenu-title">Company Roles</span></a></li>-->
+                            <li><a href="Customers.html" data-toggle="tooltip" data-placement="right" title="List of all customers"><i class="fa fa-group fa-fw"></i><span class="submenu-title">Customers</span></a></li>
+                            <li><a href="DataLoad.html" data-toggle="tooltip" data-placement="right" title="List of all customers"><i class=" fa fa-tachometer fa-fw"></i><span class="submenu-title">Data Load</span></a></li>
+                            <li><a href="Manufacturer.html" data-toggle="tooltip" data-placement="right" title="List of all Manufacturer"><i class=" fa fa-tachometer fa-fw"></i><span class="submenu-title">Manufacturer</span></a></li>
+                            <li><a href="MaintenanceVendors.html" data-toggle="tooltip" data-placement="right" title="List of all Maintenance Vendors"><i class=" fa fa-tachometer fa-fw"></i><span class="submenu-title">Maintenance Vendor</span></a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <!--END SIDEBAR MENU--><!--BEGIN CHAT FORM-->
+        <!--END CHAT FORM--><!--BEGIN PAGE WRAPPER-->
+
+        <div id="page-wrapper">
+            <!--BEGIN TITLE & BREADCRUMB PAGE-->
+            <div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
+                <div class="page-header pull-left">
+                    <div class="page-title">Equipment Details</div>
+                </div>
+                <ol class="breadcrumb page-breadcrumb pull-right">
+                    <li><i class="fa fa-home"></i>&nbsp;<a href="index.html">Home</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+                    <li class="hidden"><a href="#">Dashboard</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+                    <li class="active">Equipment Details</li>
+                </ol>
+                <div class="clearfix"></div>
+            </div>
+            <!--END TITLE & BREADCRUMB PAGE--><!--BEGIN CONTENT-->
+            <div class="page-content" id="assetdetails-content" style="display:none">
+                <div id="table-action" class="row">
+                    <div class="col-lg-12">
+                        <div id="tableactionTabContent" class="tab-content">
+                            <div id="table-table-tab" class="tab-pane fade in active">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <treasure-overlay-spinner active='spinner.active'>
+                                            <div class="table-container">
+                                                <h5>Equipment {{a.Name}} and its Sub-Assets (Current location: {{currobj.CurrLocation}}, Job: {{currobj.JobId}})</h5><i ng-show="IsLocked == true" style="color:red;" class="fa fa-lock"></i>
+                                                <div class="row mbm">
+                                                    <div class="col-md-3">
+                                                        Location: <select ng-options="l.Name for l in AssetConfig.Table track by l.Id" ng-model="l" style="width:80%" ng-change="CheckCanCreate(l.Id)">
+                                                            <option value="" selected>All</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-3" style="text-align:left">
+                                                        Equipment Type: <select ng-options="s1.Name for s1 in AssetConfig.Table1 track by s1.Id" ng-model="s" style="width:80%" ng-change="ResetAssetDetails();">
+                                                            <option value="">All</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-5" style="text-align:left">
+                                                        Equipment: <select ng-options="a.Name for a in AssetConfig.Table2|filter:{AssetModelId:s.Id, LocationId:l.Id}:true track by a.Id" ng-model="a" ng-change="getassetDetails(a.Id)" style="width:80%">
+                                                            <option value="">All</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="col-md-12" style="padding:0px 41px 0px 10px; width: 100%">
+                                                    <div class="portlet box portlet-grey" style="margin-bottom:15px">
+                                                        <div class="portlet-header" style="background-color: #f5f5f5; border: 1px solid #e5e5e5; color: #b8adb7">
+                                                            <div class="caption"><a href="">Equipment Details</a></div>
+                                                            <div class="tools"><span class="badge badge-green"></span><i class="fa fa-chevron-down"></i></div>
+                                                        </div>
+
+                                                        <div id="collapse1" class="panel-collapse collapse in list-group portlet-body" style="padding: 0px;display:none; border: 1px solid #e5e5e5;">
+                                                            <!--Panel Body Begin-->
+                                                            <div class="panel-body">
+                                                                <div class="row mbm" style="margin-top:-10px;">
+                                                                    <div class="col-md-12">
+                                                                        <div class="col-md-3">
+                                                                            <label>Job #'s:</label>
+
+                                                                            <br />
+                                                                            <!--<input class="form-control" style="width:100%;border:none" type="text" ng-model="" disabled />-->
+                                                                            <h1 style="margin-top:-10px;"><span ng-disabled="true">{{currobj.JobId}}</span></h1>
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <label style="color:red;">Serial Number: <span class="require">*</span></label><input class="form-control" style="width:100%" type="text" ng-model="currobj.Name" disabled />
+                                                                            <!--<select ng-options="a.Name for a in AssetConfig.Table2|filter:{AssetModelId:s.Id, LocationId:l.Id}:true track by a.Id" ng-model="currobj.Name" style="width:80%">
+                        <option value="">{{a.Name}}</option>
+                    </select>-->
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <label>Customer:</label><select ng-options="jc.Client for jc in AssetConfig.Table4 track by jc.Id" ng-model="jc" ng-value="jc.Id" style="width:100%" class="form-control">
+                                                                                <option value="">Select</option>
+                                                                            </select>
+                                                                        </div>
+
+                                                                        <div class="col-md-3">
+                                                                            <label style="color:red;">Condition:<span class="require">*</span></label><select ng-model="currobj.Condition" class="form-control">
+                                                                                <option value="">Select</option>
+                                                                                <option value="1">New</option>
+                                                                                <option value="0">Used</option>
+                                                                            </select>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row mbm" style="margin-top:-10px;">
+                                                                    <div class="col-md-12">
+                                                                        <div class="col-md-3">
+                                                                            <label style="color:red;">Locked:<span class="require">*</span></label>
+                                                                            <select ng-model="currobj.Locked" class="form-control" disabled>
+                                                                                <option value="1">Yes</option>
+                                                                                <option value="0">No</option>
+                                                                            </select>
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <label style="color:red;">
+                                                                                Equipment Type:<span class="require">*</span>
+                                                                            </label><!--<input class="form-control" style="width:100%" type="number" ng-model="currobj.LocationId" />-->
+                                                                            <select ng-disabled="true" class="form-control" ng-options="s.Name for s in AssetConfig.Table1 track by s.Id" ng-model="s" style="width:100%;height:35px;" disabled>
+                                                                                <option value="">Select</option>
+                                                                            </select>
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <label> Manufacturer:</label><select ng-options="man.Name for man in Assetde track by man.Id" ng-model="dd" class="form-control" style="width:100%;height:35px;">
+                                                                                <option value="">Select</option>
+                                                                                <option ng-value=""></option>
+                                                                            </select>
+                                                                        </div>
+                                                                        <!--<div class="col-md-3">
+                    <label style="color:red;">
+                        Location :<span class="require">*</span>
+                    </label>
+                    <select class="form-control" ng-options="loc1.Name for loc1 in AssetConfig.Table track by loc1.Id" ng-model="loc" style="width:100%;height:35px;">
+                        <option value="">Select</option>
+                    </select>
+                </div>-->
+                                                                        <div class="col-md-3">
+                                                                            <label>Location:</label>
+                                                                            <select ng-options="cul.name for cul in Locations1 track by cul.id" class="form-control" ng-model="CurrLocation" ng-change="CheckCanCreate(cul.id)">
+                                                                                <option value="">Select</option>
+                                                                            </select>
+                                                                        </div>
+
+
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row mbm" style="margin-top:-10px;">
+                                                                    <div class="col-md-12">
+                                                                        <div class="col-md-3">
+                                                                            <label>Lost/Damaged:</label><input type="text" ng-model="currobj.LostLIHDamaged" class="form-control" />
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <label style="color:red;">
+                                                                                Parent Equipment Type:<span class="require">*</span>
+                                                                            </label><!--<input class="form-control" style="width:100%" type="number" ng-model="currobj.LocationId" />-->
+                                                                            <input type="text" ng-model="pet" class="form-control" style="width:100%;" disabled />
+                                                                            <!--<select class="form-control"style="width:100%;height:35px;">
+                        <option value="">Select</option>
+                    </select>-->
+                                                                        </div>
+
+                                                                        <div class="col-md-3">
+                                                                            <label>Location Date:</label>
+                                                                            <div data-date-format="mm/dd/yyyy" style="width:100%" class="input-group date datepicker-filter">
+                                                                                <input type="text" placeholder="mm/dd/yyyy" style="width:100%" ng-model="currobj.LocationDate" class="form-control" />
+                                                                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <label ng-show="tt=='1'" style="color:red;">Rental Day Rate:<span ng-show="tt=='1'" style="color:red;">*</span></label>
+                                                                            <label ng-show="tt=='' || tt==null || tt=='0'">Rental Day Rate:<span ng-show="tt=='' || tt==null|| tt=='0'"></span></label>
+                                                                            <input class="form-control" style="width:100%" type="text" ng-model="currobj.RentalDayRate">
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row mbm" style="margin-top:-10px;">
+                                                                    <div class="col-md-12">
+                                                                        <div class="col-md-3">
+                                                                            <label>Status:</label><select ng-options="tyss.Name for tyss  in astatus track by tyss.Id" ng-readonly="IsLocked == true" ng-model="aStatus" class="form-control">
+                                                                                <option value="">Select</option>
+                                                                            </select>
+
+                                                                        </div>
+
+                                                                        <div class="col-md-3">
+                                                                            <label style="color:red;">Purchase Cost:<span class="require">*</span></label><input type="number" min="0" ng-model="currobj.PurchaseCost" class="form-control" />
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <label style="color:red;"> Addl Charge:<span class="require">*</span></label> <input class="form-control" style="width:100%" type="number" ng-model="currobj.AdditionalDayRate" />
+                                                                        </div>
+                                                                        <div class="col-md-3" style="padding-top: 30px;">
+                                                                            <label>Active:</label>
+                                                                            <input type="checkbox" disabled style="border:1px grey;" class="icheckbox_minimal-grey activeCheckbox" />
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row mbm" style="margin-top:-10px;">
+                                                                    <div class="col-md-12">
+                                                                        <div class="col-md-3">
+                                                                            <label> Date Purchased:<span class="require"></span></label><div data-date-format="mm/dd/yyyy" style="width:100%" class="input-group date datepicker-filter">
+                                                                                <input type="text" placeholder="mm/dd/yyyy" style="width:100%" class="form-control" ng-model="currobj.DatePurchased" />
+                                                                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                                            </div>
+                                                                        </div>
+
+
+                                                                        <div class="col-md-3">
+                                                                            <label style="color:red;"> Unit Price:<span class="require">*</span></label><input class="form-control" style="width:100%" type="number" ng-model="currobj. UnitPrice" />
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <label style="color:red;">
+                                                                                Per Week Standby
+                                                                                Charge:<span class="require">*</span>
+                                                                            </label> <input class="form-control" style="width:100%" type="number" ng-model="currobj.PerWeekStbyCharge" />
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <label style="color:red;"> Description:<span class="require">*</span></label><input class="form-control" style="width:100%" type="text" ng-model="currobj.Description" />
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row mbm" style="margin-top:-10px;">
+                                                                    <div class="col-md-12">
+
+                                                                        <div class="col-md-3">
+                                                                            <label> Date Sold:</label><div data-date-format="mm/dd/yyyy" style="width:100%" class="input-group date datepicker-filter">
+                                                                                <input type="text" placeholder="mm/dd/yyyy" style="width:100%" class="form-control" ng-model="currobj.DateSold" />
+                                                                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col-md-3">
+                                                                            <label> DatePurchase(Serialized):<span class="require"></span></label><div data-date-format="mm/dd/yyyy" style="width:100%" class="input-group date datepicker-filter">
+                                                                                <input type="text" placeholder="mm/dd/yyyy" style="width:100%" class="form-control" ng-model="currobj.DatePurchased" />
+                                                                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col-md-3">
+                                                                            <label style="color:red;">Redress Cost:<span class="require">*</span></label><input class="form-control" style="width:100%" type="text" ng-model="currobj.RedressCost">
+                                                                        </div>
+
+
+
+                                                                        <div class="col-md-3">
+                                                                            <label>  Lost/LIH/Damaged:</label><div data-date-format="mm/dd/yyyy" style="width:100%" class="input-group date datepicker-filter">
+                                                                                <input type="text" placeholder="mm/dd/yyyy" style="width:100%" class="form-control" ng-model="currobj.LostDamaged" />
+                                                                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+
+
+                                                                <div class="row mbm" style="margin-top:-10px;">
+                                                                    <div class="col-md-12">
+
+
+
+
+                                                                        <div class="col-md-3">
+                                                                            <label>  Cycle Count Date:</label><div data-date-format="mm/dd/yyyy" style="width:100%" class="input-group date datepicker-filter">
+                                                                                <input type="text" placeholder="mm/dd/yyyy" style="width:100%" class="form-control" ng-model="currobj.CycleCountDate" />
+                                                                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-3" ng-hide="true">
+                                                                            <label style="color:red;">Day Rate:<span class="require">*</span></label><input class="form-control" style="width:100%" type="text" ng-model="currobj.DayRate" />
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="panel-body pan">
+                                                                        <div class="row">
+                                                                            <div class="col-md-4" ng-repeat="f in FieldAssetsList">
+                                                                                {{f.AssetType}}:
+                                                                                <input class="form-control" style="width:100%" type="{{f.DataType}}" ng-model="f.FieldValue" />
+                                                                            </div>
+                                                                        </div>
+                                                                        <!--ng-disabled="CanUploadDoc == 0"-->
+
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="row mbm" style="margin-top:-10px;">
+                                                                    <div class="col-md-12">
+                                                                        <div class="col-md-3" ng-show="currobj.AssetType=='Mills'||currobj.AssetType=='Shoes'">
+                                                                            <label style="color:red;">Rental:<span class="require">*</span></label>
+                                                                            <select ng-model="currobj.Rental" class="form-control" ng-change="Changerental()">
+                                                                                <option value="">No</option>
+                                                                                <option value="1">Yes</option>
+                                                                            </select>
+                                                                        </div>
+                                                                        <div class="col-md-3" ng-show="currobj.AssetType=='Mills'||currobj.AssetType=='Shoes'">
+                                                                            <!--<label ng-show="tt=='1'" style="color:red;">Material:<span ng-show="tt=='1'" style="color:red;">*</span></label>-->
+                                                                            <!--<label ng-show="tt=='' || tt==null || tt=='0'">Material:<span ng-show="tt=='' || tt==null|| tt=='0'"></span></label>-->
+                                                                            <label ng-show="currobj.AssetType=='Mills'||currobj.AssetType=='Shoes'||tt=='1'" style="color:red;">Material:<span ng-show="currobj.AssetType=='Mills'||currobj.AssetType=='Shoes' || tt=='1'" style="color:red;">*</span></label>
+                                                                            <select ng-options="mat.Name for mat in  materiallist track by mat.Id" ng-model="mtl" class="form-control">
+                                                                                <option value="">Select</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-md-12">
+                                                                    <label>Notes:</label><textarea typeof="text" rows="3" ng-model="currobj.Notes" class="form-control"></textarea>
+                                                                </div>
+
+                                                            </div>
+                                                            <!--End Panel Body-->
+                                                            <div class="panel-body pan">
+                                                                <div class="row">
+                                                                    <div class="col-md-4" ng-repeat="f in FieldAssetsList">
+                                                                        {{f.AssetType}}:
+                                                                        <input class="form-control" style="width:100%" type="{{f.DataType}}" ng-model="f.FieldValue" />
+                                                                    </div>
+                                                                </div>
+                                                                <!--ng-disabled="CanUploadDoc == 0"-->
+
+                                                            </div>
+                                                            <div class="row" style="margin-top:20px; margin-bottom:10px">
+                                                                <div class="form-group" ng-hide="RouteDetails.Table1.length == 0">
+                                                                    <div class="col-md-12" style="text-align:center">
+                                                                        <button ng-click="saveAssetDetails();" class="btn btn-success">
+                                                                            <i class="fa fa-save"></i>&nbsp;
+                                                                            Save
+                                                                        </button>&nbsp; &nbsp;<a href="#" class="btn btn-default">Cancel</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-md-12" style="padding: 0px 0px 0px 0px;width: 100%" ng-hide="a == null">
+                                                    <div class="col-md-7" style="margin-right:-20px;">
+                                                        <div class="portlet box portlet-grey">
+                                                            <div class="portlet-header" style="background-color: #f5f5f5; border: 1px solid #e5e5e5; color: #b8adb7">
+                                                                <div class="caption"><a href="#collapse1">Equipment History</a></div>
+                                                                <div class="tools"><i class="fa fa-chevron-down"></i></div>
+                                                            </div>
+
+                                                            <div id="collapse1" class="panel-collapse list-group portlet-body" style="padding: 0px; display:none;border: 1px solid #e5e5e5;">
+                                                                <div class="panel-body">
+
+                                                                    <table class="table-hover table-striped table-bordered table-advanced tablesorter history-table">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <!--<th>ChangedType</th>-->
+                                                                                <th class="eh-th2" ng-click="sortType = 'JobId'; sortReverse = !sortReverse">
+                                                                                    <span>Job</span>
+                                                                                    <i style="margin-top:-5px;" ng-class="{active: sortType == 'JobId' && !sortReverse}" class="fa fa-fw fa-sort-down"></i>
+                                                                                    <i style="margin-left:-21px;" ng-class="{active: sortType == 'JobId' && sortReverse}" class="fa fa-fw fa-sort-up"></i>
+
+                                                                                </th>
+                                                                                <th class="eh-th3" ng-click="sortType = 'Comment'; sortReverse = !sortReverse">
+                                                                                    <span>Change details</span>
+                                                                                    <i style="margin-top:-3px;" ng-class="{active: sortType == 'Comment' && !sortReverse}" class="fa fa-fw fa-sort-down"></i>
+                                                                                    <i style="margin-left:-21px;" ng-class="{active: sortType == 'Comment' && sortReverse}" class="fa fa-fw fa-sort-up"></i>
+                                                                                    <!--<span ng-class="{active: sortType == 'Comment' && !sortReverse}" class="fa fa-caret-down"></span>
+                                                                                    <span ng-class="{active: sortType == 'Comment' && sortReverse}" class="fa fa-caret-up"></span>-->
+                                                                                </th>
+                                                                                <th class="eh-th4" ng-click="sortType = 'category'; sortReverse = !sortReverse">
+                                                                                    <span>Component</span>
+                                                                                    <i style="margin-top:-5px;" ng-class="{active: sortType == 'category' && !sortReverse}" class="fa fa-fw fa-sort-down"></i>
+                                                                                    <i style="margin-left:-21px;" ng-class="{active: sortType == 'category' && sortReverse}" class="fa fa-fw fa-sort-up"></i>
+                                                                                    <!--<span ng-class="{active: sortType == 'category' && !sortReverse}" class="fa fa-caret-down"></span>
+                                                                                    <span ng-class="{active: sortType == 'category' && sortReverse}" class="fa fa-caret-up"></span>-->
+                                                                                </th>
+                                                                                <th class="eh-th5" ng-click="sortType = 'FieldValue'; sortReverse = !sortReverse">
+                                                                                    <span>Value</span>
+                                                                                    <i style="margin-top:-5px;" ng-class="{active: sortType == 'FieldValue' && !sortReverse}" class="fa fa-fw fa-sort-down"></i>
+                                                                                    <i style="margin-left:-21px;" ng-class="{active: sortType == 'FieldValue' && sortReverse}" class="fa fa-fw fa-sort-up"></i>
+                                                                                    <!--<span ng-class="{active: sortType == 'FieldValue' && !sortReverse}" class="fa fa-caret-down"></span>
+                                                                                    <span ng-class="{active: sortType == 'FieldValue' && sortReverse}" class="fa fa-caret-up"></span>-->
+                                                                                </th>
+                                                                                <th class="eh-th5" ng-click="sortType = 'Date'; sortReverse = !sortReverse">
+                                                                                    <span>Date</span>
+                                                                                    <i style="margin-top:-5px;" ng-class="{active: sortType == 'Date' && !sortReverse}" class="fa fa-fw fa-sort-down"></i>
+                                                                                    <i style="margin-left:-21px;" ng-class="{active: sortType == 'Date' && sortReverse}" class="fa fa-fw fa-sort-up"></i>
+
+
+                                                                                    <!--<span ng-class="{active: sortType == 'Date' && !sortReverse}" class="fa fa-caret-down"></span>
+                                                                                    <span ng-class="{active: sortType == 'Date' && sortReverse}" class="fa fa-caret-up"></span>-->
+
+
+                                                                                </th>
+                                                                                <th class="eh-th4" ng-click="sortType = 'ChangedBy'; sortReverse = !sortReverse">
+                                                                                    <span>Changed By</span>
+                                                                                    <i style="margin-top:-5px;" ng-class="{active: sortType == 'ChangedBy' && !sortReverse}" class="fa fa-fw fa-sort-down"></i>
+                                                                                    <i style="margin-left:-21px;" ng-class="{active: sortType == 'ChangedBy' && sortReverse}" class="fa fa-fw fa-sort-up"></i>
+                                                                                    <!--<span ng-class="{active: sortType == 'ChangedBy' && !sortReverse}" class="fa fa-caret-down"></span>
+                                                                                    <span ng-class="{active: sortType == 'ChangedBy' && sortReverse}" class="fa fa-caret-up"></span>-->
+                                                                                </th>
+                                                                                <th class="eh-th6">
+                                                                                    <span>details</span>
+                                                                                </th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr ng-repeat="hist in assetHistory | orderBy:sortType:sortReverse">
+                                                                                <!--<td>{{hist.ChangedType}}</td>-->
+                                                                                <td><a href="#" ng-click="GoToJobDetails(hist.JobId)"><font color="blue"> <u> {{hist.jobno}}</u></font></a></td>
+                                                                                <td>{{hist.Comment}}</td>
+                                                                                <td>{{hist.category}}</td>
+                                                                                <td>{{hist.FieldValue}}</td>
+                                                                                <td>{{hist.Date | date:'MM-dd-yyyy hh:mm:ss'}}</td>
+                                                                                <td>{{hist.ChangedBy}}</td>
+                                                                                <td>
+                                                                                    <button type="button" data-target="#Modal-header-primary" data-toggle="modal" class="btn btn-default btn-xs" ng-click="GetDetailsEditHistory(hist)">
+                                                                                        Details
+                                                                                    </button>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-5" ng-hide="a == null">
+                                                        <!--<div class="row">-->
+                                                        <div class="col-md-12">
+                                                            <div class="portlet box portlet-grey" style="margin-bottom:10px;">
+                                                                <div class="portlet-header" style="background-color: #f5f5f5; border: 1px solid #e5e5e5; color: #b8adb7">
+                                                                    <div class="caption"><a href="">Equipment Components</a></div>
+                                                                </div>
+                                                                <table id="example-advanced" class="table table-bordered table-advanced">
+                                                                    <!--<caption class="mbl mtl"><a href="#" onclick="jQuery('#example-advanced').treetable('expandAll'); return false;">Expand all</a>&nbsp; | &nbsp;<a href="#" onclick="jQuery('#example-advanced').treetable('collapseAll'); return false;">Collapse all</a></caption>-->
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>Equipment Name</th>
+                                                                            <th>Type</th>
+                                                                            <th style="text-align:center">Details</th>
+                                                                            <th style="text-align:center">Remove</th>
+                                                                            <th style="text-align:center" ng-hide="CanUploadDoc == 0">Ordering</th>
+                                                                            <th style="text-align:center">Add Child assets</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <tr ng-repeat="a in AssetHierarchy" data-tt-id="{{a.ID}}" data-tt-parent-id="{{a.ParentID}}" on-finish-render>
+                                                                            <td>
+                                                                                <span class="folder">{{a.Name}}</span>
+                                                                            </td>
+                                                                            <td>{{a.AssetType}}</td>
+                                                                            <td style="text-align:center">
+                                                                                <button ng-click="ViewDetails(a)" class="btn btn-default btn-sm">Details</button>
+                                                                            </td>
+                                                                            <td style="text-align:center">
+                                                                                <button ng-click="remove_node(a)" ng-disabled="CanUploadDoc == 0" ng-hide="a.ParentID == null" class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i></button>
+                                                                            </td>
+                                                                            <td>
+                                                                                <a class="fa fa-arrow-down" ng-click="MoveAsset(a,1,$index)" ng-hide="CanUploadDoc == 0||$last||a.ParentID == null||a.IsLastItem == 1"></a>
+                                                                                <a class="fa fa-arrow-up" ng-click="MoveAsset(a,0,$index)" ng-hide="CanUploadDoc == 0 || $first || a.OrderNo == 1 ||a.ParentID == null" style="padding-left:10px"></a>
+                                                                            </td>
+                                                                            <td>
+                                                                                <button ng-disabled="CanUploadDoc == 0" ng-click="AddChildAsset(a)" type="button" data-target="#Modal-header-new" data-toggle="modal" class="btn btn-info btn-sm" style="float: right; margin: 10px;"><i class="fa fa-plus"></i> Child Equipment</button>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="col-md-12" style="float:right">
+                                                            <div class="portlet box portlet-grey" style="margin-bottom:10px;">
+                                                                <div class="portlet-header" style="background-color: #f5f5f5; border: 1px solid #e5e5e5; color: #b8adb7">
+                                                                    <div class="caption"><a href="">Work Orders</a></div>
+                                                                    <div class="tools"><i class="fa fa-chevron-down"></i></div>
+                                                                </div>
+
+                                                                <div id="collapse1" class="panel-collapse list-group portlet-body" style="padding: 0px; display: none; border: 1px solid #e5e5e5;">
+                                                                    <div class="panel-body">
+
+                                                                        <table class="table table-hover table-striped table-bordered table-advanced tablesorter">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <!--<th>Work Order #</th>-->
+                                                                                    <th>Job #</th>
+                                                                                    <th>Vendor</th>
+                                                                                    <th>Status</th>
+                                                                                    <th>Update</th>
+                                                                                    <th>Delete</th>
+                                                                                    <th>Print</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                <tr ng-repeat="workOrder in workOrders">
+                                                                                    <!--<td>{{workOrder.WorkOrderID}}</td>-->
+                                                                                    <td>{{workOrder.JobDetail}}</td>
+                                                                                    <td ng-if="workOrder.WorkOrderType==1 || workOrder.WorkOrderType.ID==1">{{workOrder.VendorName}}</td>
+                                                                                    <td ng-if="workOrder.WorkOrderType==2 || workOrder.WorkOrderType.ID==2">{{workOrder.MaintenanceVendor}}</td>
+                                                                                    <td>{{workOrder.StatusText}}</td>
+                                                                                    <td>
+                                                                                        <button ng-click="EditWorkOrder(workOrder,vendor,currobj)" type="button" data-target="#Modal-workorder-new" data-toggle="modal" class="btn"><i class="fa fa-edit"></i></button>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <button ng-click="DeleteWorkOrder(workOrder,vendor,currobj)" type="button" class="btn"><i class="fa fa-trash-o"></i></button>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <button ng-click="PrintWorkOrders(workOrder)" type="button" class="btn"><i class="fa fa-print"></i></button>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                        <div class="">
+                                                                            <div style="text-align:left">
+                                                                                <button ng-click="GetAllJobs()" ng-hide="IsWorkOrderActive == true" type="button" data-target="#Modal-workorder-new" data-toggle="modal" class="btn btn-info btn-sm"><i class="fa fa-plus"></i> Create work order</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-12" style="float:right" ng-hide="DocAssetsList.length==0">
+
+                                                            <div class="portlet box portlet-grey">
+                                                                <div class="panel" ng-repeat="docType in DocAssetsList" style="margin-bottom: 10px; border: 1px solid #e5e5e5;">
+                                                                    <div class="portlet-header" style="background-color: #f5f5f5; border: 1px solid #e5e5e5; color: #b8adb7">
+                                                                        <div class="caption">
+                                                                            <a data-toggle="collapse" href="" class="accordion-toggle" style="padding:5px" ng-click="t(docType.DocTypeId)">
+                                                                                {{docType.AssetType}}
+                                                                                <div class="tools pull-right" style="padding-left:5px"><i id="I_{{docType.DocTypeId}}" class="fa fa-chevron-down"></i></div>
+                                                                                <span class="badge badge-green pull-right">{{(dl|filter:{IsExpired:0}).length}}</span>
+                                                                                <span ng-hide="(dl|filter:{IsExpired:1}).length == 0" class="badge badge-red pull-right" style="margin-right:3px">{{(dl| filter:{IsExpired:1}).length}}</span>
+                                                                                <span ng-hide="(dl| filter:{IsExpired:2}).length == 0" class="badge badge-yellow pull-right" style="margin-right:3px">{{(dl| filter:{IsExpired:2}).length}}</span>
+
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div id="DIV_{{docType.DocTypeId}}" class="panel-collapse  list-group portlet-body" style="padding: 0px; border: 1px solid #e5e5e5; ">
+                                                                        <div class="panel-body collapsed" style="padding:5px">
+                                                                            <!--<div class="alert alert-danger">No records to display.</div>-->
+                                                                            <table class="table table-bordered table-advanced tablesorter">
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th>File Name</th>
+                                                                                        <th>Document Type</th>
+                                                                                        <th>Expiry Date</th>
+                                                                                        <th>Update</th>
+                                                                                        <th>Delete</th>
+                                                                                        <th ng-hide="CanUploadDoc == 0">Ordering</th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                    <tr ng-repeat="d in dl = (currobj.files1|filter:{docCatId:docType.DocTypeId,insupddelflag: '!D'}:true)" ng-style="d.IsExpired == 1 ?{'background-color':'#F2DEDE'}:(d.IsExpired == 2 ?{'background-color':'#FCF8E3'}:'')">
+                                                                                        <td><a href="#" ng-click="GetFileContent(d)"><font color="blue">{{d.docName}}</font></a></td>
+                                                                                        <td>{{d.docType}}</td>
+                                                                                        <td>
+                                                                                            {{d.expiryDate | date:'MM-dd-yyyy'}}
+                                                                                        </td>
+                                                                                        <!--<td>
+                                                                                            {{d.dueDate | date:'MM-dd-yyyy'}}
+                                                                                        </td>-->
+                                                                                        <td>
+                                                                                            <button type="button" data-target="#Modal-header-new-e" data-toggle="modal" class="btn btn-default btn-xs" ng-click="EditAssetDoc(d)" ng-disabled="isSuperUser == 0">
+                                                                                                <i class="fa fa-edit"></i>
+                                                                                            </button>
+
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <button type="button" data-toggle="modal" class="btn btn-default btn-xs" ng-click="DeleteDoc(d)" ng-disabled="isSuperUser == 0">
+                                                                                                <i class="fa fa-trash-o"></i>
+                                                                                            </button>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <a ng-hide="CanUploadDoc == 0" class="fa fa-file-text-o" data-target="#Modal-header-new-f" data-toggle="modal" style="padding-right:10px" ng-click="SetParentDoc(d)"></a>
+                                                                                            <a class="fa fa-arrow-down" ng-click="MoveDoc(d,1)" ng-hide="CanUploadDoc == 0||$last" style="padding-right:10px"></a>
+                                                                                            <a ng-show="$last" style="padding-left:20px"></a>
+                                                                                            <a class="fa fa-arrow-up" ng-click="MoveDoc(d,0)" ng-hide="CanUploadDoc == 0||$first ||dl.length == 0|| a.rootid==1 || a.OrderNo == 1" style="padding-right:10px"></a>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </tbody>
+                                                                            </table>
+                                                                            <div style="margin-left:10px;margin-bottom:0px">
+                                                                                <button ng-disabled="CanUploadDoc == 0" type="button" data-target="#Modal-header-new-f" data-toggle="modal" class="btn btn-info btn-sm" style="float: left; " ng-click="SetDocdocCatId(docType.DocTypeId)">Upload Files</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12" style="float:right">
+                                                            <div class="portlet box portlet-grey" style="margin-bottom: 10px;">
+                                                                <div class="portlet-header" style="background-color: #f5f5f5; border: 1px solid #e5e5e5; color: #b8adb7">
+                                                                    <div class="caption"><a href=""> Job Personnel</a></div>
+                                                                    <div class="tools"><span class="badge badge-green">{{jobusers.length}}</span><i class="fa fa-chevron-down"></i></div>
+                                                                </div>
+
+                                                                <div id="collapse1" class="panel-collapse list-group portlet-body" style="padding: 0px; display: none; border: 1px solid #e5e5e5;">
+                                                                    <div class="panel-body">
+                                                                        <!--<div class="alert alert-danger" >No records to display.</div>-->
+                                                                        <div>
+                                                                            <table class="table table-hover table-striped table-bordered table-advanced tablesorter">
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th>Person</th>
+                                                                                        <th>From Date</th>
+                                                                                        <th>To Date</th>
+                                                                                        <th>Updated By</th>
+                                                                                        <th>Edit</th>
+                                                                                        <th>Delete</th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                    <tr ng-repeat="T in jobusers|filter:{insupddelflag :'!D'}" class="gradeA">
+                                                                                        <td>{{T.Name}}</td>
+                                                                                        <td>{{T.FromDate | date:'MM-dd-yyyy'}}</td>
+                                                                                        <td>{{T.ToDate | date:'MM-dd-yyyy'}}</td>
+                                                                                        <td>{{uname}}</td>
+                                                                                        <td>
+                                                                                            <button type="button" data-target="#Modal-header-new-pu" data-toggle="modal" class="btn btn-default btn-xs" ng-click="Editresources(T)" ng-disabled="isSuperUser == 0 && CanEdit == 0">
+                                                                                                <i class="fa fa-edit"></i>&nbsp;
+
+                                                                                            </button>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <button ng-disabled="isSuperUser == 0 && CanEdit == 0" ng-click="AddUser(0,T)" class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i></button></a>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                        <div><button ng-disabled="isSuperUser == 0 && CanEdit == 0" type="button" data-target="#Modal-header-new-p" data-toggle="modal" class="btn btn-info btn-sm" style="float: left; margin: 10px;" ng-click="GetUsersForJob();">Add personnel</button></div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!--<div class="row" ng-hide="a == null">
+                                                        <div class="col-md-6">
+                                                        </div>
+                                                    </div>-->
+                                                </div>
+                                            </div>
+                                        </treasure-overlay-spinner>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--END CONTENT-->
+                </div>
+                <!--END CONTENT--><!--BEGIN FOOTER-->
+                <div id="footer">
+                    <div class="copyright">2018 © ERPSystem</div>
+                </div>
+                <!--END FOOTER-->
+            </div>
+
+            <!--END PAGE WRAPPER-->
+        </div>
+        <div id="Modal-header-new" tabindex="-1" role="dialog" aria-labelledby="modal-header-primary-label" aria-hidden="true" class="modal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header modal-header-primary">
+                        <button type="button" data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
+                        <h4 id="modal-header-primary-label" class="modal-title">Add child Asset</h4>
+                    </div>
+                    <div class="modal-body" ng-model="newChildAsset">
+                        <div class="row mbm">
+                            <div style="text-align:right">
+                                <label for="Name" class="col-md-4 control-label" style="color:red;">Name:<span class='require'>*</span></label>
+                            </div>
+                            <div class="col-md-6">
+                                <input id="inputFirstName" type="text" ng-model="newChildAsset.Name" class="form-control" /><span class="help-block"></span>
+                            </div>
+                        </div>
+                        <div class="row mbm">
+                            <div style="text-align:right">
+                                <label for="Description" class="col-md-4 control-label"> Description: <span class='require'></span></label>
+                            </div>
+                            <div class="col-md-6">
+                                <input id="Description" type="text" ng-model="newChildAsset.Description" class="form-control" /><span class="help-block"></span>
+                            </div>
+                        </div>
+                        <div class="row mbm">
+                            <div style="text-align:right">
+                                <label for="selCountry" class="col-md-4 control-label" style="color:red;">Equipment Type:<span class='require'>*</span></label>
+                            </div>
+                            <div class="col-md-6">
+                                <select ng-options="s.ObjTypeName for s in AllowedChildAssetTypes track by s.Id" class="form-control" ng-model="newChildAsset.ObjTypeId">
+                                    <option value="">Select</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!--<div class="row mbm">
+                            <div style="text-align:right">
+                                <label for="Active" class="col-md-4 control-label">Active:<span class='require'></span></label>
+                            </div>
+                            <input type="checkbox" class="col-md-4 control-label" id="cactive" ng-checked="Types.Active" />
+                        </div>-->
+                    </div>
+                    <div class="form-actions">
+                        <div style="text-align:center">
+                            <button class="btn btn-primary" type="button" data-dismiss="modal" ng-click="saveNewChildAsset(newChildAsset);">Save</button>
+                            <button type="button" data-dismiss="modal" class="btn btn-default">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="Modal-header-new-f" tabindex="-1" role="dialog" aria-labelledby="modal-header-primary-label" aria-hidden="true" class="modal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header modal-header-primary">
+                        <button type="button" data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
+                        <h4 id="modal-header-primary-label" class="modal-title">Add New files</h4>
+                    </div>
+                    <div class="modal-body" ng-model="assetDoc">
+                        <!--<div class="row mbm">
+                            <div style="text-align:right">
+                                <label for="Name" class="col-md-4 control-label" style="color:red;">File Name:<span class='require'>*</span></label>
+                            </div>
+                            <div class="col-md-6">
+                                <input id="inputFirstName" type="text" ng-model="assetDoc.Name" class="form-control" /><span class="help-block"></span>
+                            </div>
+                        </div>-->
+                        <div class="row mbm">
+                            <div style="text-align:right">
+                                <label for="Name" class="col-md-4 control-label">Document Type:</label>
+                            </div>
+                            <div class="col-md-6">
+                                <!--<select ng-model="assetDoc.docType" style="width:60%">
+                                    <option value="1">Check List</option>
+                                    <option value="2">Post Job</option>
+                                    <option value="3">Pre Job</option>
+                                    <option value="4">Others</option>
+                                </select>-->
+                                <select ng-options="a.Name for a in docTypes track by a.Id" ng-model="assetDoc.docType" style="width:100%">
+                                    <option value="">Select</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mbm">
+                            <div style="text-align:right">
+                                <label for="Name" class="col-md-4 control-label">Expiry Date:</label>
+                            </div>
+                            <div class="col-md-6">
+                                <!--<input id="inputFirstName" type="date" ng-model="assetDoc.expiryDate | date:'MM-dd-yyyy'" placeholder="enter" class="form-control" />--><span class="help-block"></span>
+                                <!--<input type="date" datetime="MM-dd-yyyy" ng-model="assetDoc.expiryDate">-->
+                                <!--<input type="date" id="exampleInput" name="input" ng-model="{{assetDoc.expiryDate |date:'MM-dd-yyyy'}}" />-->
+                                <div data-date-format="mm/dd/yyyy" style="width:100%" class="input-group date datepicker-filter"><input type="text" placeholder="mm/dd/yyyy" style="width:100%" class="form-control" ng-model="assetDoc.expiryDate" /><span class="input-group-addon"><i class="fa fa-calendar"></i></span></div>
+                                fa
+                            </div>
+                        </div>
+                        <div class="row mbm">
+                            <div style="text-align:right">
+                                <label for="Description" class="col-md-4 control-label">Select files:<span class='require'></span></label>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="file" name="fileInput" id="fileInput" ngf-pattern="'image/*,application/pdf'" ng-file-select="onFileSelect($files,$event)" class="btn btn-green" accept=".pdf,.jpg,.png,.gif" ng-model="assetDoc.doc" ng-click="validateFile($event)" />
+                                <label style="color:red" ng-hide="IsFileExtnInvalid==false">Invalid file type. Please upload another file type.  Only .pdf,.jpg,.png,.gif,.csv file types are supported.</label>
+                            </div>
+                        </div>
+                        <!--<div class="row mbm" style="text-align:center">
+                            <font color="red">Note: Only .pdf,.jpg,.png,.gif,.csv file types are supported</font>
+                        </div>-->
+                        <div class="form-actions">
+                            <div style="text-align:center">
+                                <!--<button class="btn btn-primary" type="button" ng-click="AddAssetDoc();">Add</button>-->
+                                <button type="button" data-dismiss="modal" class="btn btn-primary" ng-click="SaveAssetDoc()" ng-disabled="IsFileExtnInvalid == true">Upload</button>
+                                <button type="button" data-dismiss="modal" class="btn btn-default" ng-click="cancelNewDoc()">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="Modal-header-new-e" tabindex="-1" role="dialog" aria-labelledby="modal-header-primary-label" aria-hidden="true" class="modal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header modal-header-primary">
+                        <button type="button" data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
+                        <h4 id="modal-header-primary-label" class="modal-title">Update selected file</h4>
+                    </div>
+                    <div class="modal-body" ng-model="assetDoc">
+                        <!--<div class="row mbm">
+                            <div style="text-align:right">
+                                <label for="Name" class="col-md-4 control-label" style="color:red;">File Name:<span class='require'>*</span></label>
+                            </div>
+                            <div class="col-md-6">
+                                <input id="inputFirstName" type="text" ng-model="assetDoc.Name" class="form-control" /><span class="help-block"></span>
+                            </div>
+                        </div>-->
+                        <div class="row mbm">
+                            <div style="text-align:right">
+                                <label for="Name" class="col-md-4 control-label">Document Type:</label>
+                            </div>
+                            <div class="col-md-6">
+                                <!--<select ng-model="assetDoc.docType" style="width:60%">
+                                    <option value="1">Check List</option>
+                                    <option value="2">Post Job</option>
+                                    <option value="3">Pre Job</option>
+                                    <option value="4">Others</option>
+                                </select>-->
+                                <select ng-options="a.Name for a in docTypes track by a.Id" ng-model="assetDoc.dt" style="width:100%" ng-value="assetDoc.docTypeId" ng-change="updateDocType()">
+                                    <option value="">Select</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mbm">
+                            <div style="text-align:right">
+                                <label for="Name" class="col-md-4 control-label">Expiry Date:</label>
+                                <div class="col-md-6">
+                                    <div data-date-format="mm/dd/yyyy" style="width:100%" class="input-group date datepicker-filter mbs col-md-6"><input type="text" placeholder="mm/dd/yyyy" class="form-control" ng-model="assetDoc.expiryDate" ng-change="updateDocExpDate()" /><span class="input-group-addon"><i class="fa fa-calendar"></i></span></div>
+                                </div>
+                            </div>
+                            <!--<div class="row mbm">
+                                <div style="text-align:right">
+                                    <label for="Name" class="col-md-4 control-label">Due Date:<span class='require'>*</span></label>
+                                </div>
+                                <div class="col-md-6">
+                                    <input id="inputFirstName" type="date" ng-model="assetDoc.dueDate" class="form-control" /><span class="help-block"></span>
+                                </div>
+                            </div>-->
+                            <div class="row mbm">
+                                <div style="text-align:right">
+                                    <label for="Description" class="col-md-4 control-label">File Name:<span class='require'></span></label>
+                                </div>
+                                <div class="col-md-6">
+                                    <input id="inputFirstName" style="width:100%" type="text" ng-model="assetDoc.docName" class="form-control" disabled /><span class="help-block"></span>
+                                    <!--<input type="file" name="fileInput" id="fileInput" ng-file-select="onFileSelect($files,'U')" class="btn btn-green" accept=".pdf,.jpg,.png,.gif" ng-model="assetDoc.doc" ng-click="validateFile($event)" />-->
+                                </div>
+                            </div>
+
+                            <div class="form-actions">
+                                <div style="text-align:center">
+                                    <!--<button class="btn btn-primary" type="button" ng-click="AddAssetDoc();">Add</button>-->
+                                    <button type="button" data-dismiss="modal" class="btn btn-default" ng-click="updateDoc();">Update</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div id="Modal-header-primary" tabindex="-1" role="dialog" aria-labelledby="modal-header-primary-label" aria-hidden="true" class="modal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header modal-header-primary">
+                        <button type="button" data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
+                        <h4 id="modal-header-primary-label" class="modal-title">Edit History Details </h4>
+                    </div>
+                    <div class="modal-body" ng-model="details">
+
+                        <table class="table table-hover table-striped table-bordered table-advanced tablesorter">
+                            <thead>
+                                <tr>
+                                    <th>Field name</th>
+                                    <th>From Value</th>
+                                    <th>To Value</th>
+                                    <th>Change Type</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="d in detailedhist" class="gradeA">
+                                    <td>{{d.Field1}}</td>
+                                    <td>{{d.FromValue}}</td>
+                                    <td>{{d.ToValue}}</td>
+                                    <td>{{d.ChangeType}}</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div id="Modal-workorder-new" tabindex="-1" role="dialog" aria-labelledby="modal-workorder-primary-label" aria-hidden="true" class="modal fade">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header modal-header-primary">
+                        <button type="button" data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
+                        <h4 id="modal-workorder-primary-label" class="modal-title">Create work order</h4>
+                    </div>
+                    <div class="modal-body" ng-model="newWorkOrder">
+                        <div class="row mbm">
+                            <div class="col-md-12">
+                                <div class="col-md-6">
+                                    <label for="Job" class="col-md-4 control-label">Work Order #:</label>
+                                    <div class="col-md-6">
+                                        <input class="form-control" style="width:100%" type="text" ng-readonly="true" ng-model="newWorkOrder.WorkOrderID" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="Status" class="col-md-4 control-label" style="color:red;"> Work Order Type: <span class='require'>*</span></label>
+                                    <div class="col-md-6">
+                                        <select ng-options="wot.WorkOrderType for wot in workOrderTypes" ng-re class="form-control" ng-model="newWorkOrder.WorkOrderType" ng-change="getVendorName(newWorkOrder.WorkOrderType.ID,currobj.ID)">
+                                            <option value="">Select</option>
+                                        </select>
+                                    </div>
+                                    <div style="clear: both;font-size: 10px;" ng-show="IsInsWorkOrderActive" class="require">Inspection Work Order Type will be available if this Equipment is added to a new job.</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mbm">
+
+                            <div class="col-md-12">
+                                <div class="col-md-6">
+                                    <label for="Vendor" ng-show="IsJobReadOnly" class="col-md-4 control-label" style="color:red;">Inspection Vendor:<span class='require'>*</span></label>
+                                    <label for="Vendor" ng-hide="IsJobReadOnly" class="col-md-4 control-label" style="color:red;">Maintenance Vendor:<span class='require'>*</span></label>
+                                    <div class="col-md-6">
+                                        <select ng-show="IsJobReadOnly" ng-options="tys.Name for tys in InspectionVendors track by tys.Id" ng-model="newWorkOrder.vendor" ng-change="getVendorWorkOrder()" class="form-control">
+                                            <option value="">Select</option>
+                                        </select>
+                                        <select ng-hide="IsJobReadOnly" ng-options="tty.Name for tty in mainVendors track by tty.Id" ng-model="newWorkOrder.vendor" ng-change="getVendorWorkOrder()" class="form-control">
+                                            <option value="">Select</option>
+                                        </select>
+                                    </div>
+
+                                    <input class="form-control" ng-hide="true" style="width:100%" type="text" ng-model="newWorkOrder.ObjectType" />
+
+                                    
+                                </div>
+                                <div class="col-md-6">
+                                    <label ng-if="newWorkOrder.WorkOrderType.ID == 1" for="Job" class="col-md-4 control-label" style="color:red;">Job:<span class='require'>*</span></label>
+                                    <label ng-hide="newWorkOrder.WorkOrderType.ID == 1" for="Job" class="col-md-4 control-label" >Job:</label>
+                                    <div class="col-md-6">
+                                        <input type="hidden" ng-model="newWorkOrder.ID" />
+
+                                        <datalist id="workOrderJob">
+                                            <option ng-repeat="job in jobs" jobID="{{job.ID}}" value="{{job.JobID}}">{{job.Name}}</option>
+                                        </datalist>
+                                        <input type="text" class="form-control" ng-readonly="IsJobReadOnly==true" list="workOrderJob" ng-model="newWorkOrder.JobId" ng-change="getJobHistory(newWorkOrder.JobId)">
+
+                                    </div>
+
+                                    
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row mbm">
+                            <div class="col-md-12">
+                                <div class="col-md-6">
+                                    <label for="Status" class="col-md-4 control-label" style="color:red;"> Status: <span class='require'>*</span></label>
+                                    <div class="col-md-6">
+                                        <select ng-options="ws.Name for ws in workOrderStatus" class="form-control" ng-model="newWorkOrder.Status" ng-value="ws.ID">
+                                            <option value="">Select</option>
+                                        </select><span class="help-block"></span>
+                                    </div>
+                                    
+                                </div>
+                                <div class="col-md-6">
+
+                                    <label for="SN" class="col-md-4 control-label">SN:</label>
+                                    <div class="col-md-6">
+                                        <input class="form-control" ng-readonly="true" style="width:100%" type="text" ng-model="currobj.Name" />
+                                    </div>
+
+                                    <input class="form-control" ng-hide="true" style="width:100%" type="text" ng-model="newWorkOrder.EquipmentType" />
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row mbm">
+                            <div class="col-md-12">
+                                <div class="col-md-6">
+                                    <label for="DT" ng-if="newWorkOrder.WorkOrderType.ID == 1" class="col-md-4 control-label" style="color:red;">DT:<span class='require'>*</span></label>
+                                    <label for="DT" ng-hide="newWorkOrder.WorkOrderType.ID == 1" class="col-md-4 control-label" >DT:</label>
+                                    <div class="col-md-6">
+                                        
+                                        <input class="form-control" ng-readonly="true" style="width:100%" type="text" ng-model="newWorkOrder.DT" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="Company" class="col-md-4 control-label" style="color:red;">Company:<span class='require'>*</span></label>
+                                    <div class="col-md-6">
+                                        <input class="form-control" ng-readonly="true" style="width:100%" type="text" ng-model="jc.Client" />
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row mbm">
+                            <div class="col-md-12">
+                                <div class="col-md-6">
+                                    <label for="Date" class="col-md-4 control-label" style="color:red;">Date:<span class='require'>*</span></label>
+                                    <div class="col-md-6">
+                                        <div data-date-format="mm/dd/yyyy" style="width:100%" class="input-group date datepicker-filter"><input type="text" placeholder="mm/dd/yyyy" style="width:100%" class="form-control" ng-model="newWorkOrder.Date" /><span class="input-group-addon"><i class="fa fa-calendar"></i></span></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="Tool Description" class="col-md-4 control-label">Tool Description:</label>
+                                    <div class="col-md-6">
+                                        <input class="form-control" ng-readonly="true" style="width:100%" type="text" ng-model="currobj.Description" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mbm">
+                            <div class="col-md-12">
+
+                                <div class="col-md-6">
+                                    <label for="Ordered By" class="col-md-4 control-label" style="color:red;">Ordered By:<span class='require'>*</span></label>
+                                    <div class="col-md-6">
+                                        <select ng-options="ob.UserName for ob in WUser track by ob.Id" class="form-control" ng-model="newWorkOrder.OrderedBy" ng-init="GetworkorderUsers()">
+                                            <option value="">Select</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="Cost" class="col-md-4 control-label">Cost:</label>
+                                    <div class="col-md-6">
+                                        <input class="form-control" style="width:100%" type="text" ng-model="newWorkOrder.Cost" />
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row mbm">
+                            <div class="col-md-12">
+
+                                <div class="col-md-6">
+
+                                    <label for="PO" class="col-md-4 control-label" style="color:red;">PO:<span class='require'>*</span></label>
+                                    <div class="col-md-6">
+                                        <input class="form-control" style="width:100%" type="text" ng-model="newWorkOrder.PO" />
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="row mbm">
+                            <div class="col-md-12">
+
+                                <div class="col-md-12">
+                                    <label for="Work Instructions" class="col-md-4 control-label" style="color:red;">Work Instructions:<span class='require'>*</span></label>
+                                    <div class="col-md-12">
+                                        <textarea class="form-control" style="width:100%" ng-model="newWorkOrder.WorkInstructions"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mbm">
+                            <div class="col-md-12">
+
+                                <div class="col-md-12">
+                                    <label for="Comments" class="col-md-4 control-label" style="color:red;">Comments:<span class='require'>*</span></label>
+                                    <div class="col-md-12">
+                                        <textarea class="form-control" style="width:100%" ng-model="newWorkOrder.Comments"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <div style="text-align:center">
+                            <button class="btn btn-primary" type="button" ng-click="saveNewWorkOrder(newWorkOrder,vendor.Name, currobj);">Save</button>
+                            <button type="button" data-dismiss="modal" class="btn btn-default">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script type="text/ng-template" id="myModalContent.html" data-backdrop="static" style="z-index:1055">
+            <div class="modal-header">
+                <h3 class="modal-title">Save confirmation!</h3>
+            </div>
+            <div class="modal-body">
+                <!--<ul>
+                    <li ng-repeat="item in items">
+                        <a href="#" ng-click="$event.preventDefault(); selected.item = item">{{ item }}</a>
+                    </li>
+                </ul>
+                Selected: <b>{{ selected.item }}</b>-->
+                {{mssg}}
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+                <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+            </div>
+        </script>
+        <script type="text/ng-template" id="myModalContent1.html" data-backdrop="static" style="z-index:1055">
+            <div class="modal-header">
+                <h3 class="modal-title">Correction required!</h3>
+            </div>
+            <div class="modal-body">
+                <!--<ul>
+                    <li ng-repeat="item in items">
+                        <a href="#" ng-click="$event.preventDefault(); selected.item = item">{{ item }}</a>
+                    </li>
+                </ul>
+                Selected: <b>{{ selected.item }}</b>-->
+                {{mssg}}
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+                <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+            </div>
+        </script>
+    </div>
+    <script src="js/jquery-1.10.2.min.js"></script>
+    <script src="js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="js/jquery-ui.js"></script>
+    <!--loading bootstrap js-->
+    <script src="vendors/bootstrap/js/bootstrap.min.js"></script>
+    <script src="vendors/bootstrap-hover-dropdown/bootstrap-hover-dropdown.js"></script>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <script src="vendors/metisMenu/jquery.metisMenu.js"></script>
+    <script src="vendors/slimScroll/jquery.slimscroll.js"></script>
+    <script src="vendors/jquery-cookie/jquery.cookie.js"></script>
+    <script src="vendors/iCheck/icheck.min.js"></script>
+    <script src="vendors/iCheck/custom.min.js"></script>
+    <!--<script src="vendors/jquery-news-ticker/jquery.news-ticker.js"></script>-->
+    <script src="js/jquery.menu.js"></script>
+    <script src="vendors/jquery-pace/pace.min.js"></script>
+    <script src="vendors/holder/holder.js"></script>
+    <script src="vendors/responsive-tabs/responsive-tabs.js"></script>
+    <script src="vendors/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    <!--<script src="vendors/jstree/dist/jstree.min.js"></script>-->
+    <script src="vendors/jquery-treetable/javascripts/src/jquery.treetable.js"></script>
+    <script>
+        $("#example-advanced tbody").on("mousedown", "tr", function () {
+            $(".selected").not(this).removeClass("selected");
+            $(this).toggleClass("selected");
+        });
+
+        $('.datepicker-filter').datepicker({
+            autoclose: true
+        });
+    </script>
+    <script src="js/index.js"></script>
+    <!--CORE JAVASCRIPT-->
+    <script src="js/main.js"></script>
+    <script src="js/angular.js"></script>
+    <script src="js/ui-bootstrap-tpls-1.3.3.js"></script>
+    <script src="js/ngStorage.js"></script>
+    <!--<script src="js/TreeView/nd.js"></script>-->
+    <script src="js/TreeView/ng-tree-dnd.js"></script>
+    <script src="js/fileupload/angular-file-upload.js"></script>
+    <script src="js/fileupload/angular-file-upload-shim.js"></script>
+    <script src="js/AssetDetails.js"></script>
+    <script src="js/adal.js"></script>
+    <script src="js/adal-angular.js"></script>
+    <script src="js/AdalCommon.js"></script>
+    <script src="js/angular-animate.js"></script>
+    <script src="js/treasure-overlay-spinner.js"></script>
+    <script src="js/fileupload/Upload.js"></script>
+    <!-- AI CORE JAVASCRIPT -->
+    <script src="/scripts/cloud.common.js"></script>
+    <script src="js/FileSaver.js"></script>
+</body>
+</html>

@@ -1,0 +1,1240 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Resources - Resource Tracker</title>
+    <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    <link href="/Content/css?v=9m2pf8BNvmh0pUtb4E7MCp51kf-JMJuQhPZI6E6_RXw1" rel="stylesheet" />
+
+    <link href="/Content/themes/base/css?v=myqT7npwmF2ABsuSaHqt8SCvK8UFWpRv7T4M8r3kiK01" rel="stylesheet" />
+
+    <script src="/bundles/modernizr?v=wBEWDufH_8Md-Pbioxomt90vm6tJN2Pyy9u9zHtWsPo1"></script>
+
+    <script src="/bundles/jquery?v=4e-kD3CYPzYvZ7p8WhUwDp6XLT7yJ3xNWUlUp8ylmkk1"></script>
+
+    <script src="/bundles/jqueryui?v=XmN7rhO5v3F4a3OvAG_nYJr35pVHHCwTNt9fQXCC-QQ1"></script>
+
+
+</head>
+<body>
+    <header>
+        <div class="content-wrapper">
+            <div class="float-left">
+                <p class="site-title"><a href="/">Greene&#39;s Resource Tracker</a></p>
+            </div>
+            <div class="float-right">
+                <section id="login">
+                    <ul>
+                        <li><a href="/Account/Register" id="registerLink">Register</a></li>
+                        <li><a href="/Account/Login" id="loginLink">Log in</a></li>
+                    </ul>
+
+                </section>
+                <nav>
+                    <ul id="menu">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/Home/Resources">Resources</a></li>
+                        <li><a href="/Home/Maintenance">Maintenance</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+    <div id="body">
+
+        <section class="content-wrapper main-content clear-fix">
+
+            <script src="/Scripts/jquery-1.8.2.min.js"></script>
+            <script src="/Scripts/jquery.validate.min.js"></script>
+            <script src="/Scripts/jquery.validate.unobtrusive.min.js"></script>
+            <script src="/Scripts/jquery-ui-1.8.24.min.js"></script>
+            <script src="/Scripts/masonry.pkgd.min.js"></script>
+            <link type="text/css" rel="stylesheet" href="/Content/themes/base/jquery.ui.all.css" />
+            <form action="/Resource" method="post">
+                <p>
+                    Filter by Resource Status: <select id="ResourceLocationID" name="ResourceLocationID">
+                        <option value="">All</option>
+                        <option value="2">At Cleaners</option>
+                        <option value="3">In Yard - Not Ready</option>
+                        <option value="4">Ready</option>
+                        <option value="5">Damaged/Maintenance</option>
+                        <option value="6">No Longer In Service</option>
+                    </select>
+                    <input type="submit" value="Filter" />
+                </p>
+            </form><form action="/Resource" method="post">
+                <input name="__RequestVerificationToken" type="hidden" value="O4Tng3qUsT50n5lAjkspxt1EmF_euzD9jr6c-is6cLbYzchr-aD1OtoOpaHvzMa4aoGXVmneZ6-xhjTj7jtxD1TA39TgSRAJmVKD7B1nPZs1" /><div class="tile-holder js-masonry" data-masonry-options='{ "columnWidth": 200, "itemSelector": ".resource-group" }'>
+                    <div class="resource-group">
+                        <div class="resource-header">Tank<a href="/Resource/Create?resourceTypeId=1"><span class="ui-icon ui-icon-plus"></span></a></div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/3">GWT-GFC-120-01</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_3" value="3" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/4">GWT-GFC-120-02</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_4" value="4" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/5">GWT-GFC-120-03</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_5" value="5" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/65">GWT-GFC-120-04</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_65" value="65" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/66">GWT-PGFC-01</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_66" value="66" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/67">GWT-PGFC-02</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_67" value="67" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/105">GWT-PGFC-03</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_105" value="105" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1258">GWT-PGFC-04</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1258" value="1258" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/3325">test123</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_3325" value="3325" />
+                        </div>
+                    </div>
+                    <div class="resource-group">
+                        <div class="resource-header">Gas Buster<a href="/Resource/Create?resourceTypeId=2"><span class="ui-icon ui-icon-plus"></span></a></div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/6">24&quot;-GWT-GB-03</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_6" value="6" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/7">24&quot;-GWT-GB-04</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_7" value="7" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/8">36&quot;-GWT-GB-01</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_8" value="8" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/68">36&quot;-GWT-GB-02</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_68" value="68" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/69">36&quot;-GWT-GB-03</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_69" value="69" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/70">36&quot;-GWT-GB-04</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_70" value="70" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/3326">2345</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_3326" value="3326" />
+                        </div>
+                    </div>
+                    <div class="resource-group">
+                        <div class="resource-header">Centrifugal Pump<a href="/Resource/Create?resourceTypeId=3"><span class="ui-icon ui-icon-plus"></span></a></div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/9">GWT-CP-301</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_9" value="9" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/10">GWT-CP-302</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_10" value="10" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/50">GWT-CP-303</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_50" value="50" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/51">GWT-CP-304</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_51" value="51" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/52">GWT-CP-400</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_52" value="52" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/53">GWT-CP-401</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_53" value="53" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/54">GWT-CP-402</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_54" value="54" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/55">GWT-CP-403</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_55" value="55" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/56">GWT-CP-404</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_56" value="56" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/57">GWT-CP-405</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_57" value="57" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/58">GWT-CP-406</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_58" value="58" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/59">GWT-CP-407</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_59" value="59" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/60">GWT-CP-408</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_60" value="60" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/61">GWT-ECP-01</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_61" value="61" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/62">GWT-ECP-02</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_62" value="62" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/63">GWT-ECP-03</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_63" value="63" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/64">GWT-ECP-04</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_64" value="64" />
+                        </div>
+                    </div>
+                    <div class="resource-group">
+                        <div class="resource-header">Diaphragm Pump<a href="/Resource/Create?resourceTypeId=4"><span class="ui-icon ui-icon-plus"></span></a></div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/11">GWT-DP-01</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_11" value="11" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/12">GWT-DP-02</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_12" value="12" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/13">GWT-DP-03</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_13" value="13" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/14">GWT-DP-04</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_14" value="14" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/71">GWT-DP-05</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_71" value="71" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/72">GWT-DP-06</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_72" value="72" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/73">GWT-DP-07</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_73" value="73" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/74">GWT-DP-08</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_74" value="74" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/75">GWT-DP-09</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_75" value="75" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/76">GWT-DP-010</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_76" value="76" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/77">GWT-DP-011</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_77" value="77" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/78">GWT-DP-012</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_78" value="78" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/79">GWT-DP-013</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_79" value="79" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/80">GWT-DP-014</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_80" value="80" />
+                        </div>
+                    </div>
+                    <div class="resource-group">
+                        <div class="resource-header">Sock Filter<a href="/Resource/Create?resourceTypeId=5"><span class="ui-icon ui-icon-plus"></span></a></div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/15">GWT-SF-010</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_15" value="15" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/16">GWT-SF-011</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_16" value="16" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/17">GWT-SF-012</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_17" value="17" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/18">GWT-SF-013</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_18" value="18" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/19">GWT-SF-014</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_19" value="19" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/20">GWT-SF-015</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_20" value="20" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/2316">GWT-SF-16</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_2316" value="2316" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/2317">GWT-SF-17</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_2317" value="2317" />
+                        </div>
+                    </div>
+                    <div class="resource-group">
+                        <div class="resource-header">Media Vessel<a href="/Resource/Create?resourceTypeId=6"><span class="ui-icon ui-icon-plus"></span></a></div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/21">GWT-BFV-01</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_21" value="21" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/22">GWT-BFV-02</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_22" value="22" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/23">GWT-BFV-03</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_23" value="23" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/24">GWT-BFV-04</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_24" value="24" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/40">GWT-BFV-05</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_40" value="40" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/41">GWT-BFV-06</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_41" value="41" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/42">GWT-BFV-07</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_42" value="42" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/43">GWT-BFV-08</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_43" value="43" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/44">GWT-BFV-09</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_44" value="44" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/45">GWT-BFV-10</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_45" value="45" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/46">GWT-BFV-11</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_46" value="46" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/47">GWT-BFV-12</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_47" value="47" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/48">GWT-BFV-13</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_48" value="48" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/49">GWT-BFV-14</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_49" value="49" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1326">GWT-BFV-15</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1326" value="1326" />
+                        </div>
+                    </div>
+                    <div class="resource-group">
+                        <div class="resource-header">Hose Rack<a href="/Resource/Create?resourceTypeId=7"><span class="ui-icon ui-icon-plus"></span></a></div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/25">GWT-HR-01</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_25" value="25" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/26">GWT-HR-02</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_26" value="26" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/27">GWT-HR-03</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_27" value="27" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/81">GWT-HR-04</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_81" value="81" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/82">GWT-HR-05</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_82" value="82" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/83">GWT-HR-06</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_83" value="83" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/84">GWT-HR-07</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_84" value="84" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/85">GWT-HR-08</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_85" value="85" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/86">GWT-HR-09</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_86" value="86" />
+                        </div>
+                    </div>
+                    <div class="resource-group">
+                        <div class="resource-header">Crew Box<a href="/Resource/Create?resourceTypeId=8"><span class="ui-icon ui-icon-plus"></span></a></div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/28">GWT-CB-010</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_28" value="28" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/29">GWT-CB-011</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_29" value="29" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/30">GWT-CB-012</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_30" value="30" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/31">GWT-CB-013</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_31" value="31" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/32">GWT-CB-014</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_32" value="32" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/33">GWT-CB-015</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_33" value="33" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/34">GWT-CB-016</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_34" value="34" />
+                        </div>
+                    </div>
+                    <div class="resource-group">
+                        <div class="resource-header">Trailer<a href="/Resource/Create?resourceTypeId=9"><span class="ui-icon ui-icon-plus"></span></a></div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/111">GEG-TRL-937</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_111" value="111" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/112">GEG-TRL-938</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_112" value="112" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/3319">GWT-TRL-1736</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_3319" value="3319" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/3320">GWT-TRL-1763</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_3320" value="3320" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/3321">GEG-TRL-1460</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_3321" value="3321" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/3322">GEG-TRL-1461</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_3322" value="3322" />
+                        </div>
+                    </div>
+                    <div class="resource-group">
+                        <div class="resource-header">Gas Detector<a href="/Resource/Create?resourceTypeId=30"><span class="ui-icon ui-icon-plus"></span></a></div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/104">GWT-GD-08</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_104" value="104" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/106">GWT-GD-01</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_106" value="106" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/107">GWT-GD-06</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_107" value="107" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/108">GWT-GD-02</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_108" value="108" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/109">GWT-GD-09</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_109" value="109" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/110">GWT-GD-07</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_110" value="110" />
+                        </div>
+                    </div>
+                    <div class="resource-group">
+                        <div class="resource-header">2&quot; HP Hose <a href="/Resource/Create?resourceTypeId=31"><span class="ui-icon ui-icon-plus"></span></a></div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1106">Section 1</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1106" value="1106" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1107">Section 2</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1107" value="1107" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1108">Section 3</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1108" value="1108" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1109">Section 4</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1109" value="1109" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1110">Section 5</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1110" value="1110" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1111">Section 6</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1111" value="1111" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1112">Section 7</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1112" value="1112" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1113">Section 8</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1113" value="1113" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1114">Section 9</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1114" value="1114" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1115">Section 10</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1115" value="1115" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1116">Section 11</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1116" value="1116" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1117">Section 12</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1117" value="1117" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1118">Section 13</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1118" value="1118" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1119">Section 14</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1119" value="1119" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1120">Section 15</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1120" value="1120" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1121">Section 16</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1121" value="1121" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1122">Section 17</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1122" value="1122" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1123">Section 18</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1123" value="1123" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1124">Section 19</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1124" value="1124" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1125">Section 20</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1125" value="1125" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1126">Section 21</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1126" value="1126" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1127">Section 22</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1127" value="1127" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1128">Section 23</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1128" value="1128" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1129">Section 24</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1129" value="1129" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1130">Section 25</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1130" value="1130" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1131">Section 26</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1131" value="1131" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1132">Section 27</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1132" value="1132" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1133">Section 28</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1133" value="1133" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1134">Section 29</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1134" value="1134" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1135">Section 30</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1135" value="1135" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1136">Section 31</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1136" value="1136" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1137">Section 32</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1137" value="1137" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1138">Section 33</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1138" value="1138" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1139">Section 34</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1139" value="1139" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1140">Section 35</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1140" value="1140" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1141">Section 36</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1141" value="1141" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1261">Section 37</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1261" value="1261" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1262">Section 38</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1262" value="1262" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1263">Section 39</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1263" value="1263" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1264">Section 40</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1264" value="1264" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1265">Section 41</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1265" value="1265" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1266">Section 42</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1266" value="1266" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1267">Section 44</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1267" value="1267" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1268">Section 43</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1268" value="1268" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1269">Section 45</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1269" value="1269" />
+                        </div>
+                    </div>
+                    <div class="resource-group">
+                        <div class="resource-header">IR Meter<a href="/Resource/Create?resourceTypeId=34"><span class="ui-icon ui-icon-plus"></span></a></div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1142">IR 01</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1142" value="1142" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1143">IR 02</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1143" value="1143" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1144">IR 03</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1144" value="1144" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1145">IR 04</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1145" value="1145" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1146">IR 06</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1146" value="1146" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1147">IR 07</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1147" value="1147" />
+                        </div>
+                    </div>
+                    <div class="resource-group">
+                        <div class="resource-header">2&quot; Chemical Hose<a href="/Resource/Create?resourceTypeId=35"><span class="ui-icon ui-icon-plus"></span></a></div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1159">Section 1</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1159" value="1159" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1160">Section 2</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1160" value="1160" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1161">Section 3</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1161" value="1161" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1162">Section 4</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1162" value="1162" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1163">Section 5</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1163" value="1163" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1164">Section 6</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1164" value="1164" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1165">Section 7</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1165" value="1165" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1166">Section 8</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1166" value="1166" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1167">Section 9</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1167" value="1167" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1168">Section 10</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1168" value="1168" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1169">Section 11</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1169" value="1169" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1170">Section 12</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1170" value="1170" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1171">Section 13</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1171" value="1171" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1172">Section 14</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1172" value="1172" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1173">Section 15</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1173" value="1173" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1174">Section 16</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1174" value="1174" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1175">Section 17</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1175" value="1175" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1176">Section 18</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1176" value="1176" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1177">Section 19</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1177" value="1177" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1178">Section 20</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1178" value="1178" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1179">Section 21</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1179" value="1179" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1180">Section 22</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1180" value="1180" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1181">Section 23</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1181" value="1181" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1182">Section 24</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1182" value="1182" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1183">Section 25</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1183" value="1183" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1184">Section 26</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1184" value="1184" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1185">Section 27</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1185" value="1185" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1186">Section 28</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1186" value="1186" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1187">Section 29</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1187" value="1187" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1188">Section 30</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1188" value="1188" />
+                        </div>
+                    </div>
+                    <div class="resource-group">
+                        <div class="resource-header">1&quot; Air Hose<a href="/Resource/Create?resourceTypeId=36"><span class="ui-icon ui-icon-plus"></span></a></div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1189">Section 1</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1189" value="1189" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1190">Section 2</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1190" value="1190" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1191">Section 3</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1191" value="1191" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1192">Section 4</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1192" value="1192" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1193">Section 5</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1193" value="1193" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1194">Section 6</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1194" value="1194" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1195">Section 7</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1195" value="1195" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1196">Section 8</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1196" value="1196" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1197">Section 9</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1197" value="1197" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1198">Section 10</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1198" value="1198" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1199">Section 11</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1199" value="1199" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1200">Section 12</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1200" value="1200" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1201">Section 13</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1201" value="1201" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1202">Section 14</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1202" value="1202" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1203">Section 15</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1203" value="1203" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1204">Section 16</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1204" value="1204" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1205">Section 17</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1205" value="1205" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1206">Section 18</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1206" value="1206" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1207">Section 19</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1207" value="1207" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1208">Section 20</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1208" value="1208" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1209">Section 21</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1209" value="1209" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1210">Section 22</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1210" value="1210" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1211">Section 23</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1211" value="1211" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1212">Section 24</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1212" value="1212" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1213">Section 25</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1213" value="1213" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1214">Section 26</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1214" value="1214" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1215">Section 27</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1215" value="1215" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1216">Section 28</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1216" value="1216" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1217">Section 29</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1217" value="1217" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1218">Section 30</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1218" value="1218" />
+                        </div>
+                    </div>
+                    <div class="resource-group">
+                        <div class="resource-header">1&quot; Chemical Hose<a href="/Resource/Create?resourceTypeId=37"><span class="ui-icon ui-icon-plus"></span></a></div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1249">Section 1</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1249" value="1249" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1250">Section 2</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1250" value="1250" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1251">Section 3</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1251" value="1251" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1252">Section 4</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1252" value="1252" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1253">Section 5</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1253" value="1253" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1254">Section 6</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1254" value="1254" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1255">Section 7</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1255" value="1255" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1256">section 8</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1256" value="1256" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1257">section 9</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1257" value="1257" />
+                        </div>
+                    </div>
+                    <div class="resource-group">
+                        <div class="resource-header">4&quot; Chemical Hose 25&#39;<a href="/Resource/Create?resourceTypeId=38"><span class="ui-icon ui-icon-plus"></span></a></div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1219">Section 1</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1219" value="1219" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1220">Section 2</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1220" value="1220" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1221">Section 3</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1221" value="1221" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1222">Section 4</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1222" value="1222" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1223">Section 5</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1223" value="1223" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1224">Section 6</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1224" value="1224" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1225">Section 7</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1225" value="1225" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1226">Section 8</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1226" value="1226" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1227">Section 9</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1227" value="1227" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1228">Section 10</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1228" value="1228" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1229">Section 11</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1229" value="1229" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1230">Section 12</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1230" value="1230" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1231">Section 13</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1231" value="1231" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1232">Section 14</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1232" value="1232" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1233">Section 15</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1233" value="1233" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1234">Section 16</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1234" value="1234" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1235">Section 17</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1235" value="1235" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1236">Section 18</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1236" value="1236" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1237">Section 19</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1237" value="1237" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1238">Section 20</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1238" value="1238" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1239">Section 21</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1239" value="1239" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1240">Section 22</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1240" value="1240" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1241">Section 23</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1241" value="1241" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1242">Section 24</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1242" value="1242" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1243">Section 25</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1243" value="1243" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1244">Section 26</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1244" value="1244" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1245">Section 27</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1245" value="1245" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1246">Section 28</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1246" value="1246" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1247">Section 29</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1247" value="1247" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1248">Section 30</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1248" value="1248" />
+                        </div>
+                    </div>
+                    <div class="resource-group">
+                        <div class="resource-header">4&quot; Chemical Hose 10&#39;<a href="/Resource/Create?resourceTypeId=39"><span class="ui-icon ui-icon-plus"></span></a></div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1149">Section 1</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1149" value="1149" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1150">Section 2</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1150" value="1150" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1151">Section 3</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1151" value="1151" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1152">Section 4</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1152" value="1152" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1153">Section 5</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1153" value="1153" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1154">Section 6</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1154" value="1154" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1155">Section 7</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1155" value="1155" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1156">Section 8</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1156" value="1156" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1157">Section 9</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1157" value="1157" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1158">Section 10</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1158" value="1158" />
+                        </div>
+                    </div>
+                    <div class="resource-group">
+                        <div class="resource-header">PVRV<a href="/Resource/Create?resourceTypeId=40"><span class="ui-icon ui-icon-plus"></span></a></div>
+                    </div>
+                    <div class="resource-group">
+                        <div class="resource-header">ESD Valve<a href="/Resource/Create?resourceTypeId=41"><span class="ui-icon ui-icon-plus"></span></a></div>
+                    </div>
+                    <div class="resource-group">
+                        <div class="resource-header">ESD Station<a href="/Resource/Create?resourceTypeId=42"><span class="ui-icon ui-icon-plus"></span></a></div>
+                    </div>
+                    <div class="resource-group">
+                        <div class="resource-header">3kw Dual Line Manifold <a href="/Resource/Create?resourceTypeId=43"><span class="ui-icon ui-icon-plus"></span></a></div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1259">GWT-3KW-01</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1259" value="1259" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1260">GWT-3KW-02</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1260" value="1260" />
+                        </div>
+                    </div>
+                    <div class="resource-group">
+                        <div class="resource-header">Flame Arrestor<a href="/Resource/Create?resourceTypeId=44"><span class="ui-icon ui-icon-plus"></span></a></div>
+                    </div>
+                    <div class="resource-group">
+                        <div class="resource-header">12&quot; 900 RTJ Flange<a href="/Resource/Create?resourceTypeId=45"><span class="ui-icon ui-icon-plus"></span></a></div>
+                    </div>
+                    <div class="resource-group">
+                        <div class="resource-header">8&quot; 900 RTJ Flange <a href="/Resource/Create?resourceTypeId=46"><span class="ui-icon ui-icon-plus"></span></a></div>
+                    </div>
+                    <div class="resource-group">
+                        <div class="resource-header">8&quot; 1500 RTJ Flange<a href="/Resource/Create?resourceTypeId=47"><span class="ui-icon ui-icon-plus"></span></a></div>
+                    </div>
+                    <div class="resource-group">
+                        <div class="resource-header">8&quot; 600 RTJ Flange<a href="/Resource/Create?resourceTypeId=48"><span class="ui-icon ui-icon-plus"></span></a></div>
+                    </div>
+                    <div class="resource-group">
+                        <div class="resource-header">8&quot; 600 RF Flange<a href="/Resource/Create?resourceTypeId=49"><span class="ui-icon ui-icon-plus"></span></a></div>
+                    </div>
+                    <div class="resource-group">
+                        <div class="resource-header">6&quot; 900 RJT Flange <a href="/Resource/Create?resourceTypeId=50"><span class="ui-icon ui-icon-plus"></span></a></div>
+                    </div>
+                    <div class="resource-group">
+                        <div class="resource-header">6&quot; 600 RF<a href="/Resource/Create?resourceTypeId=51"><span class="ui-icon ui-icon-plus"></span></a></div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1318">GWT 425 1&quot; Tap</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1318" value="1318" />
+                        </div>
+                    </div>
+                    <div class="resource-group">
+                        <div class="resource-header">6&quot; 150 RTJ Flange<a href="/Resource/Create?resourceTypeId=52"><span class="ui-icon ui-icon-plus"></span></a></div>
+                    </div>
+                    <div class="resource-group">
+                        <div class="resource-header">6&quot; 500 RTJ Flange<a href="/Resource/Create?resourceTypeId=53"><span class="ui-icon ui-icon-plus"></span></a></div>
+                    </div>
+                    <div class="resource-group">
+                        <div class="resource-header">6&quot; 1500 RTJ Flange <a href="/Resource/Create?resourceTypeId=54"><span class="ui-icon ui-icon-plus"></span></a></div>
+                    </div>
+                    <div class="resource-group">
+                        <div class="resource-header">6&quot; 150 RF Flange <a href="/Resource/Create?resourceTypeId=55"><span class="ui-icon ui-icon-plus"></span></a></div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1285">GWT 621 2&quot; Tap</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1285" value="1285" />
+                        </div>
+                    </div>
+                    <div class="resource-group">
+                        <div class="resource-header">4&quot; 900 RTJ Flange <a href="/Resource/Create?resourceTypeId=56"><span class="ui-icon ui-icon-plus"></span></a></div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1291">GWT 431 1&quot; Tap</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1291" value="1291" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1298">GWT 408 1&quot; Tap</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1298" value="1298" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1302">GWT 402 4&quot; Tap</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1302" value="1302" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1303">GWT 401 4&quot; Tap</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1303" value="1303" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1306">GWT 428 1&quot; Tap</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1306" value="1306" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1314">GWT 407 2&quot; Tap</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1314" value="1314" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1315">GWT 427 1&quot; Tap</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1315" value="1315" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1316">GWT 426 1&quot; Tap</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1316" value="1316" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1317">GWT 424 1&quot; Tap</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1317" value="1317" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1319">GWT 423 1&quot; Tap</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1319" value="1319" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1320">GWT 422 1&quot; Tap</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1320" value="1320" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1321">GWT 421 1&quot; Tap</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1321" value="1321" />
+                        </div>
+                    </div>
+                    <div class="resource-group">
+                        <div class="resource-header">4&quot; 1500 RTJ Flange<a href="/Resource/Create?resourceTypeId=57"><span class="ui-icon ui-icon-plus"></span></a></div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1292">GWT 431 2&quot; Tap</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1292" value="1292" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1300">GWT 405 2&quot; Tap</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1300" value="1300" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1301">GWT 404 2&quot; Tap</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1301" value="1301" />
+                        </div>
+                    </div>
+                    <div class="resource-group">
+                        <div class="resource-header">4&quot; 600 RF Flange <a href="/Resource/Create?resourceTypeId=58"><span class="ui-icon ui-icon-plus"></span></a></div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1288">GWT 414 2&quot; Tap</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1288" value="1288" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1293">GWT 413 Blind</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1293" value="1293" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1294">GWT 412 2&quot; Tap</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1294" value="1294" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1295">GWT 411 Blind</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1295" value="1295" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1296">GWT 410 Blind</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1296" value="1296" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1297">GWT 409 2&quot; Tap</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1297" value="1297" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1299">GWT 421 Blind</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1299" value="1299" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1308">GWT 425 1&quot; Tap</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1308" value="1308" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1310">GWT 422 4&quot; Tap</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1310" value="1310" />
+                        </div>
+                    </div>
+                    <div class="resource-group">
+                        <div class="resource-header">4&quot; 600 RTJ Flange<a href="/Resource/Create?resourceTypeId=59"><span class="ui-icon ui-icon-plus"></span></a></div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1289">GWT 423 1&quot; Tap</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1289" value="1289" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1290">GWT 420 1&quot; Tap</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1290" value="1290" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1307">GWT 427 2&quot; Tap</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1307" value="1307" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1309">GWT 424 Blind</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1309" value="1309" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1322">GWT 419 Blind</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1322" value="1322" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1323">GWT 417 Blind</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1323" value="1323" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1324">GWT 416 Blind</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1324" value="1324" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1325">GWT 415 Blind </a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1325" value="1325" />
+                        </div>
+                    </div>
+                    <div class="resource-group">
+                        <div class="resource-header">3&quot; 1500 RTJ Flange<a href="/Resource/Create?resourceTypeId=60"><span class="ui-icon ui-icon-plus"></span></a></div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1312">GWT 301 2&quot; Tap</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1312" value="1312" />
+                        </div>
+                    </div>
+                    <div class="resource-group">
+                        <div class="resource-header">3&quot; 150 RF Flange <a href="/Resource/Create?resourceTypeId=61"><span class="ui-icon ui-icon-plus"></span></a></div>
+                    </div>
+                    <div class="resource-group">
+                        <div class="resource-header">3&quot; 600 RTJ Flange<a href="/Resource/Create?resourceTypeId=62"><span class="ui-icon ui-icon-plus"></span></a></div>
+                    </div>
+                    <div class="resource-group">
+                        <div class="resource-header">3&quot; 300 RF Flange <a href="/Resource/Create?resourceTypeId=63"><span class="ui-icon ui-icon-plus"></span></a></div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1286">GWT 306 2&quot; Tap</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1286" value="1286" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1287">GWT 304 2&quot; Tap</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1287" value="1287" />
+                        </div>
+                    </div>
+                    <div class="resource-group">
+                        <div class="resource-header">2&quot; 2500 RTJ Flange<a href="/Resource/Create?resourceTypeId=64"><span class="ui-icon ui-icon-plus"></span></a></div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1279">GWT 201 2&quot; Tap</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1279" value="1279" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1280">GWT 202 2&quot; Tap</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1280" value="1280" />
+                        </div>
+                    </div>
+                    <div class="resource-group">
+                        <div class="resource-header">2&quot; 1500 RTJ Flange <a href="/Resource/Create?resourceTypeId=65"><span class="ui-icon ui-icon-plus"></span></a></div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1281">GWT 203 2&quot; Tap</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1281" value="1281" />
+                        </div>
+                    </div>
+                    <div class="resource-group">
+                        <div class="resource-header">2&quot; 1500 RF Flange<a href="/Resource/Create?resourceTypeId=66"><span class="ui-icon ui-icon-plus"></span></a></div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1282">GWT 204 2&quot; Tap</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1282" value="1282" />
+                        </div>
+                    </div>
+                    <div class="resource-group">
+                        <div class="resource-header">2&quot; 900 RTJ Flange<a href="/Resource/Create?resourceTypeId=67"><span class="ui-icon ui-icon-plus"></span></a></div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1283">GWT 207 2&quot; Tap</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1283" value="1283" />
+                        </div>
+                    </div>
+                    <div class="resource-group">
+                        <div class="resource-header">2&quot; 600 RTJ Flange <a href="/Resource/Create?resourceTypeId=68"><span class="ui-icon ui-icon-plus"></span></a></div>
+                    </div>
+                    <div class="resource-group">
+                        <div class="resource-header">2&quot; 600 RF Flange <a href="/Resource/Create?resourceTypeId=69"><span class="ui-icon ui-icon-plus"></span></a></div>
+                    </div>
+                    <div class="resource-group">
+                        <div class="resource-header">2 1/2&quot; 2500 Split Ring Flange <a href="/Resource/Create?resourceTypeId=70"><span class="ui-icon ui-icon-plus"></span></a></div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1284">GWT 219 2&quot; Tap</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1284" value="1284" />
+                        </div>
+                    </div>
+                    <div class="resource-group">
+                        <div class="resource-header">2&quot; Flow Meter Turbine<a href="/Resource/Create?resourceTypeId=71"><span class="ui-icon ui-icon-plus"></span></a></div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1329">GWT-FM-203</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1329" value="1329" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/2313">GWT FM 201</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_2313" value="2313" />
+                        </div>
+                    </div>
+                    <div class="resource-group">
+                        <div class="resource-header">2&quot; Flow Meter Head<a href="/Resource/Create?resourceTypeId=72"><span class="ui-icon ui-icon-plus"></span></a></div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/2314">GWT FMH 201</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_2314" value="2314" />
+                        </div>
+                    </div>
+                    <div class="resource-group">
+                        <div class="resource-header">3&quot; Flow Meter Turbine<a href="/Resource/Create?resourceTypeId=73"><span class="ui-icon ui-icon-plus"></span></a></div>
+                    </div>
+                    <div class="resource-group">
+                        <div class="resource-header">3&quot; Flow Meter Head<a href="/Resource/Create?resourceTypeId=74"><span class="ui-icon ui-icon-plus"></span></a></div>
+                    </div>
+                    <div class="resource-group">
+                        <div class="resource-header">4&quot; Flow Meter Turbine<a href="/Resource/Create?resourceTypeId=75"><span class="ui-icon ui-icon-plus"></span></a></div>
+                    </div>
+                    <div class="resource-group">
+                        <div class="resource-header">4&quot; Flow Meter Head<a href="/Resource/Create?resourceTypeId=76"><span class="ui-icon ui-icon-plus"></span></a></div>
+                    </div>
+                    <div class="resource-group">
+                        <div class="resource-header">Vertical Media Vessels<a href="/Resource/Create?resourceTypeId=77"><span class="ui-icon ui-icon-plus"></span></a></div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1270">GWT-LFV-1001</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1270" value="1270" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1271">GWT-LFV-1002</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1271" value="1271" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1272">GWT-LFV-1003</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1272" value="1272" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1273">GWT-LFV-1004</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1273" value="1273" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1274">GWT-LFV-1005</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1274" value="1274" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/3317">GWT-LFV-1000</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_3317" value="3317" />
+                        </div>
+                    </div>
+                    <div class="resource-group">
+                        <div class="resource-header">Horizontal Media Vessels<a href="/Resource/Create?resourceTypeId=78"><span class="ui-icon ui-icon-plus"></span></a></div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1275">GWT-LFV-2500</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1275" value="1275" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1276">GWT-LFV-2501</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1276" value="1276" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1277">GWT-LFV-2502</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1277" value="1277" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1278">GWT-LFV-2503</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1278" value="1278" />
+                        </div>
+                    </div>
+                    <div class="resource-group">
+                        <div class="resource-header">50 KW Generator<a href="/Resource/Create?resourceTypeId=79"><span class="ui-icon ui-icon-plus"></span></a></div>
+                    </div>
+                    <div class="resource-group">
+                        <div class="resource-header">4&quot; 900 RF Flange<a href="/Resource/Create?resourceTypeId=80"><span class="ui-icon ui-icon-plus"></span></a></div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1304">GWT 430 1&quot; Tap</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1304" value="1304" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1305">GWT 429 1&quot; Tap</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1305" value="1305" />
+                        </div>
+                    </div>
+                    <div class="resource-group">
+                        <div class="resource-header">4&quot; 5k RTJ Flange <a href="/Resource/Create?resourceTypeId=81"><span class="ui-icon ui-icon-plus"></span></a></div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1311">GWT 432 1&quot; Tap</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1311" value="1311" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/3323">123456</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_3323" value="3323" />
+                        </div>
+                    </div>
+                    <div class="resource-group">
+                        <div class="resource-header">4&quot; 10K RTJ Flange<a href="/Resource/Create?resourceTypeId=82"><span class="ui-icon ui-icon-plus"></span></a></div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/1313">GWT 433 2&quot; Tap</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_1313" value="1313" />
+                        </div>
+                        <div class="resource-entry">
+                            <a href="/Resource/Details/3324">123456</a><input class="resource-entry-select" type="checkbox" name="selected" id="selected_3324" value="3324" />
+                        </div>
+                    </div>
+                </div>
+                <p>
+                    <select id="ResourceLocationID" name="ResourceLocationID">
+                        <option value="">All</option>
+                        <option value="2">At Cleaners</option>
+                        <option value="3">In Yard - Not Ready</option>
+                        <option value="4">Ready</option>
+                        <option value="5">Damaged/Maintenance</option>
+                        <option value="6">No Longer In Service</option>
+                    </select>
+                    <input type="submit" value="Move Resources" />
+                </p>
+            </form>
+        </section>
+    </div>
+    <footer>
+        <div class="content-wrapper">
+            <div class="float-left">
+                <p>&copy; 2016 - Greene's Resource Tracker</p>
+            </div>
+        </div>
+    </footer>
+    <!-- AI CORE JAVASCRIPT -->
+    <script src="/scripts/cloud.common.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,749 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{94211755-75EB-489F-BFEA-1C1AC3A56279}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ERPSystem</RootNamespace>
+    <AssemblyName>ERPSystem</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <ApplicationInsightsResourceId>/subscriptions/2b7fa415-8730-4d7d-9b0d-72351d6b48eb/resourcegroups/rg_wus_emp_pts_prod/providers/microsoft.insights/components/wa-emp-wus-pts-prod-dev</ApplicationInsightsResourceId>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="HtmlAgilityPack, Version=1.7.2.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.7.2\lib\Net45\HtmlAgilityPack.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="itextsharp, Version=5.5.13.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.13\lib\itextsharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="itextsharp.xmlworker, Version=5.5.13.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itextsharp.xmlworker.5.5.13\lib\itextsharp.xmlworker.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.Agent.Intercept, Version=2.0.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.2.0.7\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.DependencyCollector, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.2.0\lib\net45\Microsoft.AI.DependencyCollector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.PerfCounterCollector, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.2.0\lib\net45\Microsoft.AI.PerfCounterCollector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.ServerTelemetryChannel, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.2.0\lib\net45\Microsoft.AI.ServerTelemetryChannel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.Web, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Web.2.2.0\lib\net45\Microsoft.AI.Web.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.WindowsServer, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.2.2.0\lib\net45\Microsoft.AI.WindowsServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationInsights, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.2.2.0\lib\net45\Microsoft.ApplicationInsights.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationInsights.TraceListener, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.TraceListener.2.2.0\lib\net45\Microsoft.ApplicationInsights.TraceListener.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.ActiveDirectory, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.ActiveDirectory.3.0.1\lib\net45\Microsoft.Owin.Security.ActiveDirectory.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Jwt, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Jwt.3.0.1\lib\net45\Microsoft.Owin.Security.Jwt.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Common, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportViewer.2015.Runtime.12.0.2.2402\lib\Microsoft.ReportViewer.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.ProcessingObjectModel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportViewer.2015.Runtime.12.0.2.2402\lib\Microsoft.ReportViewer.ProcessingObjectModel.DLL</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportViewer.2015.Runtime.12.0.2.2402\lib\Microsoft.ReportViewer.WebForms.DLL</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.2.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.4.1\lib\net45\System.Diagnostics.DiagnosticSource.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.4.0.0\lib\net45\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Http.Owin, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Owin.5.2.3\lib\net45\System.Web.Http.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DBScripts\County.sql" />
+    <Content Include="DBScripts\Customers.sql" />
+    <Content Include="DBScripts\DBScripts_Sprocs.sql" />
+    <Content Include="DBScripts\DBScripts_Tables.sql" />
+    <Content Include="DBScripts\States.sql" />
+    <Content Include="DBScripts\users.sql" />
+    <Content Include="Login.html" />
+    <Content Include="scripts\ai.0.22.19-build00125.js" />
+    <Content Include="scripts\ai.0.22.19-build00125.min.js" />
+    <Content Include="UI\Content\DeliverTicket1.html" />
+    <Content Include="UI\Content\JobPersonnel.html" />
+    <Content Include="UI\Content\PrintCheckIn.html" />
+    <Content Include="UI\Content\WorkOrder.html" />
+    <Content Include="UI\css\Custom.css" />
+    <Content Include="UI\css\themes\Custom.css" />
+    <Content Include="UI\css\themes\style2\iliad-custom.css" />
+    <Content Include="UI\DataLoad.html" />
+    <Content Include="UI\DataUploadTemplates\Assets.csv" />
+    <Content Include="UI\DataUploadTemplates\AssetsTypes.csv" />
+    <Content Include="UI\DataUploadTemplates\ObjectTypes.csv" />
+    <Content Include="UI\images\ees-logo.jpg" />
+    <Content Include="UI\images\ees-logo.png" />
+    <Content Include="UI\images\pts-white.png" />
+    <Content Include="UI\JobDocuments.html" />
+    <Content Include="UI\JobEquipment.html" />
+    <Content Include="UI\JobPersonnel.html" />
+    <Content Include="scripts\cloud.common.js" />
+    <Content Include="UI\Alerts.html" />
+    <Content Include="UI\AssetDetails.html" />
+    <Content Include="UI\AssetModelDetails.html" />
+    <Content Include="UI\AssetModels.html" />
+    <Content Include="UI\Assets.html" />
+    <Content Include="UI\AssetsView.html" />
+    <Content Include="UI\CompletedJobList.html" />
+    <Content Include="UI\css\ng-tree-dnd.css" />
+    <Content Include="UI\Customers.html" />
+    <Content Include="UI\HelpFAQs.html" />
+    <Content Include="UI\HelpResources.html" />
+    <Content Include="UI\HelpSupport.html" />
+    <Content Include="UI\images\PTSImg2.jpg" />
+    <Content Include="UI\index.html" />
+    <Content Include="UI\JobDetails.html" />
+    <Content Include="UI\Jobs.html" />
+    <Content Include="UI\JobsList.html" />
+    <Content Include="UI\JobsView.html" />
+    <Content Include="UI\js\angular-route.js" />
+    <Content Include="UI\js\angular-sanitize.js" />
+    <Content Include="UI\js\AssetDetails.js" />
+    <Content Include="UI\js\AssetModel.js" />
+    <Content Include="UI\js\AssetModelDetails.js" />
+    <Content Include="UI\js\Assets.js" />
+    <Content Include="UI\js\AssetsView.js" />
+    <Content Include="UI\js\CompletedJobList.js" />
+    <Content Include="UI\js\Customers.js" />
+    <Content Include="UI\js\DataLoad.js" />
+    <Content Include="UI\js\datetime.js" />
+    <Content Include="UI\js\FileSaver.js" />
+    <Content Include="UI\js\IndexPage.js" />
+    <Content Include="UI\js\JobDetails.js" />
+    <Content Include="UI\js\JobDocuments.js" />
+    <Content Include="UI\js\JobEquipment.js" />
+    <Content Include="UI\js\JobPersonnel.js" />
+    <Content Include="UI\js\JobsList.js" />
+    <Content Include="UI\js\jquery-1.10.2.js" />
+    <Content Include="UI\js\Locations.js" />
+    <Content Include="UI\js\MaintenanceVendors.js" />
+    <Content Include="UI\js\Manufacturer.js" />
+    <Content Include="UI\js\Multiselect\angularjs-dropdown-multiselect.js" />
+    <Content Include="UI\js\Multiselect\Loadash.js" />
+    <Content Include="UI\js\ObjectHierarchy.js" />
+    <Content Include="UI\js\ObjectTypes.js" />
+    <Content Include="UI\js\PPDocument.js" />
+    <Content Include="UI\js\ReportsList.js" />
+    <Content Include="UI\js\RoleDetails.js" />
+    <Content Include="UI\js\roles.js" />
+    <Content Include="UI\js\ThirdParty.js" />
+    <Content Include="UI\js\TreeView\main.js" />
+    <Content Include="UI\js\TreeView\ng-tree-dnd.js" />
+    <Content Include="UI\js\UserDetails.js" />
+    <Content Include="UI\js\UserRoles.js" />
+    <Content Include="UI\Locations.html" />
+    <Content Include="UI\MaintenanceVendors.html" />
+    <Content Include="UI\Manufacturer.html" />
+    <Content Include="UI\ObjectHierarchy.html" />
+    <Content Include="UI\ObjectTypes.html" />
+    <Content Include="UI\PPDocuments.html" />
+    <Content Include="UI\ReportsList.html" />
+    <Content Include="UI\RoleAssetModels.html" />
+    <Content Include="UI\RoleDetails.html" />
+    <Content Include="UI\ThirdParty.html" />
+    <Content Include="UI\UserDetails.html" />
+    <Content Include="packages.config" />
+    <None Include="Properties\PublishProfiles\wa-scus-emp-ees-prod-DEV - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\wa-scus-emp-ees-prod-DEV - Web Deploy.pubxml" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="UI\Content\test1.pdf" />
+    <Content Include="UI\vendors\bootstrap\css\bootstrap-theme.css.map" />
+    <Content Include="UI\vendors\bootstrap\css\bootstrap.css.map" />
+    <Content Include="UI\vendors\bootstrap\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="UI\vendors\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="UI\vendors\bootstrap\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="UI\vendors\calendar\examples\show_data.php" />
+    <Content Include="UI\vendors\calendar\index.php" />
+    <Content Include="UI\vendors\calendar\README.md" />
+    <Content Include="UI\vendors\calendar\zabuto_calendar.jquery.json" />
+    <Content Include="UI\vendors\font-awesome\fonts\fontawesome-webfont.eot" />
+    <Content Include="UI\vendors\font-awesome\fonts\fontawesome-webfont.ttf" />
+    <Content Include="UI\vendors\font-awesome\fonts\fontawesome-webfont.woff" />
+    <Content Include="UI\vendors\font-awesome\fonts\FontAwesome.otf" />
+    <Content Include="UI\vendors\iCheck\demo\css\custom.styl" />
+    <Content Include="UI\vendors\iCheck\demo\css\montserrat-bold.eot" />
+    <Content Include="UI\vendors\iCheck\demo\css\montserrat-bold.ttf" />
+    <Content Include="UI\vendors\iCheck\demo\css\montserrat-bold.woff" />
+    <Content Include="UI\vendors\iCheck\demo\css\montserrat-regular.eot" />
+    <Content Include="UI\vendors\iCheck\demo\css\montserrat-regular.ttf" />
+    <Content Include="UI\vendors\iCheck\demo\css\montserrat-regular.woff" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DBScripts\Init.sql" />
+    <Content Include="DBScripts\RolesInit.sql" />
+    <Content Include="Global.asax" />
+    <Content Include="UI\AddNewUser.html" />
+    <Content Include="UI\Company.html" />
+    <Content Include="UI\css\bootstrap.min.css" />
+    <Content Include="UI\css\style-responsive.css" />
+    <Content Include="UI\css\themes\style2\blue-dark.css" />
+    <Content Include="UI\css\themes\style2\blue-grey.css" />
+    <Content Include="UI\css\themes\style2\green-blue.css" />
+    <Content Include="UI\css\themes\style2\green-dark.css" />
+    <Content Include="UI\css\themes\style2\green-grey.css" />
+    <Content Include="UI\css\themes\style2\orange-blue.css" />
+    <Content Include="UI\css\themes\style2\orange-grey.css" />
+    <Content Include="UI\css\themes\style2\orange-violet.css" />
+    <Content Include="UI\css\themes\style2\pink-blue.css" />
+    <Content Include="UI\css\themes\style2\pink-brown.css" />
+    <Content Include="UI\css\themes\style2\pink-dark.css" />
+    <Content Include="UI\css\themes\style2\pink-green.css" />
+    <Content Include="UI\css\themes\style2\pink-grey.css" />
+    <Content Include="UI\css\themes\style2\pink-violet.css" />
+    <Content Include="UI\css\themes\style2\red-dark.css" />
+    <Content Include="UI\css\themes\style2\red-grey.css" />
+    <Content Include="UI\css\themes\style2\yellow-blue.css" />
+    <Content Include="UI\css\themes\style2\yellow-dark.css" />
+    <Content Include="UI\css\themes\style2\yellow-green.css" />
+    <Content Include="UI\css\themes\style2\yellow-grey.css" />
+    <Content Include="UI\css\treasure-overlay-spinner.css" />
+    <Content Include="UI\images\bg\1.jpg" />
+    <Content Include="UI\images\bg\2.jpg" />
+    <Content Include="UI\images\bg\3.jpg" />
+    <Content Include="UI\images\blogs\1.jpg" />
+    <Content Include="UI\images\blogs\10.jpg" />
+    <Content Include="UI\images\blogs\11.jpg" />
+    <Content Include="UI\images\blogs\12.jpg" />
+    <Content Include="UI\images\blogs\2.jpg" />
+    <Content Include="UI\images\blogs\3.jpg" />
+    <Content Include="UI\images\blogs\4.jpg" />
+    <Content Include="UI\images\blogs\5.jpg" />
+    <Content Include="UI\images\blogs\6.jpg" />
+    <Content Include="UI\images\blogs\7.jpg" />
+    <Content Include="UI\images\blogs\8.jpg" />
+    <Content Include="UI\images\blogs\9.jpg" />
+    <Content Include="UI\images\blogs\blog_item1.jpg" />
+    <Content Include="UI\images\dashboard.png" />
+    <Content Include="UI\images\gallery\1.jpg" />
+    <Content Include="UI\images\gallery\10.jpg" />
+    <Content Include="UI\images\gallery\11.jpg" />
+    <Content Include="UI\images\gallery\12.jpg" />
+    <Content Include="UI\images\gallery\2.jpg" />
+    <Content Include="UI\images\gallery\3.jpg" />
+    <Content Include="UI\images\gallery\4.jpg" />
+    <Content Include="UI\images\gallery\5.jpg" />
+    <Content Include="UI\images\gallery\6.jpg" />
+    <Content Include="UI\images\gallery\7.jpg" />
+    <Content Include="UI\images\gallery\8.jpg" />
+    <Content Include="UI\images\gallery\9.jpg" />
+    <Content Include="UI\images\gallery\blog_item1.jpg" />
+    <Content Include="UI\images\icons\loading.gif" />
+    <Content Include="UI\images\iliad-logo.png" />
+    <Content Include="UI\images\iliad-logo2.png" />
+    <Content Include="UI\images\iliad-logo3.png" />
+    <Content Include="UI\images\iliad-logo4.png" />
+    <Content Include="UI\images\iliad2015Logo.png" />
+    <Content Include="UI\images\PTSImg1.jpg" />
+    <Content Include="UI\images\PTSLogo.png" />
+    <Content Include="UI\images\user.jpg" />
+    <Content Include="UI\js\angular-animate.js" />
+    <Content Include="UI\js\angular.js" />
+    <Content Include="UI\js\animation.js" />
+    <Content Include="UI\js\Company.js" />
+    <Content Include="UI\js\email-compose-mail.js" />
+    <Content Include="UI\js\email-inbox.js" />
+    <Content Include="UI\js\extra-signup.js" />
+    <Content Include="UI\js\fileupload\angular-file-upload-shim.js" />
+    <Content Include="UI\js\fileupload\angular-file-upload.js" />
+    <Content Include="UI\js\fileupload\FileAPI.js" />
+    <Content Include="UI\js\fileupload\ng-file-upload-shim.js" />
+    <Content Include="UI\js\fileupload\ng-file-upload.js" />
+    <Content Include="UI\js\fileupload\Upload.js" />
+    <Content Include="UI\js\form-components.js" />
+    <Content Include="UI\js\form-dropzone-file-upload.js" />
+    <Content Include="UI\js\form-multiple-file-upload.js" />
+    <Content Include="UI\js\form-validation.js" />
+    <Content Include="UI\js\form-wizard.js" />
+    <Content Include="UI\js\html5shiv.js" />
+    <Content Include="UI\js\index.js" />
+    <Content Include="UI\js\jplist.js" />
+    <Content Include="UI\js\jquery-1.10.2.min.js" />
+    <Content Include="UI\js\jquery-migrate-1.2.1.min.js" />
+    <Content Include="UI\js\jquery-ui.js" />
+    <Content Include="UI\js\jquery.menu.js" />
+    <Content Include="UI\js\login.js" />
+    <Content Include="UI\js\main.js" />
+    <Content Include="UI\js\ngStorage.js" />
+    <Content Include="UI\js\plus.js" />
+    <Content Include="UI\js\raphael-min.js" />
+    <Content Include="UI\js\respond.min.js" />
+    <Content Include="UI\js\table-action.js" />
+    <Content Include="UI\js\table-advanced.js" />
+    <Content Include="UI\js\table-filter.js" />
+    <Content Include="UI\js\table-sample.js" />
+    <Content Include="UI\js\treasure-overlay-spinner.js" />
+    <Content Include="UI\js\TypeGroups.js" />
+    <Content Include="UI\js\Types.js" />
+    <Content Include="UI\js\ui-bootstrap-tpls-1.3.3.js" />
+    <Content Include="UI\js\ui-checkbox-radio.js" />
+    <Content Include="UI\js\ui-editors.js" />
+    <Content Include="UI\js\ui-nestable-list.js" />
+    <Content Include="UI\js\ui-portlets.js" />
+    <Content Include="UI\js\ui-progressbars.js" />
+    <Content Include="UI\js\ui-sliders.js" />
+    <Content Include="UI\js\ui-tabs.js" />
+    <Content Include="UI\js\ui-toastr-notifications.js" />
+    <Content Include="UI\js\ui-treeview.js" />
+    <Content Include="UI\js\Users.js" />
+    <Content Include="UI\Roles.html" />
+    <Content Include="UI\TypeGroups.html" />
+    <Content Include="UI\Types.html" />
+    <Content Include="UI\UserRoles.html" />
+    <Content Include="UI\Users.html" />
+    <Content Include="UI\vendors\animate.css\animate.css" />
+    <Content Include="UI\vendors\bootstrap-datepicker\css\datepicker.css" />
+    <Content Include="UI\vendors\bootstrap-datepicker\css\datepicker3.css" />
+    <Content Include="UI\vendors\bootstrap-datepicker\js\bootstrap-datepicker.js" />
+    <Content Include="UI\vendors\bootstrap-datepicker\js\locales\bootstrap-datepicker.ar.js" />
+    <Content Include="UI\vendors\bootstrap-datepicker\js\locales\bootstrap-datepicker.az.js" />
+    <Content Include="UI\vendors\bootstrap-datepicker\js\locales\bootstrap-datepicker.bg.js" />
+    <Content Include="UI\vendors\bootstrap-datepicker\js\locales\bootstrap-datepicker.ca.js" />
+    <Content Include="UI\vendors\bootstrap-datepicker\js\locales\bootstrap-datepicker.cs.js" />
+    <Content Include="UI\vendors\bootstrap-datepicker\js\locales\bootstrap-datepicker.cy.js" />
+    <Content Include="UI\vendors\bootstrap-datepicker\js\locales\bootstrap-datepicker.da.js" />
+    <Content Include="UI\vendors\bootstrap-datepicker\js\locales\bootstrap-datepicker.de.js" />
+    <Content Include="UI\vendors\bootstrap-datepicker\js\locales\bootstrap-datepicker.el.js" />
+    <Content Include="UI\vendors\bootstrap-datepicker\js\locales\bootstrap-datepicker.es.js" />
+    <Content Include="UI\vendors\bootstrap-datepicker\js\locales\bootstrap-datepicker.et.js" />
+    <Content Include="UI\vendors\bootstrap-datepicker\js\locales\bootstrap-datepicker.fa.js" />
+    <Content Include="UI\vendors\bootstrap-datepicker\js\locales\bootstrap-datepicker.fi.js" />
+    <Content Include="UI\vendors\bootstrap-datepicker\js\locales\bootstrap-datepicker.fr.js" />
+    <Content Include="UI\vendors\bootstrap-datepicker\js\locales\bootstrap-datepicker.gl.js" />
+    <Content Include="UI\vendors\bootstrap-datepicker\js\locales\bootstrap-datepicker.he.js" />
+    <Content Include="UI\vendors\bootstrap-datepicker\js\locales\bootstrap-datepicker.hr.js" />
+    <Content Include="UI\vendors\bootstrap-datepicker\js\locales\bootstrap-datepicker.hu.js" />
+    <Content Include="UI\vendors\bootstrap-datepicker\js\locales\bootstrap-datepicker.id.js" />
+    <Content Include="UI\vendors\bootstrap-datepicker\js\locales\bootstrap-datepicker.is.js" />
+    <Content Include="UI\vendors\bootstrap-datepicker\js\locales\bootstrap-datepicker.it.js" />
+    <Content Include="UI\vendors\bootstrap-datepicker\js\locales\bootstrap-datepicker.ja.js" />
+    <Content Include="UI\vendors\bootstrap-datepicker\js\locales\bootstrap-datepicker.ka.js" />
+    <Content Include="UI\vendors\bootstrap-datepicker\js\locales\bootstrap-datepicker.kk.js" />
+    <Content Include="UI\vendors\bootstrap-datepicker\js\locales\bootstrap-datepicker.kr.js" />
+    <Content Include="UI\vendors\bootstrap-datepicker\js\locales\bootstrap-datepicker.lt.js" />
+    <Content Include="UI\vendors\bootstrap-datepicker\js\locales\bootstrap-datepicker.lv.js" />
+    <Content Include="UI\vendors\bootstrap-datepicker\js\locales\bootstrap-datepicker.mk.js" />
+    <Content Include="UI\vendors\bootstrap-datepicker\js\locales\bootstrap-datepicker.ms.js" />
+    <Content Include="UI\vendors\bootstrap-datepicker\js\locales\bootstrap-datepicker.nb.js" />
+    <Content Include="UI\vendors\bootstrap-datepicker\js\locales\bootstrap-datepicker.nl-BE.js" />
+    <Content Include="UI\vendors\bootstrap-datepicker\js\locales\bootstrap-datepicker.nl.js" />
+    <Content Include="UI\vendors\bootstrap-datepicker\js\locales\bootstrap-datepicker.no.js" />
+    <Content Include="UI\vendors\bootstrap-datepicker\js\locales\bootstrap-datepicker.pl.js" />
+    <Content Include="UI\vendors\bootstrap-datepicker\js\locales\bootstrap-datepicker.pt-BR.js" />
+    <Content Include="UI\vendors\bootstrap-datepicker\js\locales\bootstrap-datepicker.pt.js" />
+    <Content Include="UI\vendors\bootstrap-datepicker\js\locales\bootstrap-datepicker.ro.js" />
+    <Content Include="UI\vendors\bootstrap-datepicker\js\locales\bootstrap-datepicker.rs-latin.js" />
+    <Content Include="UI\vendors\bootstrap-datepicker\js\locales\bootstrap-datepicker.rs.js" />
+    <Content Include="UI\vendors\bootstrap-datepicker\js\locales\bootstrap-datepicker.ru.js" />
+    <Content Include="UI\vendors\bootstrap-datepicker\js\locales\bootstrap-datepicker.sk.js" />
+    <Content Include="UI\vendors\bootstrap-datepicker\js\locales\bootstrap-datepicker.sl.js" />
+    <Content Include="UI\vendors\bootstrap-datepicker\js\locales\bootstrap-datepicker.sq.js" />
+    <Content Include="UI\vendors\bootstrap-datepicker\js\locales\bootstrap-datepicker.sv.js" />
+    <Content Include="UI\vendors\bootstrap-datepicker\js\locales\bootstrap-datepicker.sw.js" />
+    <Content Include="UI\vendors\bootstrap-datepicker\js\locales\bootstrap-datepicker.th.js" />
+    <Content Include="UI\vendors\bootstrap-datepicker\js\locales\bootstrap-datepicker.tr.js" />
+    <Content Include="UI\vendors\bootstrap-datepicker\js\locales\bootstrap-datepicker.ua.js" />
+    <Content Include="UI\vendors\bootstrap-datepicker\js\locales\bootstrap-datepicker.vi.js" />
+    <Content Include="UI\vendors\bootstrap-datepicker\js\locales\bootstrap-datepicker.zh-CN.js" />
+    <Content Include="UI\vendors\bootstrap-datepicker\js\locales\bootstrap-datepicker.zh-TW.js" />
+    <Content Include="UI\vendors\bootstrap-hover-dropdown\bootstrap-hover-dropdown.js" />
+    <Content Include="UI\vendors\bootstrap\css\bootstrap-theme.css" />
+    <Content Include="UI\vendors\bootstrap\css\bootstrap-theme.min.css" />
+    <Content Include="UI\vendors\bootstrap\css\bootstrap.css" />
+    <Content Include="UI\vendors\bootstrap\css\bootstrap.min.css" />
+    <Content Include="UI\vendors\bootstrap\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="UI\vendors\bootstrap\js\bootstrap.js" />
+    <Content Include="UI\vendors\bootstrap\js\bootstrap.min.js" />
+    <Content Include="UI\vendors\calendar\examples\action.html" />
+    <Content Include="UI\vendors\calendar\examples\basic_usage.html" />
+    <Content Include="UI\vendors\calendar\examples\display_settings.html" />
+    <Content Include="UI\vendors\calendar\examples\example.jpg" />
+    <Content Include="UI\vendors\calendar\examples\index.html" />
+    <Content Include="UI\vendors\calendar\examples\language_settings.html" />
+    <Content Include="UI\vendors\calendar\examples\navigation_settings.html" />
+    <Content Include="UI\vendors\calendar\examples\set_legend.html" />
+    <Content Include="UI\vendors\calendar\examples\show_data.html" />
+    <Content Include="UI\vendors\calendar\MIT-LICENSE.txt" />
+    <Content Include="UI\vendors\calendar\README.html" />
+    <Content Include="UI\vendors\calendar\zabuto_calendar.css" />
+    <Content Include="UI\vendors\calendar\zabuto_calendar.js" />
+    <Content Include="UI\vendors\calendar\zabuto_calendar.min.css" />
+    <Content Include="UI\vendors\calendar\zabuto_calendar.min.js" />
+    <Content Include="UI\vendors\font-awesome\css\font-awesome.css" />
+    <Content Include="UI\vendors\font-awesome\css\font-awesome.min.css" />
+    <Content Include="UI\vendors\font-awesome\fonts\fontawesome-webfont.svg" />
+    <Content Include="UI\vendors\holder\holder.js" />
+    <Content Include="UI\vendors\iCheck\custom.min.js" />
+    <Content Include="UI\vendors\iCheck\demo\css\banner.jpg" />
+    <Content Include="UI\vendors\iCheck\demo\css\custom.css" />
+    <Content Include="UI\vendors\iCheck\demo\css\icheck.png" />
+    <Content Include="UI\vendors\iCheck\demo\css\ie\arrow-bottom.png" />
+    <Content Include="UI\vendors\iCheck\demo\css\ie\arrow-top.png" />
+    <Content Include="UI\vendors\iCheck\demo\css\ie\header-line.png" />
+    <Content Include="UI\vendors\iCheck\demo\css\ie\icon-fork.png" />
+    <Content Include="UI\vendors\iCheck\demo\css\ie\icon-github.png" />
+    <Content Include="UI\vendors\iCheck\demo\css\ie\icon-lab.png" />
+    <Content Include="UI\vendors\iCheck\demo\css\ie\icon-options.png" />
+    <Content Include="UI\vendors\iCheck\demo\css\ie\icon-star.png" />
+    <Content Include="UI\vendors\iCheck\demo\css\montserrat-bold.svg" />
+    <Content Include="UI\vendors\iCheck\demo\css\montserrat-regular.svg" />
+    <Content Include="UI\vendors\iCheck\demo\css\normalize.css" />
+    <Content Include="UI\vendors\iCheck\demo\index.html" />
+    <Content Include="UI\vendors\iCheck\demo\js\custom.js" />
+    <Content Include="UI\vendors\iCheck\demo\js\custom.min.js" />
+    <Content Include="UI\vendors\iCheck\demo\js\jquery.js" />
+    <Content Include="UI\vendors\iCheck\demo\js\zepto.js" />
+    <Content Include="UI\vendors\iCheck\icheck.js" />
+    <Content Include="UI\vendors\iCheck\icheck.min.js" />
+    <Content Include="UI\vendors\iCheck\skins\all.css" />
+    <Content Include="UI\vendors\iCheck\skins\flat\aero%402x.png" />
+    <Content Include="UI\vendors\iCheck\skins\flat\aero.css" />
+    <Content Include="UI\vendors\iCheck\skins\flat\aero.png" />
+    <Content Include="UI\vendors\iCheck\skins\flat\all.css" />
+    <Content Include="UI\vendors\iCheck\skins\flat\blue%402x.png" />
+    <Content Include="UI\vendors\iCheck\skins\flat\blue.css" />
+    <Content Include="UI\vendors\iCheck\skins\flat\blue.png" />
+    <Content Include="UI\vendors\iCheck\skins\flat\flat%402x.png" />
+    <Content Include="UI\vendors\iCheck\skins\flat\flat.css" />
+    <Content Include="UI\vendors\iCheck\skins\flat\flat.png" />
+    <Content Include="UI\vendors\iCheck\skins\flat\green%402x.png" />
+    <Content Include="UI\vendors\iCheck\skins\flat\green.css" />
+    <Content Include="UI\vendors\iCheck\skins\flat\green.png" />
+    <Content Include="UI\vendors\iCheck\skins\flat\grey%402x.png" />
+    <Content Include="UI\vendors\iCheck\skins\flat\grey.css" />
+    <Content Include="UI\vendors\iCheck\skins\flat\grey.png" />
+    <Content Include="UI\vendors\iCheck\skins\flat\orange%402x.png" />
+    <Content Include="UI\vendors\iCheck\skins\flat\orange.css" />
+    <Content Include="UI\vendors\iCheck\skins\flat\orange.png" />
+    <Content Include="UI\vendors\iCheck\skins\flat\pink%402x.png" />
+    <Content Include="UI\vendors\iCheck\skins\flat\pink.css" />
+    <Content Include="UI\vendors\iCheck\skins\flat\pink.png" />
+    <Content Include="UI\vendors\iCheck\skins\flat\purple%402x.png" />
+    <Content Include="UI\vendors\iCheck\skins\flat\purple.css" />
+    <Content Include="UI\vendors\iCheck\skins\flat\purple.png" />
+    <Content Include="UI\vendors\iCheck\skins\flat\red%402x.png" />
+    <Content Include="UI\vendors\iCheck\skins\flat\red.css" />
+    <Content Include="UI\vendors\iCheck\skins\flat\red.png" />
+    <Content Include="UI\vendors\iCheck\skins\flat\yellow%402x.png" />
+    <Content Include="UI\vendors\iCheck\skins\flat\yellow.css" />
+    <Content Include="UI\vendors\iCheck\skins\flat\yellow.png" />
+    <Content Include="UI\vendors\iCheck\skins\futurico\futurico%402x.png" />
+    <Content Include="UI\vendors\iCheck\skins\futurico\futurico.css" />
+    <Content Include="UI\vendors\iCheck\skins\futurico\futurico.png" />
+    <Content Include="UI\vendors\iCheck\skins\line\aero.css" />
+    <Content Include="UI\vendors\iCheck\skins\line\all.css" />
+    <Content Include="UI\vendors\iCheck\skins\line\blue.css" />
+    <Content Include="UI\vendors\iCheck\skins\line\green.css" />
+    <Content Include="UI\vendors\iCheck\skins\line\grey.css" />
+    <Content Include="UI\vendors\iCheck\skins\line\line%402x.png" />
+    <Content Include="UI\vendors\iCheck\skins\line\line.css" />
+    <Content Include="UI\vendors\iCheck\skins\line\line.png" />
+    <Content Include="UI\vendors\iCheck\skins\line\orange.css" />
+    <Content Include="UI\vendors\iCheck\skins\line\pink.css" />
+    <Content Include="UI\vendors\iCheck\skins\line\purple.css" />
+    <Content Include="UI\vendors\iCheck\skins\line\red.css" />
+    <Content Include="UI\vendors\iCheck\skins\line\yellow.css" />
+    <Content Include="UI\vendors\iCheck\skins\minimal\aero%402x.png" />
+    <Content Include="UI\vendors\iCheck\skins\minimal\aero.css" />
+    <Content Include="UI\vendors\iCheck\skins\minimal\aero.png" />
+    <Content Include="UI\vendors\iCheck\skins\minimal\all.css" />
+    <Content Include="UI\vendors\iCheck\skins\minimal\blue%402x.png" />
+    <Content Include="UI\vendors\iCheck\skins\minimal\blue.css" />
+    <Content Include="UI\vendors\iCheck\skins\minimal\blue.png" />
+    <Content Include="UI\vendors\iCheck\skins\minimal\green%402x.png" />
+    <Content Include="UI\vendors\iCheck\skins\minimal\green.css" />
+    <Content Include="UI\vendors\iCheck\skins\minimal\green.png" />
+    <Content Include="UI\vendors\iCheck\skins\minimal\grey%402x.png" />
+    <Content Include="UI\vendors\iCheck\skins\minimal\grey.css" />
+    <Content Include="UI\vendors\iCheck\skins\minimal\grey.png" />
+    <Content Include="UI\vendors\iCheck\skins\minimal\minimal%402x.png" />
+    <Content Include="UI\vendors\iCheck\skins\minimal\minimal.css" />
+    <Content Include="UI\vendors\iCheck\skins\minimal\minimal.png" />
+    <Content Include="UI\vendors\iCheck\skins\minimal\orange%402x.png" />
+    <Content Include="UI\vendors\iCheck\skins\minimal\orange.css" />
+    <Content Include="UI\vendors\iCheck\skins\minimal\orange.png" />
+    <Content Include="UI\vendors\iCheck\skins\minimal\pink%402x.png" />
+    <Content Include="UI\vendors\iCheck\skins\minimal\pink.css" />
+    <Content Include="UI\vendors\iCheck\skins\minimal\pink.png" />
+    <Content Include="UI\vendors\iCheck\skins\minimal\purple%402x.png" />
+    <Content Include="UI\vendors\iCheck\skins\minimal\purple.css" />
+    <Content Include="UI\vendors\iCheck\skins\minimal\purple.png" />
+    <Content Include="UI\vendors\iCheck\skins\minimal\red%402x.png" />
+    <Content Include="UI\vendors\iCheck\skins\minimal\red.css" />
+    <Content Include="UI\vendors\iCheck\skins\minimal\red.png" />
+    <Content Include="UI\vendors\iCheck\skins\minimal\yellow%402x.png" />
+    <Content Include="UI\vendors\iCheck\skins\minimal\yellow.css" />
+    <Content Include="UI\vendors\iCheck\skins\minimal\yellow.png" />
+    <Content Include="UI\vendors\iCheck\skins\polaris\polaris%402x.png" />
+    <Content Include="UI\vendors\iCheck\skins\polaris\polaris.css" />
+    <Content Include="UI\vendors\iCheck\skins\polaris\polaris.png" />
+    <Content Include="UI\vendors\iCheck\skins\square\aero%402x.png" />
+    <Content Include="UI\vendors\iCheck\skins\square\aero.css" />
+    <Content Include="UI\vendors\iCheck\skins\square\aero.png" />
+    <Content Include="UI\vendors\iCheck\skins\square\all.css" />
+    <Content Include="UI\vendors\iCheck\skins\square\blue%402x.png" />
+    <Content Include="UI\vendors\iCheck\skins\square\blue.css" />
+    <Content Include="UI\vendors\iCheck\skins\square\blue.png" />
+    <Content Include="UI\vendors\iCheck\skins\square\green%402x.png" />
+    <Content Include="UI\vendors\iCheck\skins\square\green.css" />
+    <Content Include="UI\vendors\iCheck\skins\square\green.png" />
+    <Content Include="UI\vendors\iCheck\skins\square\grey%402x.png" />
+    <Content Include="UI\vendors\iCheck\skins\square\grey.css" />
+    <Content Include="UI\vendors\iCheck\skins\square\grey.png" />
+    <Content Include="UI\vendors\iCheck\skins\square\orange%402x.png" />
+    <Content Include="UI\vendors\iCheck\skins\square\orange.css" />
+    <Content Include="UI\vendors\iCheck\skins\square\orange.png" />
+    <Content Include="UI\vendors\iCheck\skins\square\pink%402x.png" />
+    <Content Include="UI\vendors\iCheck\skins\square\pink.css" />
+    <Content Include="UI\vendors\iCheck\skins\square\pink.png" />
+    <Content Include="UI\vendors\iCheck\skins\square\purple%402x.png" />
+    <Content Include="UI\vendors\iCheck\skins\square\purple.css" />
+    <Content Include="UI\vendors\iCheck\skins\square\purple.png" />
+    <Content Include="UI\vendors\iCheck\skins\square\red%402x.png" />
+    <Content Include="UI\vendors\iCheck\skins\square\red.css" />
+    <Content Include="UI\vendors\iCheck\skins\square\red.png" />
+    <Content Include="UI\vendors\iCheck\skins\square\square%402x.png" />
+    <Content Include="UI\vendors\iCheck\skins\square\square.css" />
+    <Content Include="UI\vendors\iCheck\skins\square\square.png" />
+    <Content Include="UI\vendors\iCheck\skins\square\yellow%402x.png" />
+    <Content Include="UI\vendors\iCheck\skins\square\yellow.css" />
+    <Content Include="UI\vendors\iCheck\skins\square\yellow.png" />
+    <Content Include="UI\vendors\jquery-cookie\jquery.cookie.js" />
+    <Content Include="UI\vendors\jquery-pace\pace.min.js" />
+    <Content Include="UI\vendors\jquery-treetable\javascripts\src\jquery.treetable.js" />
+    <Content Include="UI\vendors\jquery-treetable\stylesheets\jquery.treetable.css" />
+    <Content Include="UI\vendors\jquery-treetable\stylesheets\jquery.treetable.theme.custom.css" />
+    <Content Include="UI\vendors\jquery-treetable\stylesheets\jquery.treetable.theme.default.css" />
+    <Content Include="UI\vendors\metisMenu\jquery.metisMenu.js" />
+    <Content Include="UI\vendors\responsive-tabs\responsive-tabs.js" />
+    <Content Include="UI\vendors\slimScroll\jquery.slimscroll.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\Startup.cs" />
+    <Compile Include="App_Start\Trace.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AssetController.cs" />
+    <Compile Include="Controllers\AssetDetailsController.cs" />
+    <Compile Include="Controllers\AssetModelController.cs" />
+    <Compile Include="Controllers\CompanyController.cs" />
+    <Compile Include="Controllers\CustomersController.cs" />
+    <Compile Include="Controllers\DataLoadController.cs" />
+    <Compile Include="Controllers\DocumentsController.cs" />
+    <Compile Include="Controllers\JobsController.cs" />
+    <Compile Include="Controllers\LocationController.cs" />
+    <Compile Include="Controllers\LOGINController.cs" />
+    <Compile Include="Controllers\MaintenanceVendorController.cs" />
+    <Compile Include="Controllers\ManufacturerController.cs" />
+    <Compile Include="Controllers\ObjectTypesController.cs" />
+    <Compile Include="Controllers\RolesController.cs" />
+    <Compile Include="Controllers\ThirdPartyController.cs" />
+    <Compile Include="Controllers\TypeGroupsController.cs" />
+    <Compile Include="Controllers\TypesController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Models.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="UI\images\avatar\" />
+    <Folder Include="UI\vendors\slimScroll\examples\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>58081</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:44320/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,3 @@
+Equipment Type,Object Type,Serial Number,Manufacture,Description,Date Purchased/Serialized,Unit Price,Job Rate,Rental ,Additional Day Rate,Day Rate ,Per Week Stby Charge ,Redress Cost ,Date Sold,Job #,Lost/LIH/Damaged,Location,Price,Cycle Count Date,InspectionVendor,MaintenanceVendor,StatusId ,Condition,Material,PurchaseCost,Customer,LostLIHDamaged,LocationDate,Notes
+Blind Box,Box ,EES-12,TriTech Machine,"2.25"" OD Blind Box w/1"" MT Box ",06-11-2009,$200.00,,,,$165.00,$165.00,,,,,,,,LEAD,Maintenance Vendor2,Pending,Yes,Yes,,,,,asdf
+Blind Box,Box ,EES-1,TriTech Machine,"1.84"" OD Blind Box w/1"" MT Box ",06-11-2009,$220.00,,,,$150.00,$165.00,,,,,,,,LEAD,Maintenance Vendor1,Pending,no,yes,,,,,

@@ -1,0 +1,4 @@
+SerialNumber ,AssetTypes, Status ,Manufacturer,Measurements, Customer ,Location
+,,,,,,
+example,,,,,,
+EE10011,AV Subs,In Stock,Coil Tubing Rental,Are either in decimal value (1.25) or includes fractions (1-3/4),Hilcorp,North Dakota

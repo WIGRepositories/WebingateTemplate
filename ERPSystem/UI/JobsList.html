@@ -1,0 +1,696 @@
+﻿<!DOCTYPE html>
+<html lang="en" ng-app="myApp" ng-controller="myCtrl">
+<head>
+    <title>ERPSystem | Dashboard</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="images/icons/favicon.ico">
+    <link rel="apple-touch-icon" href="images/icons/favicon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/icons/favicon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/icons/favicon-114x114.png">
+    <!--Loading bootstrap css-->
+    <link type="text/css" rel="stylesheet" href="vendors/font-awesome/css/font-awesome.min.css">
+    <link type="text/css" rel="stylesheet" href="vendors/bootstrap/css/bootstrap.min.css">
+    <!--LOADING STYLESHEET FOR PAGE-->
+    <!--Loading style vendors-->
+    <link type="text/css" rel="stylesheet" href="vendors/animate.css/animate.css">
+    <link type="text/css" rel="stylesheet" href="vendors/iCheck/skins/all.css">
+    <link rel="stylesheet" type="text/css" href="css/treasure-overlay-spinner.css">
+    <!--Loading style-->
+    <link type="text/css" rel="stylesheet" href="css/themes/Custom.css" id="theme-change" class="style-change color-change">
+    <link type="text/css" rel="stylesheet" href="css/style-responsive.css">
+    <style>
+        Backlogged {
+            color: red;
+        }
+
+        Active {
+            color: green;
+        }
+
+        Pending {
+            color: #FCF8E3;
+        }
+
+        Completed {
+            color: grey;
+        }
+
+        Approved {
+            color: lightblue;
+        }
+    </style>
+</head>
+<body ng-init="init();">
+    <div>
+        <!--BEGIN BACK TO TOP--><a id="totop" href="#"><i class="fa fa-angle-up"></i></a><!--END BACK TO TOP--><!--BEGIN TOPBAR-->
+        <div id="header-topbar-option-demo" class="page-header-topbar">
+            <nav id="topbar" role="navigation" style="margin-bottom: 0;" data-step="3" class="navbar navbar-default navbar-static-top">
+                <div class="navbar-header">
+                    <button type="button" data-toggle="collapse" data-target=".sidebar-collapse" class="navbar-toggle"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
+                    <!--<a id="logo" href="index.html" class="navbar-brand"><span class="fa fa-rocket"></span><span class="logo-text">EES EM Portal</span><span style="display: none" class="logo-text-icon">µ</span></a>-->
+                </div>
+                <div class="topbar-main">
+                    <a id="menu-toggle" href="#" class="hidden-xs"><i class="fa fa-bars"></i></a>
+                    <ul class="nav navbar navbar-top-links navbar-right mbn">
+                        <li class="dropdown topbar-user">
+                            <a data-hover="dropdown" href="#" class="dropdown-toggle"><img src="images/user.jpg" alt="" class="img-responsive img-circle" />&nbsp;<span class="hidden-xs" ng-cloak>{{uname}}</span>&nbsp;<span class="caret"></span></a>
+                            <ul class="dropdown-menu dropdown-user pull-right">
+                                <!--<li><a href="Users.html" data-toggle="tooltip" data-placement="right" title="Configurable list of all users in the application"><i class="fa fa-user"></i>My Profile</a></li>
+                                <li class="divider"></li>-->
+                                <li ng-controller="logoutCtrl"><a href="#" ng-click="Logout();"><i class="fa fa-sign-out"></i>Log Out</a></li>
+                                <li><a href="https://account.activedirectory.windowsazure.com/ChangePassword.aspx"><i class="fa fa-key"></i>Change Password</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+        </div>
+        <!--END TOPBAR-->
+
+        <div id="wrapper">
+            <!--BEGIN SIDEBAR MENU-->
+            <nav id="sidebar" role="navigation" data-step="2" data-position="right" class="navbar-default navbar-static-side">
+                <div class="sidebar-collapse menu-scroll">
+                    <ul id="side-menu" class="nav">
+                        <li class="user-panel">
+                            <div class="thumb"><img src="images/user.jpg" alt="" class="img-circle" /></div>
+                            <div class="info">
+                                <p>{{uname}}</p>
+                                <ul class="list-inline list-unstyled">
+                                    <!--<li><a href="Users.html" data-hover="tooltip" title="Profile"><i class="fa fa-user"></i></a></li>-->
+                                    <li><a href="../login.html" data-hover="tooltip" title="Logout"><i class="fa fa-sign-out"></i></a></li>
+                                </ul>
+                            </div>
+                            <div class="clearfix"></div>
+                        </li>
+                        <li>
+                            <a href="index.html" data-toggle="tooltip" data-placement="right" title="Application Dashboard for Equipment, Types, and Jobs">
+                                <i class="fa fa-tachometer fa-fw">
+                                    <div class="icon-bg bg-orange"></div>
+                                </i><span class="menu-title">Dashboard</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="fa fa-cubes fa-fw">
+                                    <div class="icon-bg bg-pink"></div>
+                                </i><span class="menu-title">Equipment</span><span class="fa arrow"></span>
+                            </a>
+                            <ul class="nav nav-second-level">
+                                <li ng-hide="isSuperUser == 0">
+                                    <a href="AssetModels.html" data-toggle="tooltip" data-placement="right" title="Manage Equipment Type"><i class="fa fa-align-left"></i><span class="submenu-title">Equipment Type</span></a>
+                                </li>
+                                <li ng-hide="isSuperUser == 0">
+                                    <a href="AssetModelDetails.html" data-toggle="tooltip" data-placement="right" title="Manage Equipment Type model details"><i class="fa fa-cubes"></i><span class="submenu-title">Type Details</span></a>
+                                </li>
+                                <li><a href="Assets.html" data-toggle="tooltip" data-placement="right" title="Manage list of equipment across locations"><i class="fa fa-align-left"></i><span class="submenu-title">Equipments List</span></a></li>
+                                <!--<li><a href="AssetsView.html" data-toggle="tooltip" data-placement="right" title="Equipment Tree Views by location and asset type"><i class="fa fa-align-left"></i><span class="submenu-title">Equipments View</span></a></li>-->
+                                <li><a href="AssetDetails.html" data-toggle="tooltip" data-placement="right" title="Manage equipment details and documents"><i class="fa fa-cubes"></i><span class="submenu-title">Equipment Details</span></a></li>
+
+
+                            </ul>
+                        </li>
+                        <li class="active">
+                            <a href="#">
+                                <i class="fa fa-list fa-fw">
+                                    <div class="icon-bg bg-violet"></div>
+                                </i><span class="menu-title">Jobs</span><span class="fa arrow"></span>
+                            </a>
+                            <ul class="nav nav-second-level">
+                                <li class="active"><a href="JobsList.html" data-toggle="tooltip" data-placement="right" title="List of all active and pending jobs by location, status, or customer"><i class="fa fa-list fa-fw"></i><span class="submenu-title">Job List</span></a></li>
+                                <li><a href="JobDetails.html" data-toggle="tooltip" data-placement="right" title="Job specific details: Equipment, Personnel, 3rd Party, and Job Documents"><i class="fa fa-file-text-o"></i><span class="submenu-title">Job Details</span></a></li>
+                                <li><a href="CompletedJobList.html" data-toggle="tooltip" data-placement="right" title="Jobs marked as completed"><i class="fa fa-list fa-fw"></i><span class="submenu-title">Completed Jobs</span></a></li>
+                                <li><a href="JobPersonnel.html" data-toggle="tooltip" data-placement="right" title="Tree view of all people assigned to all jobs, by location, customer status"><i class="fa fa-file-text-o"></i><span class="submenu-title"></span>Job Personnel</a></li>
+                                <li><a href="JobEquipment.html" data-toggle="tooltip" data-placement="right" title="Tree view of all equipment assigned to all jobs, by location, customer status"><i class="fa fa-cubes"></i><span class="submenu-title"></span>Job Equipment</a></li>
+                                <li><a href="JobDocuments.html" data-toggle="tooltip" data-placement="right" title="Job specific documents"><i class="fa fa-cubes"></i><span class="submenu-title"></span>Job Documents</a></li>
+                                <!--<li><a href="Jobs.html"><i class="fa fa-exclamation"></i><span class="submenu-title"></span>Job Alerts</a></li>-->
+                                <!--<li><a href="Jobs.html"><i class="fa fa-upload"></i><span class="submenu-title">Job Notifications</span></a></li>-->
+                                <!--<li><a href="Jobs.html"><i class="fa fa-cloud-upload"></i><span class="submenu-title">Job Reports</span></a></li>-->
+                            </ul>
+                        </li>
+
+                       <li ng-hide="hidereports=1">
+                            <a href="#">
+                                <i class="fa fa-bar-chart-o fa-fw">
+                                    <div class="icon-bg bg-violet"></div>
+                                </i><span class="menu-title">Reports</span><span class="fa arrow"></span>
+                            </a>
+                            <ul class="nav nav-second-level">
+                                <li><a href="ReportsList.html" data-toggle="tooltip" data-placement="right" title="List of reports for the application"><i class="fa fa-file-text-o"></i><span class="submenu-title"></span>Reports List</a></li>
+                            </ul>
+                        </li>
+
+
+
+                        <li ng-hide="isSuperUser == 0">
+                            <a href="#">
+                                <i class="fa fa-group fa-fw">
+                                    <div class="icon-bg bg-red"></div>
+                                </i><span class="menu-title">Users & Roles</span><span class="fa arrow"></span>
+                            </a>
+                            <ul class="nav nav-second-level">
+                                <li><a href="UserDetails.html" data-toggle="tooltip" data-placement="right" title="User details for application"><i class="fa fa-user"></i><span class="submenu-title">User Details</span></a></li>
+                                <li><a href="Users.html" data-toggle="tooltip" data-placement="right" title="Configurable list of all users in the application"><i class="fa fa-user"></i><span class="submenu-title">Users List</span></a></li>
+                                <li><a href="UserRoles.html" data-toggle="tooltip" data-placement="right" title="Configurable list of all roles assigned to users in the application"><i class="fa fa-sitemap fa-fw"></i><span class="submenu-title">User Roles</span></a></li>
+
+
+                            </ul>
+                        </li>
+                        <!--<li>
+                            <a href="UI/#">
+                                <i class="fa fa-book fa-fw">
+                                    <div class="icon-bg bg-violet"></div>
+                                </i><span class="menu-title">Help</span><span class="fa arrow"></span>
+                            </a>
+                            <ul class="nav nav-second-level">
+                                <li><a href="UI/HelpResources.html"><i class="fa fa-columns"></i><span class="submenu-title"></span>Resources</a></li>
+                                <li><a href="UI/HelpSupport.html"><i class="fa fa-file-text-o"></i><span class="submenu-title"></span>Support</a></li>
+                                <li><a href="UI/HelpFAQs.html"><i class="fa fa-file-text-o"></i><span class="submenu-title"></span>FAQs</a></li>
+                            </ul>
+                        </li>-->
+
+                        <li>
+                            <a href="PPDocuments.html" data-toggle="tooltip" data-placement="right" title="Common document repository for documents across company.">
+                                <i class="fa fa-file-text-o">
+                                    <div class="icon-bg bg-orange"></div>
+                                </i><span class="menu-title">Procedure Documents</span>
+                            </a>
+                        </li>
+                        <li ng-hide="isSuperUser == 0">
+                            <a href="#">
+                                <i class="fa fa-edit fa-fw">
+                                    <div class="icon-bg bg-violet"></div>
+                                </i><span class="menu-title">Administration</span><span class="fa arrow"></span>
+                            </a>
+                            <ul class="nav nav-second-level">
+                                <li><a href="TypeGroups.html" data-toggle="tooltip" data-placement="right" title="Common groups used across application"><i class="fa fa-cubes"></i><span class="submenu-title"></span>Master Data Groups</a></li>
+                                <li><a href="ObjectTypes.html" data-toggle="tooltip" data-placement="right" title="Common objects used across application"><i class="fa fa-cubes"></i><span class="submenu-title"></span>Object Types</a></li>
+                                <li><a href="Locations.html" data-toggle="tooltip" data-placement="right" title="List of operational locations"><i class="fa fa-cubes"></i><span class="submenu-title"></span>Locations</a></li>
+                                <li><a href="Types.html" data-toggle="tooltip" data-placement="right" title="Common data used across application"><i class="fa fa-cubes"></i><span class="submenu-title"></span>Master Data</a></li>
+                                <li><a href="Roles.html" data-toggle="tooltip" data-placement="right" title="Roles for the application"><i class="fa fa-cubes"></i><span class="submenu-title"></span>Roles</a></li>
+                                <!--<li><a href="ThirdParty.html"><i class="fa fa-cubes"></i><span class="submenu-title"></span>Third Party Resources</a></li>-->
+                                <li><a href="Company.html" data-toggle="tooltip" data-placement="right" title="Company specific details"><i class="fa fa-file-text-o"></i><span class="submenu-title">Company Details</span></a></li>
+                                <!--<li><a href="CompanyRoles.html"><i class="fa fa-sitemap fa-fw"></i><span class="submenu-title">Company Roles</span></a></li>-->
+                                <li><a href="Customers.html" data-toggle="tooltip" data-placement="right" title="List of all customers"><i class="fa fa-group fa-fw"></i><span class="submenu-title">Customers</span></a></li>
+                                <li><a href="DataLoad.html" data-toggle="tooltip" data-placement="right" title="List of all customers"><i class=" fa fa-tachometer fa-fw"></i><span class="submenu-title">Data Load</span></a></li>
+                                <li><a href="Manufacturer.html" data-toggle="tooltip" data-placement="right" title="List of all Manufacturer"><i class=" fa fa-tachometer fa-fw"></i><span class="submenu-title">Manufacturer</span></a></li>
+                                <li><a href="MaintenanceVendors.html" data-toggle="tooltip" data-placement="right" title="List of all Maintenance Vendors"><i class=" fa fa-tachometer fa-fw"></i><span class="submenu-title">Maintenance Vendor</span></a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <!--END SIDEBAR MENU--><!--BEGIN CHAT FORM-->
+            <!--END CHAT FORM--><!--BEGIN PAGE WRAPPER-->
+            <!--<treasure-overlay-spinner active='spinner.active'>-->
+            <div id="page-wrapper">
+                <!--BEGIN TITLE & BREADCRUMB PAGE-->
+                <div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
+                    <div class="page-header pull-left">
+                        <div class="page-title">Jobs List</div>
+                    </div>
+                    <ol class="breadcrumb page-breadcrumb pull-right">
+                        <li><i class="fa fa-home"></i>&nbsp;<a href="index.html">Home</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+                        <li class="hidden"><a href="#">Dashboard</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+                        <li>Dashboard</li>
+                    </ol>
+                    <div class="clearfix"></div>
+                </div>
+                <!--END TITLE & BREADCRUMB PAGE--><!--BEGIN CONTENT-->
+                <div class="page-content" id="jobslist-content" style="display:none;">
+                    <div id="table-action" class="row">
+                        <div class="col-lg-12">
+                            <div id="tableactionTabContent" class="tab-content">
+                                <div id="table-table-tab" class="tab-pane fade in active">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="row mbm">
+                                                <div class="col-md-3" style="text-align:left">
+          Location: <select ng-options="s.name for s in Locations track by s.id" ng-model="s" ng-change="filteroptionssel();getJobsListByStatus()" style="width:60%">
+                                                        <option value="">All</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3" style="text-align:left">
+          Job Status: <select ng-options="js.Name for js in jbstatus track by js.Id" ng-model="a" ng-change="filteroptionssel();getJobsListByStatus()" style="width:60%">
+                                                        <option value="">All</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3" style="text-align:left">
+            Customer: <select ng-options="c.Client  for c in Customers track by c.Id" ng-model="cc" ng-change="filteroptionssel();getJobsListByStatus()" style="width:60%">
+                                                        <option value="">All</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3" style="text-align:left">
+                                                    <button ng-disabled="isSuperUser == 0 && CanCreate == 0" type="button" data-target="#Modal-header-new" data-toggle="modal" class="btn btn-info btn-sm" style="float: right; margin: 10px;" ng-click="GetNewJobData();">Add New Job</button>
+                                                </div>
+                                            </div>
+                                            <!--<treasure-overlay-spinner active='spinner.active'>-->
+                                            <div class="col-lg-12">
+
+                                                <div class="container-fliud">
+
+                                                    <!--<div class="row">
+                                                        <h3 ng-show="act.length != 0">Active jobs</h3>
+                                                        <div style="width: 15%; float: left; padding: 5px; " ng-repeat="j in  jobsList1 | filter:{Status:'Active'||'!'}">
+                                                            <div class="panel panel-dark" style="background-color: green; min-height:100px">
+
+                                                                <a href="JobDetails.html?jobId={{j.ID}}">
+
+                                                                    <div class="panel-body" ng-style="j.Status">
+                                                                        <span style="text-decoration-color: white"><font color="white"> {{j.Name}}</font></span>
+                                                                        <br /><span style="text-decoration-color: white"><font color="white"> Location: {{j.Location}}</font></span>
+                                                                    </div>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>-->
+                                                    <!--<h3 ng-show="pend.length != 0">Pending jobs</h3>-->
+
+                                                    <table class="table table-bordered table-advanced tablesorter">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Job #</th>
+                                                                <th>Delivery Ticket(s)</th>
+                                                                <th>Location</th>
+                                                                <th>Customer</th>
+                                                                <th>Actual Start Date</th>
+                                                                <th>Est. End Date</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr ng-repeat="J in jobsList1|filter:{StatusId :'!9'}:true" ng-style="(J.StatusId == '7') ? {'background-color':'#F2DEDE'}:(J.StatusId == '8') ?{'background-color':'#DFF0D8'}:''">
+                                                                <td><a href="#" ng-click="GoToJobDetails(J.ID)"><font color="blue"> <u> {{J.JobID}}</u></font></a></td>
+                                                                <td>{{J.DeliveryTicket}}</td>
+                                                                <td>{{J.Location}}</td>
+                                                                <td>{{J.Customer}}</td>
+                                                                <td>{{J.ActualStartDt | date:'MM-dd-yyyy'}}</td>
+                                                                <td>{{J.EstEndDt | date:'MM-dd-yyyy'}}</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+
+                                                    <!--<div class="panel panel-dark" style="min-height: 100px" ng-style="(j.StatusId == '7') ? {'background-color':'#F2DEDE'}:(j.StatusId == '8') ?{'background-color':'GREEN'}:''">
+
+                                                        <a href="JobDetails.html?jobId={{j.ID}}">
+
+                                                            <div class="panel-body" ng-style="j.Status">
+                                                                <span style="text-decoration-color: white"><font color="white"> {{j.Name}}</font></span>
+                                                                <br /><span style="text-decoration-color: white"><font color="white"> Location: {{j.Location}}</font></span>
+                                                            </div>
+                                                        </a>
+                                                    </div>-->
+
+                                                </div>
+
+                                            </div>
+                                            <!--</treasure-overlay-spinner>-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--END CONTENT-->
+            <!--END CONTENT--><!--BEGIN FOOTER-->
+            <div id="footer">
+                <div class="copyright">2018 © ERPSystem</div>
+            </div>
+            <!--END FOOTER-->
+        </div>
+        <!--</treasure-overlay-spinner>-->
+
+    </div>
+    <!--END PAGE WRAPPER-->
+    <div id="Modal-header-new" tabindex="-1" role="dialog" aria-labelledby="modal-header-primary-label" aria-hidden="true" class="modal fade">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header modal-header-primary">
+                    <button type="button" data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
+                    <h4 id="modal-header-primary-label" class="modal-title">Add New Job</h4>
+                </div>
+                <div class="modal-body" ng-model="newJob">
+                    <div class="row mbm">
+                        <div class="col-md-12">
+                            <div class="col-md-6">
+
+                                <label for="Description" class="col-md-5 control-label">Job#:<span class='require'></span></label>
+                                <div class="col-md-6">
+                                    <input id="inputJobID" type="text" ng-model="newJob.number" class="form-control" disabled /><span class="help-block"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="Description" class="col-md-5 control-label" style="color:red" >Estimated start date: <span class='require'>*</span></label>
+                                <div class="col-md-6">
+                                    <!--<input id="inputEstStartDt" type="date" ng-model="newJob.EstStartDt" class="form-control" /><span class="help-block"></span>-->
+
+                                    <div data-date-format="mm/dd/yyyy" style="width:100%" class="input-group date datepicker-filter mbs col-md-6" style="z-index:99999"><input type="text" placeholder="mm/dd/yyyy" class="form-control" ng-model="newJob.EstStartDt" /><span class="input-group-addon"><i class="fa fa-calendar"></i></span></div>
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="row mbm margt">
+                        <div class="col-md-12">
+
+                            <div class="col-md-6">
+                                <label for="selCountry" class="col-md-5 control-label" style="color:red;">Job Status:<span class='require'>*</span></label>
+                                <div class="col-md-6">
+                                    <!----select ng-options="dt.Name for dt in DataTypes track by dt.Name" ng-model="dt">-->
+                                    <select disabled class="form-control">
+                                        <option value="7" selected>Pending</option>
+                                        <option value="1">Back Logges</option>
+                                        <option value="2">Active</option>
+                                        <option value="3">Pending</option>
+                                        <option value="4">Completed</option>
+                                        <option value="5">Approved</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="Description" class="col-md-5 control-label" style="color:red">Estimated End date: <span class='require'>*</span></label>
+                                <div class="col-md-6">
+                                    <!--<input id="inputActEndDt" type="date" ng-model="newJob.EstEndDt" class="form-control" /><span class="help-block"></span>-->
+
+                                    <div data-date-format="mm/dd/yyyy" style="width:100%" class="input-group date datepicker-filter mbs col-md-6"><input type="text" placeholder="mm/dd/yyyy" class="form-control" ng-model="newJob.EstEndDt" /><span class="input-group-addon"><i class="fa fa-calendar"></i></span></div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mbm margt">
+                        <div class="col-md-12">
+                            <!--<div class="col-md-6">
+
+                                <label for="Description" class="col-md-5 control-label" style="color:red;">Job :<span class='require'>*</span></label>
+                                <div class="col-md-6">
+                                    <input id="inputJobID" type="text" ng-model="newJob.Name" class="form-control" /><span class="help-block"></span>
+                                </div>
+                            </div>-->
+                            <div class="col-md-6">
+                                <label for="selCountry" class="col-md-5 control-label">Actual start date:</label>
+
+                                <div class="col-md-6">
+                                    <!--<input id="inputActStartDt" type="date" ng-model="newJob.ActStartDt" class="form-control" /><span class="help-block"></span>-->
+
+                                    <div data-date-format="mm/dd/yyyy" style="width:100%" class="input-group date datepicker-filter mbs col-md-6"><input type="text" placeholder="mm/dd/yyyy" class="form-control" ng-model="newJob.ActStartDt" /><span class="input-group-addon"><i class="fa fa-calendar"></i></span></div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mbm margt" style="margin-top:-40px;">
+                        <div class="col-md-12">
+                            <div class="col-md-6">
+                                <label for="Description" class="col-md-5 control-label" style="color:red;"> Job Type:<span class='require'></span></label>
+                                <div class="col-md-6">
+                                    <select class="form-control" ng-options="jt.Name for jt in jobtypes track by jt.Id" ng-model="jbty" ng-value="jt.Id" style="width:100%" ng-change="Changejobtype()">
+                                        <option value="">Select</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="selCountry" class="col-md-5 control-label">Actual End date:</label>
+                                <div class="col-md-6">
+                                    <!--<input id="inputActEndDt" type="date" ng-model="newJob.ActEndDt" class="form-control" /><span class="help-block"></span>-->
+
+
+                                    <div data-date-format="mm/dd/yyyy" style="width:100%" class="input-group date datepicker-filter mbs col-md-6"><input type="text" placeholder="mm/dd/yyyy" class="form-control" ng-model="newJob.ActEndDt" /><span class="input-group-addon"><i class="fa fa-calendar"></i></span></div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="row mbm margt">
+                        <div class="col-md-12">
+                            <div class="col-md-6">
+                                <label for="Description" class="col-md-5 control-label" style="color:red;">Customer: <span class='require'>*</span></label>
+                                <div class="col-md-6">
+                                    <select ng-options="c.Client  for c in Customers track by c.Id" ng-model="newJob.CustomerId" class="form-control">
+                                        <option value="">Select</option>
+                                    </select>
+                                    <!--<select style="width:100%" ng-model="newJob.CustomerId">
+                                        <option value="">Select</option>
+                                        <option value="1">Chevron</option>
+                                        <option value="2">Apache</option>
+                                    </select>-->
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="selCountry" class="col-md-5 control-label" style="color:red;">AFE/PO #:<span class='require'>*</span></label>
+                                <div class="col-md-6">
+                                    <input id="inputAFE" type="number" ng-model="newJob.AFE" class="form-control" /><span class="help-block"></span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row mbm margt" style="margin-top:-40px;">
+                        <div class="col-md-12">
+                            <div class="col-md-6">
+                                <label for="Description" class="col-md-5 control-label" style="color:red;">Co. Man:<span class='require'>*</span></label>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" ng-model="newJob.CoMan" style="width:100%" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="orderby" class="col-md-5 control-label" style="color:red;">Field:<span class='require'>*</span></label>
+
+                                <div class="col-md-6">
+                                    <input type="text" ng-model="newJob.Field" class="form-control" style="width:100%" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mbm margt">
+                        <div class="col-md-12">
+                            <div class="col-md-6">
+                                <label class="col-md-5 control-label" ng-show="ty==46" style="color:red;">OCSG:<span ng-show="ty==46" style="color:red;">*</span></label>
+                                <label class="col-md-5 control-label" ng-show="ty== 47 || ty== 48 || ty==null">OCSG:</label>
+                                <div class="col-md-6">
+                                    <input type="text" ng-model="newJob.OCSG" class="form-control" style="width:100%" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="Description" class="col-md-5 control-label">Phone No:</label>
+                                <div class="col-md-6">
+                                    <input type="text" ng-model="newJob.PhoneNo" class="form-control" style="width:100%" id="phonechecking" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="well#" class="col-md-5 control-label" style="color:red;">Well#:<span class='require'>*</span></label>
+
+                                <div class="col-md-6">
+                                    <input type="text" ng-model="newJob.Well" class="form-control" style="width:100%" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mbm margt">
+                        <div class="col-md-12">
+                            <div class="col-md-6">
+                                <label for="Description" class="col-md-5 control-label">Supervisor:</label>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" ng-model="newJob.Supervisor" style="width:100%" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="Description" class="col-md-5 control-label" style="color:red;">Service Company:<span class='require'>*</span></label>
+                                <div class="col-md-6">
+                                    <input type="text" ng-model="newJob.servicecomp" class="form-control" style="width:100%" />
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row mbm margt">
+                        <div class="col-md-12">
+                            <div class="col-md-6">
+                                <label class="col-md-5 control-label" ng-show="ty==48" style="color:red;">State:<span ng-show="ty==48" style="color:red;">*</span></label>
+                                <label class="col-md-5 control-label" ng-show="ty==47" style="color:red;">State:<span ng-show="ty==47" style="color:red;">*</span></label>
+                                <label class="col-md-5 control-label" ng-show="ty==46 || ty==null">State:</label>
+                                <div class="col-md-6">
+                                    <select class="form-control" style="width:100%" ng-options="st.StateName for st in Typesdata track by st.Id" ng-model="newJob.State" ng-init="TypeGroupsData()" ng-change="GetCounty(newJob.State)">
+
+                                        <option value="">Select</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="col-md-5 control-label" ng-show="ty==47" style="color:red;">Lease:<span ng-show="ty==47" style="color:red;">*</span></label>
+                                <label class="col-md-5 control-label" ng-show="ty== 48 || ty==46 || ty==null">Lease:</label>
+                                <div class="col-md-6">
+                                    <input type="text" ng-model="newJob.Lease" class="form-control" style="width:100%" />
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row mbm margt">
+                        <div class="col-md-12">
+                            <div class="col-md-6">
+                                <label class="col-md-5 control-label" ng-show="ty==48" style="color:red;">County/Parish:<span ng-show="ty==48" style="color:red;">*</span></label>
+                                <label class="col-md-5 control-label" ng-show="ty==47" style="color:red;">County/Parish:<span ng-show="ty==47" style="color:red;">*</span></label>
+                                <label class="col-md-5 control-label" ng-show="ty==46 || ty==null">County/Parish:</label>
+                                <div class="col-md-6">
+                                    <select class="form-control" ng-options="ct.CountyName for ct in county track by ct.Id" ng-model="newJob.County" style="width:100%">
+                                        <option value="">Select</option>
+                                    </select>
+                                </div>
+                            </div>
+                           
+                            
+                            <div class="col-md-6">
+                                <label for="Description" class="col-md-5 control-label"> Description:<span class='require'></span></label>
+                                <div class="col-md-6">
+                                    <textarea id="inputProjDesc" rows="3" ng-model="newJob.ProjDesc" class="form-control"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+
+                    <!--<div class="row mbm margt" style="margin-top:-50px;">-->
+                    <!--<div class="col-md-12">-->
+                    <!--<div class="col-md-6">
+                        <label for="rig#" class="col-md-5 control-label" style="color:red;">Rig:<span class='require'>*</span></label>
+
+                        <div class="col-md-6">
+                            <input id="Rig" type="text" ng-model="newJob.Rig" class="form-control" /><span class="help-block"></span>
+                        </div>
+                    </div>-->
+                    <!--</div>
+                    </div>-->
+                    <!--<div class="row mbm margt" >
+                        <div class="col-md-12">
+                            <div class="col-md-6">
+                                <label for="Description" class="col-md-5 control-label" style="color:red;">Rig Name:<span class='require'>*</span></label>
+                                <div class="col-md-6">
+                                    <input type="text" ng-model="newJob.RigName" class="form-control" style="width:100%" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="orderby" class="col-md-5 control-label">Order By:</label>
+                                <div class="col-md-6">
+                                    <div data-date-format="mm/dd/yyyy" style="width:100%" class="input-group date datepicker-filter mbs col-md-6"><input type="text" placeholder="mm/dd/yyyy" ng-model="newJob.OrderBy" class="form-control" /><span class="input-group-addon"><i class="fa fa-calendar"></i></span></div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>-->
+                    <!--<div class="row mbm margt" >
+                        <div class="col-md-12">
+                            <div class="col-md-6">
+                                <label for="Description" class="col-md-5 control-label">Location:</label>
+                                <div class="col-md-6">
+                                    <select ng-options="s.name for s in Locations track by s.id" style="width:100%" ng-model="newJob.LocationId" ng-change="CheckCanCreate(newJob.LocationId.id)" class="form-control">
+                                        <option value="">Select</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>-->
+                    <div class="form-actions">
+                        <div style="text-align:center">
+                            <button class="btn btn-green" ng-disabled="isSuperUser == 0 && CanCreate == 0" ng-click="AddNewJob();">Save</button>
+                            <button type="button" data-dismiss="modal" class="btn btn-default" ng-click="clearGroup()">Cancel</button>
+                        </div>
+                    </div>
+                    <!---- <div class="col-md-6 col-md-offset-2">
+                        <button class="btn btn-primary" type="button">Save</button>
+                        <button class="btn btn-primary" type="button">Cancel</button>
+                    </div>--->
+
+                </div>
+
+            </div>
+
+        </div>
+        </div>
+        <script type="text/ng-template" id="myModalContent.html" data-backdrop="static" style="z-index:1049">
+            <div class="modal-header">
+                <h3 class="modal-title">Save confirmation!</h3>
+            </div>
+            <div class="modal-body">
+                <!--<ul>
+                    <li ng-repeat="item in items">
+                        <a href="#" ng-click="$event.preventDefault(); selected.item = item">{{ item }}</a>
+                    </li>
+                </ul>
+                Selected: <b>{{ selected.item }}</b>-->
+                {{mssg}}
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+                <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+            </div>
+        </script>
+        <script type="text/ng-template" id="myModalContent1.html" data-backdrop="static" style="z-index:1055">
+            <div class="modal-header">
+                <h3 class="modal-title">Correction required!</h3>
+            </div>
+            <div class="modal-body">
+                <!--<ul>
+                <li ng-repeat="item in items">
+                    <a href="#" ng-click="$event.preventDefault(); selected.item = item">{{ item }}</a>
+                </li>
+            </ul>
+            Selected: <b>{{ selected.item }}</b>-->
+                {{mssg}}
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+                <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+            </div>
+        </script>
+
+        <!--END PAGE WRAPPER-->
+        <script src="js/jquery-1.10.2.min.js"></script>
+        <script src="js/jquery-migrate-1.2.1.min.js"></script>
+        <script src="js/jquery-ui.js"></script>
+        <!--loading bootstrap js-->
+        <script src="vendors/bootstrap/js/bootstrap.js"></script>
+        <script src="vendors/bootstrap-hover-dropdown/bootstrap-hover-dropdown.js"></script>
+        <script src="js/html5shiv.js"></script>
+        <script src="js/respond.min.js"></script>
+        <script src="vendors/metisMenu/jquery.metisMenu.js"></script>
+        <script src="vendors/slimScroll/jquery.slimscroll.js"></script>
+        <script src="vendors/jquery-cookie/jquery.cookie.js"></script>
+        <script src="vendors/iCheck/icheck.min.js"></script>
+        <script src="vendors/iCheck/custom.min.js"></script>
+        <script src="vendors/jquery-news-ticker/jquery.news-ticker.js"></script>
+        <script src="js/jquery.menu.js"></script>
+        <script src="vendors/jquery-pace/pace.min.js"></script>
+        <script src="vendors/holder/holder.js"></script>
+        <script src="vendors/responsive-tabs/responsive-tabs.js"></script>
+        <!--LOADING SCRIPTS FOR PAGE-->
+        <script src="vendors/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+        <script>
+            $('.datepicker-filter').datepicker({
+                autoclose: true
+            });
+        </script>
+        <script src="js/index.js"></script>
+        <!--CORE JAVASCRIPT-->
+        <script src="js/main.js"></script>
+        <script src="js/angular.js"></script>
+        <script src="js/ui-bootstrap-tpls-1.3.3.js"></script>
+        <script src="js/ngStorage.js"></script>
+        <script src="js/JobsList.js"></script>
+        <script src="js/adal.js"></script>
+        <script src="js/adal-angular.js"></script>
+        <script src="js/AdalCommon.js"></script>
+        <script src="js/angular-animate.js"></script>
+        <script src="js/treasure-overlay-spinner.js"></script>
+        <!-- AI CORE JAVASCRIPT -->
+        <script src="/scripts/cloud.common.js"></script>
+</body>
+</html>

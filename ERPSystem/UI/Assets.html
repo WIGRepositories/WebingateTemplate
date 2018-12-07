@@ -1,0 +1,1038 @@
+﻿<!DOCTYPE html>
+<html lang="en" ng-app="myApp" ng-controller="myCtrl">
+<head>
+    <title>ERPSystem Equipment List</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="images/icons/favicon.ico">
+    <link rel="apple-touch-icon" href="images/icons/favicon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/icons/favicon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/icons/favicon-114x114.png">
+    <!--Loading bootstrap css-->
+    <link type="text/css" rel="stylesheet" href="vendors/font-awesome/css/font-awesome.min.css">
+    <link type="text/css" rel="stylesheet" href="vendors/bootstrap/css/bootstrap.min.css">
+    <!--LOADING STYLESHEET FOR PAGE-->
+    <!--Loading style vendors-->
+    <link type="text/css" rel="stylesheet" href="vendors/animate.css/animate.css">
+    <link type="text/css" rel="stylesheet" href="vendors/iCheck/skins/all.css">
+    <link rel="stylesheet" type="text/css" href="css/treasure-overlay-spinner.css">
+    <!--Loading style-->
+    <link type="text/css" rel="stylesheet" href="css/themes/Custom.css" id="theme-change" class="style-change color-change">
+    <link type="text/css" rel="stylesheet" href="css/style-responsive.css">
+    <style>
+
+    </style>
+</head>
+<body ng-init="GetAssetModels();">
+    <div>
+        <!--BEGIN BACK TO TOP--><a id="totop" href="#"><i class="fa fa-angle-up"></i></a><!--END BACK TO TOP--><!--BEGIN TOPBAR-->
+        <div id="header-topbar-option-demo" class="page-header-topbar">
+            <nav id="topbar" role="navigation" style="margin-bottom: 0;" data-step="3" class="navbar navbar-default navbar-static-top">
+                <div class="navbar-header">
+                    <button type="button" data-toggle="collapse" data-target=".sidebar-collapse" class="navbar-toggle"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
+                    <!--<a id="logo" href="index.html" class="navbar-brand"><span class="fa fa-rocket"></span><span class="logo-text">EES EM Portal</span><span style="display: none" class="logo-text-icon">µ</span></a>-->
+                </div>
+                <div class="topbar-main">
+                    <a id="menu-toggle" href="#" class="hidden-xs"><i class="fa fa-bars"></i></a>
+                    <ul class="nav navbar navbar-top-links navbar-right mbn">
+                        <li class="dropdown topbar-user">
+                            <a data-hover="dropdown" href="#" class="dropdown-toggle"><img src="images/user.jpg" alt="" class="img-responsive img-circle" />&nbsp;<span class="hidden-xs" ng-cloak>{{uname}}</span>&nbsp;<span class="caret"></span></a>
+                            <ul class="dropdown-menu dropdown-user pull-right">
+                                <!--<li><a href="Users.html" data-toggle="tooltip" data-placement="right" title="Configurable list of all users in the application"><i class="fa fa-user"></i>My Profile</a></li>
+                                <li class="divider"></li>-->
+                                <li ng-controller="logoutCtrl"><a href="#" ng-click="Logout();"><i class="fa fa-sign-out"></i>Log Out</a></li>
+                                <li><a href="https://account.activedirectory.windowsazure.com/ChangePassword.aspx"><i class="fa fa-key"></i>Change Password</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <!--END TOPBAR-->
+        <div id="wrapper">
+            <!--BEGIN SIDEBAR MENU-->
+            <nav id="sidebar" role="navigation" data-step="2" data-position="right" class="navbar-default navbar-static-side">
+                <div class="sidebar-collapse menu-scroll">
+                    <ul id="side-menu" class="nav">
+                        <li class="user-panel">
+                            <div class="thumb"><img src="images/user.jpg" alt="" class="img-circle" /></div>
+                            <div class="info">
+                                <p>{{uname}}</p>
+                                <ul class="list-inline list-unstyled">
+                                    <!--<li><a href="Users.html" data-hover="tooltip" title="Profile"><i class="fa fa-user"></i></a></li>-->
+                                    <li><a href="../login.html" data-hover="tooltip" title="Logout"><i class="fa fa-sign-out"></i></a></li>
+                                </ul>
+                            </div>
+                            <div class="clearfix"></div>
+                        </li>
+                        <li>
+                            <a href="index.html" data-toggle="tooltip" data-placement="right" title="Application Dashboard for Equipment, Types, and Jobs">
+                                <i class="fa fa-tachometer fa-fw">
+                                    <div class="icon-bg bg-orange"></div>
+                                </i><span class="menu-title">Dashboard</span>
+                            </a>
+                        </li>
+                        <li class="active">
+                            <a href="#">
+                                <i class="fa fa-cubes fa-fw">
+                                    <div class="icon-bg bg-pink"></div>
+                                </i><span class="menu-title">Equipment</span><span class="fa arrow"></span>
+                            </a>
+                            <ul class="nav nav-second-level">
+                                <li ng-hide="isSuperUser == 0">
+                                    <a href="AssetModels.html" data-toggle="tooltip" data-placement="right" title="Manage Equipment Type"><i class="fa fa-align-left"></i><span class="submenu-title">Equipment Type</span></a>
+                                </li>
+                                <li ng-hide="isSuperUser == 0">
+                                    <a href="AssetModelDetails.html" data-toggle="tooltip" data-placement="right" title="Manage Equipment Type model details"><i class="fa fa-cubes"></i><span class="submenu-title">Type Details</span></a>
+                                </li>
+                                <li class="active"><a href="Assets.html" data-toggle="tooltip" data-placement="right" title="Manage list of equipment across locations"><i class="fa fa-align-left"></i><span class="submenu-title">Equipments List</span></a></li>
+                                <!--<li><a href="AssetsView.html" data-toggle="tooltip" data-placement="right" title="Equipment Tree Views by location and asset type"><i class="fa fa-align-left"></i><span class="submenu-title">Equipments View</span></a></li>-->
+                                <li><a href="AssetDetails.html" data-toggle="tooltip" data-placement="right" title="Manage equipment details and documents"><i class="fa fa-cubes"></i><span class="submenu-title">Equipment Details</span></a></li>
+
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="fa fa-list fa-fw">
+                                    <div class="icon-bg bg-violet"></div>
+                                </i><span class="menu-title">Jobs</span><span class="fa arrow"></span>
+                            </a>
+                            <ul class="nav nav-second-level">
+                                <li><a href="JobsList.html" data-toggle="tooltip" data-placement="right" title="List of all active and pending jobs by location, status, or customer"><i class="fa fa-list fa-fw"></i><span class="submenu-title">Job List</span></a></li>
+                                <li><a href="JobDetails.html" data-toggle="tooltip" data-placement="right" title="Job specific details: Equipment, Personnel, 3rd Party, and Job Documents"><i class="fa fa-file-text-o"></i><span class="submenu-title">Job Details</span></a></li>
+                                <li><a href="CompletedJobList.html" data-toggle="tooltip" data-placement="right" title="Jobs marked as completed"><i class="fa fa-list fa-fw"></i><span class="submenu-title">Completed Jobs</span></a></li>
+                                <li><a href="JobPersonnel.html" data-toggle="tooltip" data-placement="right" title="Tree view of all people assigned to all jobs, by location, customer status"><i class="fa fa-file-text-o"></i><span class="submenu-title"></span>Job Personnel</a></li>
+                                <li><a href="JobEquipment.html" data-toggle="tooltip" data-placement="right" title="Tree view of all equipment assigned to all jobs, by location, customer status"><i class="fa fa-cubes"></i><span class="submenu-title"></span>Job Equipment</a></li>
+                                <li><a href="JobDocuments.html" data-toggle="tooltip" data-placement="right" title="Job specific documents"><i class="fa fa-cubes"></i><span class="submenu-title"></span>Job Documents</a></li>
+                                <!--<li><a href="Jobs.html"><i class="fa fa-exclamation"></i><span class="submenu-title"></span>Job Alerts</a></li>-->
+                                <!--<li><a href="Jobs.html"><i class="fa fa-upload"></i><span class="submenu-title">Job Notifications</span></a></li>-->
+                                <!--<li><a href="Jobs.html"><i class="fa fa-cloud-upload"></i><span class="submenu-title">Job Reports</span></a></li>-->
+                            </ul>
+                        </li>
+
+                        <li ng-hide="hidereports=1">
+                            <a href="#">
+                                <i class="fa fa-bar-chart-o fa-fw">
+                                    <div class="icon-bg bg-violet"></div>
+                                </i><span class="menu-title">Reports</span><span class="fa arrow"></span>
+                            </a>
+                            <ul class="nav nav-second-level">
+                                <li><a href="ReportsList.html" data-toggle="tooltip" data-placement="right" title="List of reports for the application"><i class="fa fa-file-text-o"></i><span class="submenu-title"></span>Reports List</a></li>
+                            </ul>
+                        </li>
+
+                        <li ng-hide="isSuperUser == 0">
+                            <a href="#">
+                                <i class="fa fa-group fa-fw">
+                                    <div class="icon-bg bg-red"></div>
+                                </i><span class="menu-title">Users & Roles</span><span class="fa arrow"></span>
+                            </a>
+                            <ul class="nav nav-second-level">
+                                <li><a href="UserDetails.html" data-toggle="tooltip" data-placement="right" title="User details for application"><i class="fa fa-user"></i><span class="submenu-title">User Details</span></a></li>
+                                <li><a href="Users.html" data-toggle="tooltip" data-placement="right" title="Configurable list of all users in the application"><i class="fa fa-user"></i><span class="submenu-title">Users List</span></a></li>
+                                <li><a href="UserRoles.html" data-toggle="tooltip" data-placement="right" title="Configurable list of all roles assigned to users in the application"><i class="fa fa-sitemap fa-fw"></i><span class="submenu-title">User Roles</span></a></li>
+
+                            </ul>
+                        </li>
+                        <!--<li>
+                            <a href="UI/#">
+                                <i class="fa fa-book fa-fw">
+                                    <div class="icon-bg bg-violet"></div>
+                                </i><span class="menu-title">Help</span><span class="fa arrow"></span>
+                            </a>
+                            <ul class="nav nav-second-level">
+                                <li><a href="UI/HelpResources.html"><i class="fa fa-columns"></i><span class="submenu-title"></span>Resources</a></li>
+                                <li><a href="UI/HelpSupport.html"><i class="fa fa-file-text-o"></i><span class="submenu-title"></span>Support</a></li>
+                                <li><a href="UI/HelpFAQs.html"><i class="fa fa-file-text-o"></i><span class="submenu-title"></span>FAQs</a></li>
+                            </ul>
+                        </li>-->
+                        <li>
+                            <a href="PPDocuments.html" data-toggle="tooltip" data-placement="right" title="Common document repository for documents across company.">
+                                <i class="fa fa-file-text-o">
+                                    <div class="icon-bg bg-orange"></div>
+                                </i><span class="menu-title">Procedure Documents</span>
+                            </a>
+                        </li>
+                        <li ng-hide="isSuperUser == 0">
+                            <a href="#">
+                                <i class="fa fa-edit fa-fw">
+                                    <div class="icon-bg bg-violet"></div>
+                                </i><span class="menu-title">Administration</span><span class="fa arrow"></span>
+                            </a>
+                            <ul class="nav nav-second-level">
+                                <li><a href="TypeGroups.html" data-toggle="tooltip" data-placement="right" title="Common groups used across application"><i class="fa fa-cubes"></i><span class="submenu-title"></span>Master Data Groups</a></li>
+                                <li><a href="ObjectTypes.html" data-toggle="tooltip" data-placement="right" title="Common objects used across application"><i class="fa fa-cubes"></i><span class="submenu-title"></span>Object Types</a></li>
+                                <li><a href="Locations.html" data-toggle="tooltip" data-placement="right" title="List of operational locations"><i class="fa fa-cubes"></i><span class="submenu-title"></span>Locations</a></li>
+                                <li><a href="Types.html" data-toggle="tooltip" data-placement="right" title="Common data used across application"><i class="fa fa-cubes"></i><span class="submenu-title"></span>Master Data</a></li>
+                                <li><a href="Roles.html" data-toggle="tooltip" data-placement="right" title="Roles for the application"><i class="fa fa-cubes"></i><span class="submenu-title"></span>Roles</a></li>
+                                <!--<li><a href="ThirdParty.html"><i class="fa fa-cubes"></i><span class="submenu-title"></span>Third Party Resources</a></li>-->
+                                <li><a href="Company.html" data-toggle="tooltip" data-placement="right" title="Company specific details"><i class="fa fa-file-text-o"></i><span class="submenu-title">Company Details</span></a></li>
+                                <!--<li><a href="CompanyRoles.html"><i class="fa fa-sitemap fa-fw"></i><span class="submenu-title">Company Roles</span></a></li>-->
+                                <li><a href="Customers.html" data-toggle="tooltip" data-placement="right" title="List of all customers"><i class="fa fa-group fa-fw"></i><span class="submenu-title">Customers</span></a></li>
+                                <li><a href="DataLoad.html" data-toggle="tooltip" data-placement="right" title="List of all customers"><i class=" fa fa-tachometer fa-fw"></i><span class="submenu-title">Data Load</span></a></li>
+                                <li><a href="Manufacturer.html" data-toggle="tooltip" data-placement="right" title="List of all Manufacturer"><i class=" fa fa-tachometer fa-fw"></i><span class="submenu-title">Manufacturer</span></a></li>
+                                <li><a href="MaintenanceVendors.html" data-toggle="tooltip" data-placement="right" title="List of all Maintenance Vendors"><i class=" fa fa-tachometer fa-fw"></i><span class="submenu-title">Maintenance Vendor</span></a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <!--END SIDEBAR MENU--><!--BEGIN CHAT FORM-->
+            <!--END CHAT FORM--><!--BEGIN PAGE WRAPPER-->
+            <!--<treasure-overlay-spinner active='spinner.active'>-->
+            <div id="page-wrapper">
+                <!--BEGIN TITLE & BREADCRUMB PAGE-->
+                <div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
+                    <div class="page-header pull-left">
+                        <div class="page-title">Equipment List</div>
+                    </div>
+                    <ol class="breadcrumb page-breadcrumb pull-right">
+                        <li><i class="fa fa-home"></i>&nbsp;<a href="index.html">Home</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+                        <li class="hidden"><a href="#">Dashboard</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+                        <li class="active">Dashboard</li>
+                    </ol>
+                    <div class="clearfix"></div>
+                </div>
+                <!--END TITLE & BREADCRUMB PAGE--><!--BEGIN CONTENT-->
+                <div class="page-content" id="assets-content" style="display:none">
+                    <div id="table-action" class="row">
+                        <div class="col-lg-12">
+                            <div id="tableactionTabContent" class="tab-content">
+                                <div id="table-table-tab" class="tab-pane fade in active">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="table-container">
+                                                <div class="row mbm">
+                                                    <div class="col-md-2" style="margin-left:-20px;">
+                                                        Location: <select ng-options="l.name for l in Locations track by l.id" ng-model="l" ng-change="testing();GetAssetsForModel()" style="width:70%">
+                                                            <option value="">All</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-2" style="margin-left:-80px;">
+                        Equipment Type: <select ng-options="s.name for s in Models track by s.id" ng-model="s" ng-change="testing();GetAssetsForModel()" style="width:70%">
+                                                            <option value="">All</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-2" style="margin-left:-30px;">
+                                                        Status: <select ng-options="tty.Name for tty in astatus track by tty.Id" ng-model="tty" style="width:70%" ng-change="testing();GetAssetsForModel()">
+                                                            <option value="">All</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-2" style="margin-left:-80px;">
+                                                        Locked: <select ng-model="ty" style="width:70%" ng-change="testing();GetAssetsForModel()">
+                                                            <option value="-1">All</option>
+                                                            <option value="1">Yes</option>
+                                                            <option value="0">No</option>
+                                                        </select>
+                                                    </div>
+                                                    <!--<div class="col-md-2 pull-right" style="text-align:right;">-->
+                                                    <button type="button" data-target="#Modal-header-new" data-toggle="modal" style="margin-bottom:-40px;" class="btn btn-info btn-sm" ng-click="setLocation();">New Equipment</button>
+                                                    <!--</div>-->
+
+                                                </div>
+                                            </div>
+                                            <table class="table table-bordered table-advanced tablesorter">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Name</th>
+                                                        <th>Status</th>
+                                                        <th>Locked</th>
+                                                        <th>Equipment Type</th>
+                                                        <th>Originating Office</th>
+                                                        <th>Current Location</th>
+                                                        <th>Assigned To Job</th>
+                                                        <th>Job Location</th>
+                                                        <th>Start Date</th>
+                                                        <th>Return Date</th>
+                                                        <th>Active</th>
+                                                        <th>Update</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr ng-repeat="a in assets" ng-style="(a.IsExpired == '1') ? {'background-color':'#F2DEDE'}:(a.IsExpired == '2') ?{'background-color':'#FCF8E3'}:''">
+                                                        <td><a href="AssetDetails.html?assetId={{a.ID}}"> <font color="blue"> <u class="ng-cloak"> {{a.Name}}</u></font></a></td>
+                                                        <!--<td><a href="#" ng-click="GotToAssetDetails(a.ID);"> <font color="blue"> <u class="ng-cloak"> {{a.Name}}</u></font></a></td>-->
+                                                        <!--<td><span style="background-color: DARKCYAN; "><font color="white"> {{a.AssetModel}}</font></span></td>-->
+                                                        <td>
+                                                            <select ng-options="ty.Name for ty in astatus track by ty.Id" ng-value="(a.StatusId == '' ||a.StatusId == null)? '-1':a.StatusId" ng-model="a.assetStatusId" style="width:80%" ng-change="stchange(a)">
+                                                                <option value="-1">Select</option>
+                                                            </select>
+                                                        </td>
+                                                        <td>
+                                                            <span ng-show="a.Locked=='1'" class="label label-red">Yes</span>
+                                                            <span ng-show="a.Locked=='0'" class="label label-success">No</span>
+                                                        </td>
+                                                        <td class="ng-cloak">{{a.AssetModel}}</td>
+                                                        <td class="ng-cloak">{{a.Location}}</td>
+                                                        <td class="ng-cloak">{{a.CurrLocation}}</td>
+                                                        <td class="ng-cloak"><a href="#" ng-click="GoToJobDetails(a.jid)"><font color="blue"> <u> {{a.Job}}</u></font></a></td>
+                                                        <td class="ng-cloak">{{a.JobLocation}}</td>
+                                                        <td class="ng-cloak">{{a.effectivedate | date:'MM-dd-yyyy'}}</td>
+                                                        <td class="ng-cloak">{{a.ReleaseDate | date:'MM-dd-yyyy'}}</td>
+                                                        <td class="ng-cloak"><input type="checkbox" class="icheckbox_minimal-grey activeCheckbox" ng-model="a.Active" ng-true-value="1" ng-false-value="0" disabled></td>
+                                                        <td>
+                                                            <button type="button" data-target="#Modal-header-primary" data-toggle="modal" class="btn btn-default btn-xs" ng-click="EditAsset(a)" ng-disabled="isSuperUser != 1 && CanCreate != 1">
+                                                                <i class="fa fa-edit"></i>&nbsp;
+                                                                Edit
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+
+                                            <div class="form-actions row" ng-show="assets.length>0">
+
+                                                <div class="col-md-5 grid">
+                                                    <div class="row">
+                                                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" ng-repeat="P in paggin" ng-model="assets">
+                                                            <div>	&nbsp;</div>
+                                                            <span style="border:1px solid darkgrey;padding:8px;"> Page: {{page}}/{{P.totalpages}} </span>
+                                                        </div>
+                                                        <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
+                                                            Page Entries:<select class="form-control" ng-model="selectedvalue" ng-change="GetAssetsForModel()">
+                                                                <option ng-value="10">10</option>
+                                                                <option ng-value="15">15</option>
+                                                                <option ng-value="25">25</option>
+                                                                <option ng-value="50">50</option>
+                                                                <option ng-value="100">100</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
+                                                            Go to Page:<select class="form-control" ng-options="s for s in jumptotalpages" ng-model="selectgoto" ng-change="GetAssetsForModel()"></select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div style="text-align: center; margin-top: -2px;" ng-repeat="P in paggin" ng-model="assets" class="col-lg-4">
+                                                    <button class="btn btn-info btn-lg" ng-click="GetAssetsForModel('P')" ng-disabled="page == 1">Prev page </button>
+                                                    <button class="btn btn-green btn-lg" ng-click="GetAssetsForModel('N')" ng-disabled="page == P.totalpages">Next page </button>
+
+                                                </div>
+                                                <div style="float:right;" ng-repeat="P in paggin" ng-model="assets" class="col-lg-3">
+
+                                                    <span class="pull-right" style="border:1px solid darkgrey;padding:5px;">Showing: {{firstvalue}}-{{secondvalue}} of {{P.recordcount}}</span>
+                                                </div>
+
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--END CONTENT--><!--BEGIN FOOTER-->
+                <div id="footer">
+                    <div class="copyright">2018 © ERPSystem</div>
+                </div>
+                <!--END FOOTER-->
+            </div>
+            <!--</treasure-overlay-spinner>-->
+            <!--END PAGE WRAPPER-->
+        </div>
+        <div id="Modal-header-new" tabindex="-1" role="dialog" aria-labelledby="modal-header-primary-label" aria-hidden="true" class="modal">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header modal-header-primary">
+                        <button type="button" data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
+                        <h4 id="modal-header-primary-label" class="modal-title">Add New Equipment</h4>
+                    </div>
+                    <div class="modal-body" ng-model="newAsset">
+                        <div class="row mbm">
+                            <div class="col-md-6">
+                                <label for="selCountry" class="col-md-4 control-label" style="color:red;">Serial Number:<span class='require'>*</span></label>
+                                <div class="col-md-8">
+                                    <input id="inputFirstName" type="text" ng-model="newAsset.Name" class="form-control" /><span class="help-block"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="selCountry" class="col-md-4 control-label" style="color:red;">Condition:<span class='require'>*</span></label>
+                                <div class="col-md-8">
+                                    <select ng-model="newAsset.Condition" class="form-control">
+                                        <option value="">Select</option>
+                                        <option value="1">New</option>
+                                        <option value="0">Used</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row mbm margt">
+                            <div class="col-md-6 ">
+                                <label for="selCountry" class="col-md-4 control-label" style="color:red;">Equipment Type:<span class='require'>*</span></label>
+                                <div class="col-md-8">
+                                    <select ng-options="l.name for l in Models1 track by l.id" class="form-control" ng-value="s.id" ng-model="newAssetModel">
+                                        <option value="">Select</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="selCountry" class="col-md-4 control-label">Location:</label>
+                                <div class="col-md-8">
+                                    <!--<select ng-options="nl.name for nl in Locations1 track by nl.id" class="form-control" ng-model="nl" ng-change="CheckCanCreate(nl.id)">
+                                        <option value="">Select</option>
+                                    </select>-->
+                                    <select ng-options="cul.name for cul in Locations1 track by cul.id" class="form-control" ng-model="newAsset.CurrLocation" ng-change="CheckCanCreate(cul.id)">
+                                        <option value="">Select</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mbm margt">
+                            <div class="col-md-6 ">
+                                <label for="selCountry" class="col-md-4 control-label" style="color:red;">Parent Equipment Type:<span class='require'>*</span></label>
+                                <div class="col-md-8">
+                                    <input type="text" ng-model="newAssetType" ng-value="newAssetModel.AssetType" class="form-control" disabled />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="Active" class="col-md-4 control-label">Location Date:</label>
+                                <div class="col-md-8">
+                                    <input type="date" ng-model="newAsset.LocationDate" class="form-control" />
+                                </div>
+                            </div>
+                            <!--<div class="col-md-6">
+                                <label for="selCountry" class="col-md-4 control-label">Cycle Count Date:<span class='require'></span></label>
+                                <div class="col-md-8">
+                                    <input type="date" ng-model="newAsset.CycleCountDate" class="form-control" />
+                                </div>
+                            </div>-->
+                        </div>
+                        <div class="row mbm margt">
+                            <div class="col-md-6">
+                                <label for="selCountry" class="col-md-4 control-label">Status:</label>
+                                <div class="col-md-8">
+                                    <select ng-options="tys.Name for tys in astatus track by tys.Id" ng-model="Status" class="form-control">
+                                        <option value="">Select</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="selCountry" class="col-md-4 control-label" style="color:red;">Purchase Cost:<span class='require'></span></label>
+                                <div class="col-md-8">
+                                    <input type="number" min="0" ng-model="newAsset.PurchaseCost" class="form-control" />
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row mbm margt">
+                            <div class="col-md-6">
+                                <label for="Active" class="col-md-4 control-label">Active:<span class='require'></span></label>
+                                <div class="col-md-8">
+                                    <input type="checkbox" class="form-control icheckbox_minimal-grey activeCheckbox" checked ng-model="newAsset.Active" ng-true-value="1" ng-false-value="0" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="selCountry" class="col-md-4 control-label" style="color:red;">Unit Price:<span class='require'>*</span></label>
+                                <div class="col-md-8">
+                                    <input type="number" min="0" ng-model="newAsset.UnitPrice" class="form-control" />
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row mbm margt">
+                            <div class="col-md-6">
+                                <label for="selCountry" class="col-md-4 control-label" style="color:red;">Description:<span class='require'>*</span></label>
+                                <div class="col-md-8">
+                                    <input id="Description" type="text" ng-model="newAsset.Description" class="form-control" /><span class="help-block"></span>
+                                </div>
+                            </div>
+
+                            <!--<div class="col-md-6">
+                                <label for="selCountry" class="col-md-4 control-label" style="color:red;">Job Rate:<span class='require'>*</span></label>
+                                <div class="col-md-8">
+                                    <input type="number" min="0" ng-model="newAsset.JobRate" class="form-control" />
+                                </div>
+                            </div>-->
+                            <!--<div class="col-md-6">
+                                <label for="selCountry" class="col-md-4 control-label">Lost/Damaged:<span class='require'></span></label>
+                                <div class="col-md-8">
+                                    <input type="text" ng-model="newAsset.Lost" class="form-control" />
+                                </div>
+                            </div>-->
+                            <div class="col-md-6">
+                                <label for="selCountry" class="col-md-4 control-label">Rental:</label>
+                                <div class="col-md-8">
+                                    <!--<input type="number" min="0" ng-model="newAsset.Rental" class="form-control" />-->
+                                    <select ng-model="newAsset.Rental" class="form-control" ng-change="Changerental()">
+                                        <option value="">No</option>
+                                        <option value="1">Yes</option>
+
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row mbm margt">
+
+                            <div class="col-md-6">
+                                <label ng-show="tt=='1'" style="color:red;" class="col-md-4 control-label">Material:<span ng-show="tt=='1'" style="color:red;">*</span></label>
+                                <label ng-show="tt=='' || tt==null" class="col-md-4 control-label">Material:<span ng-show="tt=='' || tt==null"></span></label>
+                                <div class="col-md-8">
+
+                                    <select ng-model="mtl" class="form-control" ng-options="mat.Name for mat in  materiallist track by mat.Id">
+                                        <option value="">Select</option>
+
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="selCountry" class="col-md-4 control-label" style="color:red;">Day Rate:<span class='require'>*</span></label>
+                                <div class="col-md-8">
+                                    <input type="number" min="0" ng-model="newAsset.DayRate" class="form-control" />
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row mbm margt">
+                            <div class="col-md-6">
+                                <label for="selCountry" class="col-md-4 control-label">Manufacturer:</label>
+                                <div class="col-md-8">
+                                    <select class="form-control" ng-options="man.Name for man in assets2 track by man.ID " ng-model="ManufactureId" style="width:100%;height:35px;">
+                                        <option value="">Select</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label ng-show="tt=='1'" style="color:red;" class="col-md-4 control-label">Rental Day Rate:<span ng-show="tt=='1'" style="color:red;">*</span></label>
+                                <label ng-show="tt=='' || tt==null" class="col-md-4 control-label">Rental Day Rate:<span ng-show="tt=='' || tt==null"></span></label>
+                                <div class="col-md-8">
+                                    <input type="number" min="0" ng-model="newAsset.JobRate" class="form-control" />
+                                </div>
+                            </div>
+                          
+                        </div>
+                        <div class="row mbm margt">
+                            <div class="col-md-6">
+                                <label for="selCountry" class="col-md-4 control-label" style="color:red;">Inspection Vendor:<span class='require'>*</span></label>
+                                <div class="col-md-8">
+                                    <select ng-options="tys.Name for tys in Typeinit track by tys.Id" ng-model="iv" class="form-control">
+                                        <option value="">Select</option>
+                                    </select>
+                                </div>
+                            </div>                            
+                            <div class="col-md-6">
+                                <label for="selCountry" class="col-md-4 control-label" style="color:red;">
+                                   Maintenance Vendor:<span class='require'>*</span>
+                                </label>
+                                <div class="col-md-8">
+                                    <select ng-options="tys.Name for tys in Typemain track by tys.Id" ng-model="mv" class="form-control">
+                                        <option value="">Select</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="row mbm margt">
+                            <div class="col-md-6">
+                                <label for="selCountry" class="col-md-4 control-label" style="color:red;">
+                                    Per Week Standby
+                                    Charge:<span class='require'>*</span>
+                                </label>
+                                <div class="col-md-8">
+                                    <input type="number" min="0" ng-model="newAsset.PerWeekStbyCharge" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="selCountry" class="col-md-4 control-label">Date Purchased:</label>
+                                <div class="col-md-8">
+                                    <input type="date" ng-model="newAsset.DatePurchased" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mbm margt">
+                            <div class="col-md-6">
+                                <label for="selCountry" class="col-md-4 control-label" style="color:red;">Redress Cost:<span class='require'>*</span></label>
+                                <div class="col-md-8">
+                                    <input type="number" min="0" ng-model="newAsset.RedressCost" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="selCountry" class="col-md-4 control-label" style="color:red;">Addl Charge:<span class='require'>*</span></label>
+                                <div class="col-md-8">
+                                    <input type="number" min="0" ng-model="newAsset.AdditionalDayRate" class="form-control" />
+                                </div>
+                            </div>
+                          
+                        </div>
+                        <div class="row mbm margt">
+
+                           
+                            
+                        </div>
+                        <!--<div class="row mbm margt" >
+                            <div class="col-md-6">
+                                <label for="selCountry" class="col-md-4 control-label">Date Sold:<span class='require'></span></label>
+                                <div class="col-md-8">
+                                    <input type="date" ng-model="newAsset.DateSold" class="form-control" />
+                                </div>
+                            </div>
+
+
+                        </div>-->
+                        <!--<div class="row mbm" style="margin-top:-20px;">
+                            <div class="col-md-6">
+                                <label for="selCountry" class="col-md-4 control-label" style="color:red;">Measurement :<span class='require'>*</span></label>
+                                <div class="col-md-8">
+                                    <input type="number" min="0" ng-model="newAsset.Measurement" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="selCountry" class="col-md-4 control-label">Job:<span class='require'></span></label>
+                                <div class="col-md-8">
+                                    <input type="text" ng-model="newAsset.JobId" class="form-control" />
+                                </div>
+                            </div>
+                        </div>-->
+                        <!--<div class="row mbm" style="margin-top:-20px;">-->
+                        <!--<div class="col-md-6">
+                            <label for="selCountry" class="col-md-4 control-label">Lost Damaged:<span class='require'></span></label>
+                            <div class="col-md-8">
+                                <input type="date" ng-model="newAsset.LostDamaged" class="form-control" />
+                            </div>
+                        </div>-->
+                        <!--<div class="col-md-6">
+                            <label for="selCountry" class="col-md-4 control-label" style="color:red;">Curr Location:<span class='require'>*</span></label>
+                            <div class="col-md-8">
+
+                                <select ng-options="cul.name for cul in Locations1 track by cul.id" class="form-control" ng-model="CurrLocation" ng-change="CheckCanCreate(cul.id)">
+                                    <option value="">Select</option>
+                                </select>
+                            </div>
+                        </div>-->
+                        <!--<div class="col-md-6">
+                            <label for="selCountry" class="col-md-4 control-label" style="color:red;">Price:<span class='require'>*</span></label>
+                            <div class="col-md-8">
+                                <input type="number" min="0" ng-model="newAsset.Price" class="form-control" />
+                            </div>
+                        </div>-->
+                    </div>
+
+                    <div class="row mbm" style="margin-top:-20px;">
+                        <div class="col-md-12">
+                            <label for="Description" class="col-md-1 control-label">Notes:<span class='require'></span></label>
+                            <div class="col-md-10 pull-right">
+                                <textarea id="inputProjDesc" rows="3" ng-model="newAsset.Notes" class="form-control"></textarea>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <div style="text-align:center">
+                            <button class="btn btn-primary" type="button" ng-click="saveNewAsset(newAsset,$event);">Save</button>
+                            <button type="button" data-dismiss="modal" class="btn btn-default">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="Modal-header-primary" tabindex="-1" role="dialog" aria-labelledby="modal-header-primary-label" aria-hidden="true" class="modal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header modal-header-primary">
+                    <button type="button" data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
+                    <h4 id="modal-header-primary-label" class="modal-title">Edit Equipment</h4>
+                </div>
+                <div class="modal-body" ng-model="currAsset">
+                    <div class="row mbm">
+                        <div class="col-md-6">
+                            <label for="Name" class="col-md-4 control-label" style="color:red;">Serial Number:<span class='require'>*</span></label>
+                            <div class="col-md-8">
+                                <input id="inputFirstName" type="text" ng-model="currAsset.Name" class="form-control" disabled /><span class="help-block"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="selCountry" class="col-md-4 control-label" style="color:red;">Condition:<span class='require'>*</span></label>
+                            <div class="col-md-8">
+                                <select ng-model="currAsset.Condition" class="form-control">
+                                    <option value="">Select</option>
+                                    <option value="1">New</option>
+                                    <option value="0">Used</option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row mbm margt">
+                        <div class="col-md-6">
+                            <label for="selCountry" class="col-md-4 control-label" style="color:red;">Equipment Type:<span class='require'>*</span></label>
+                            <div class="col-md-8">
+                                <!--<input type="text" ng-model="s" ng-value="s.name" disabled />-->
+                                <select ng-options="l.name for l in Models1 track by l.id" class="form-control" ng-value="currAsset.AssetModelId" ng-model="currAsset.AssetModel" disabled>
+                                    <option value="">Select</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="selCountry" class="col-md-4 control-label">Location:</label>
+                            <div class="col-md-8">
+                                <!--<input type="text" ng-model="s" ng-value="s.name" disabled />-->
+                                <!--<select ng-options="nl.name for nl in Locations1 track by nl.id" class="form-control" ng-model="nl" ng-value="currAsset.LocationId" ng-change="CheckCanCreate(nl.id)">
+                                    <option value="">Select</option>
+                                </select>-->
+                                <select ng-options="cul.name for cul in Locations1 track by cul.id" class="form-control" ng-model="currAsset.CurrLocationid" ng-change="CheckCanCreate(cul.id)">
+                                    <option value="">Select</option>
+                                </select>
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row mbm margt">
+                        <div class="col-md-6">
+                            <label for="selCountry" class="col-md-4 control-label" style="color:red;">Parent Equipment Type:<span class='require'>*</span></label>
+                            <div class="col-md-8">
+                                <input type="text" ng-model="currAsset.AssetType" ng-value="currAsset.AssetType" class="form-control" disabled />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="selCountry" class="col-md-4 control-label">Location Date:</label>
+                            <div class="col-md-8">
+                                <input type="date" ng-model="currAsset.LocationDate" class="form-control" />
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row mbm margt">
+                        <div class="col-md-6">
+                            <label for="selCountry" class="col-md-4 control-label">Status:<span class='require'></span></label>
+                            <div class="col-md-8">
+                                <select ng-options="tys.Name for tys in astatus track by tys.Id" ng-model="st" class="form-control">
+                                    <option value="">Select</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="selCountry" class="col-md-4 control-label" style="color:red;">Purchase Cost:<span class='require'>*</span></label>
+                            <div class="col-md-8">
+                                <input type="number" ng-model="currAsset.PurchaseCost" class="form-control" />
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row mbm margt">
+                        <div class="col-md-6">
+                            <label for="Active" class="col-md-4 control-label">Active:<span class='require'></span></label>
+                            <div class="col-md-8">
+                                <input type="checkbox" class="icheckbox_minimal-grey activeCheckbox"  ng-model="currAsset.Active" ng-checked="Active==1" ng-true-value="1" ng-false-value="0" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="selCountry" class="col-md-4 control-label" style="color:red;">Unit Price:<span class='require'>*</span></label>
+                            <div class="col-md-8">
+                                <input type="text" ng-model="currAsset.UnitPrice" class="form-control" />
+                            </div>
+                        </div>
+                        <!--<div class="col-md-6">
+                            <label for="selCountry" class="col-md-4 control-label" style="color:red;">Job Rate:<span class='require'>*</span></label>
+                            <div class="col-md-8">
+                                <input type="text" ng-model="currAsset.JobRate" class="form-control" />
+                            </div>
+                        </div>-->
+                    </div>
+                    <div class="row mbm margt">
+                        <div class="col-md-6">
+                            <label for="Description" class="col-md-4 control-label" style="color:red;"> Description: <span class='require'></span></label>
+                            <div class="col-md-8">
+                                <input id="Description" type="text" ng-model="currAsset.Description" class="form-control" /><span class="help-block"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6" ng-show="currAsset.AssetType=='Mills'||currAsset.AssetType=='Shoes'">
+                            <label for="selCountry" class="col-md-4 control-label" style="color:red;">Rental:<span class='require' style="color:red;">*</span></label>
+                            <div class="col-md-8">
+                                <!--<input type="text" ng-model="currAsset.Rental" class="form-control" />-->
+                                <select ng-model="currAsset.Rental" class="form-control" ng-change="Changerentall()">
+                                    <option value="">No</option>
+                                    <option value="1">Yes</option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row mbm margt">
+                        <div class="col-md-6"  ng-show="currAsset.AssetType=='Mills'||currAsset.AssetType=='Shoes'">
+                            <label class="col-md-4 control-label" ng-show="ttt=='1'" style="color:red;">Material:<span ng-show="ttt=='1'" style="color:red;">*</span></label>
+                            <label class="col-md-4 control-label" ng-show="ttt=='0' || ttt==''">Material:<span ng-show="ttt=='0' || ttt==''"></span></label>
+                            <div class="col-md-8">
+                                <select ng-model="mtl" class="form-control" ng-options="mat.Name for mat in  materiallist track by mat.Id">
+                                    <option value="">Select</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="selCountry" class="col-md-4 control-label" style="color:red;">Day Rate:<span class='require'>*</span></label>
+                            <div class="col-md-8">
+                                <input type="text" ng-model="currAsset.DayRate" class="form-control" />
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row mbm margt">
+                        <div class="col-md-6">
+                            <label for="selCountry" class="col-md-4 control-label">Manufacturer:</label>
+                            <div class="col-md-8">
+                                <select class="form-control" ng-options="man.Name for man in assets2 track by man.ID " ng-model="mm" style="width:100%;height:35px;">
+                                    <option value="">Select</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label ng-show="ttt=='1'" style="color:red;" class="col-md-4 control-label">Rental Day Rate:<span ng-show="ttt=='1'" style="color:red;">*</span></label>
+                            <label ng-show="ttt=='0' || ttt==''" class="col-md-4 control-label">Rental Day Rate:<span ng-show="ttt=='0' || ttt==''"></span></label>
+                            <div class="col-md-8">
+                                <input type="number" min="0" ng-model="currAsset.RentalDayRate" class="form-control" />
+                            </div>
+
+
+
+
+                            <!--<div class="col-md-6">
+                                <label for="selCountry" class="col-md-4 control-label">Lost/LIH/Damaged:<span class='require'></span></label>
+                                <div class="col-md-8">
+                                    <input type="text" ng-model="currAsset.LostLIHDamaged" class="form-control" />
+                                </div>
+                            </div>-->
+                        </div>
+                    </div>
+                    <div class="row mbm margt">
+                        <div class="col-md-6">
+                            <label for="selCountry" class="col-md-4 control-label" style="color:red;">Inspection Vendor:<span class='require'>*</span></label>
+                                <div class="col-md-8">
+                                    <select ng-options="tys.Name for tys in Typeinit track by tys.Id" ng-model="iv" class="form-control">
+                                        <option value="">Select</option>
+                                    </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="selCountry" class="col-md-4 control-label" style="color:red;">Additional Day Rate:<span class='require'>*</span></label>
+                            <div class="col-md-8">
+                                <input type="text" ng-model="currAsset.AdditionalDayRate" class="form-control" />
+                            </div>
+                        </div>
+                        
+
+                    </div>
+                    <div class="row mbm margt">
+                        <div class="col-md-6">
+                            <label for="selCountry" class="col-md-4 control-label" style="color:red;">
+                                Maintenance Vendor:<span class='require'>*</span>
+                            </label>
+                            <div class="col-md-8">
+                                <select ng-options="tys.Name for tys in Typemain track by tys.Id" ng-model="mv" class="form-control">
+                                    <option value="">Select</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="selCountry" class="col-md-4 control-label" style="color:red;">
+                                Per Week Standby
+                                Charge:<span class='require'>*</span>
+                            </label>
+                            <div class="col-md-8">
+                                <input type="text" ng-model="currAsset.PerWeekStbyCharge" class="form-control" />
+                            </div>
+                        </div>
+
+                        
+                        </div>
+                    <div class="row mbm margt">
+                        <div class="col-md-6">
+                            <label for="selCountry" class="col-md-4 control-label">Date Purchased:<span class='require'></span></label>
+                            <div class="col-md-8">
+                                <input type="date" ng-model="currAsset.DatePurchased" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="selCountry" class="col-md-4 control-label" style="color:red;">Redress Cost:<span class='require'>*</span></label>
+                            <div class="col-md-8">
+                                <input type="text" ng-model="currAsset.RedressCost" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mbm margt">
+
+                        <div class="col-md-6">
+                            <label for="selCountry" class="col-md-4 control-label">Date Sold:<span class='require'></span></label>
+                            <div class="col-md-8">
+                                <input type="date" ng-model="currAsset.DateSold" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="selCountry" class="col-md-4 control-label">Lost Damaged:<span class='require'></span></label>
+                            <div class="col-md-8">
+                                <input type="date" ng-model="currAsset.LostDamaged" class="form-control" />
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row mbm margt">
+                        <div class="col-md-6">
+                            <label for="selCountry" class="col-md-4 control-label">Lost/LIH/Damaged Date:<span class='require'></span></label>
+                            <div class="col-md-8">
+                                <input type="date" ng-model="currAsset.Lost" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="selCountry" class="col-md-4 control-label">Cycle Count Date:<span class='require'></span></label>
+                            <div class="col-md-8">
+                                <input type="date" ng-model="currAsset.CycleCountDate" class="form-control" />
+                            </div>
+                        </div>
+
+                    </div>
+                    <!--<div class="row mbm" style="margin-top:-20px;">
+                        <div class="col-md-6">
+                            <label for="selCountry" class="col-md-4 control-label">Job:<span class='require'></span></label>
+                            <div class="col-md-8">
+                                <input type="text" ng-model="currAsset.JobId" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="selCountry" class="col-md-4 control-label" style="color:red;">Price:<span class='require'>*</span></label>
+                            <div class="col-md-8">
+                                <input type="text" ng-model="currAsset.Price" class="form-control" />
+                            </div>
+                        </div>
+                    </div>-->
+                    <!--<div class="row mbm margt" >-->
+                    <!--<div class="col-md-6">
+                        <label for="selCountry" class="col-md-4 control-label" style="color:red;">Curr Location:<span class='require'>*</span></label>
+                        <div class="col-md-8">
+                            <select ng-options="cul.name for cul in Locations1 track by cul.id" class="form-control" ng-model="currAsset.CurrLocation" ng-change="CheckCanCreate(cul.id)">
+                                <option value="">Select</option>
+                            </select>
+                        </div>
+                    </div>-->
+                    <!--<div class="col-md-6">
+                        <label for="selCountry" class="col-md-4 control-label">Customer:<span class='require'></span></label>
+                        <div class="col-md-8">
+                            <select ng-options="jc.Client for jc in Customers track by jc.Id" ng-model="jc" ng-value="jc.Id" style="width:100%" class="form-control">
+                                <option value="">Select</option>
+                            </select>
+                        </div>
+                    </div>-->
+                    <!--</div>-->
+
+                    <div class="row mbm" style="margin-top:-20px;">
+
+                        <!--<div class="col-md-6">
+                            <label for="selCountry" class="col-md-4 control-label" style="color:red;">Measurement :<span class='require'>*</span></label>
+                            <div class="col-md-8">
+                                <input type="number" min="0" ng-model="newAsset.Measurement" class="form-control" />
+                            </div>
+                        </div>-->
+                        <!--<div class="col-md-6">
+                            <label for="selCountry" class="col-md-4 control-label">Lost/LIH/Damaged:<span class='require'></span></label>
+                            <div class="col-md-8">
+                                <input type="text" ng-model="currAsset.LostLIHDamaged" class="form-control" />
+                            </div>
+                        </div>-->
+                    </div>
+                    <div class="row mbm" style="margin-top:-20px;">
+                        <div class="col-md-12">
+                            <label for="Description" class="col-md-1 control-label">Notes:<span class='require'></span></label>
+                            <div class="col-md-10 pull-right">
+                                <textarea id="inputProjDesc" rows="3" ng-model="currAsset.Notes" class="form-control"></textarea>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row mbm" style="margin-top:-20px;">
+
+                    </div>
+
+                </div>
+
+                <div class="form-actions">
+                    <div style="text-align:center">
+                        <button class="btn btn-primary" type="button"  ng-click="saveAsset(currAsset,'U',$event);" ng-disabled="isSuperUser == 0 && CanCreate == 0">Save</button>
+                        <button type="button" data-dismiss="modal" class="btn btn-default">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/ng-template" id="myModalContent.html" data-backdrop="static">
+        <div class="modal-header">
+            <h3 class="modal-title">Save confirmation!</h3>
+        </div>
+        <div class="modal-body">
+            <!--<ul>
+                <li ng-repeat="item in items">
+                    <a href="#" ng-click="$event.preventDefault(); selected.item = item">{{ item }}</a>
+                </li>
+            </ul>
+            Selected: <b>{{ selected.item }}</b>-->
+            {{mssg}}
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+            <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
+
+    <script type="text/ng-template" id="myModalContent1.html" data-backdrop="static">
+        <div class="modal-header">
+            <h3 class="modal-title">Correction required!</h3>
+        </div>
+        <div class="modal-body">
+            <!--<ul>
+                <li ng-repeat="item in items">
+                    <a href="#" ng-click="$event.preventDefault(); selected.item = item">{{ item }}</a>
+                </li>
+            </ul>
+            Selected: <b>{{ selected.item }}</b>-->
+            {{mssg}}
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+            <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
+
+    <script src="js/jquery-1.10.2.min.js"></script>
+    <script src="js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="js/jquery-ui.js"></script>
+    <!--loading bootstrap js-->
+    <script src="vendors/bootstrap/js/bootstrap.min.js"></script>
+    <script src="vendors/bootstrap-hover-dropdown/bootstrap-hover-dropdown.js"></script>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <script src="vendors/metisMenu/jquery.metisMenu.js"></script>
+    <script src="vendors/slimScroll/jquery.slimscroll.js"></script>
+    <script src="vendors/jquery-cookie/jquery.cookie.js"></script>
+    <script src="vendors/iCheck/icheck.min.js"></script>
+    <script src="vendors/iCheck/custom.min.js"></script>
+    <script src="vendors/jquery-news-ticker/jquery.news-ticker.js"></script>
+    <script src="js/jquery.menu.js"></script>
+    <script src="vendors/jquery-pace/pace.min.js"></script>
+    <script src="vendors/holder/holder.js"></script>
+    <script src="vendors/responsive-tabs/responsive-tabs.js"></script>
+    <!--LOADING SCRIPTS FOR PAGE-->
+    <script src="js/index.js"></script>
+    <!--CORE JAVASCRIPT-->
+    <script src="js/main.js"></script>
+    <script src="js/angular.js"></script>
+    <script src="js/ui-bootstrap-tpls-1.3.3.js"></script>
+    <script src="js/ngStorage.js"></script>
+    <!--<script src="js/TreeView/nd.js"></script>-->
+    <script src="js/Assets.js"></script>
+    <script src="js/adal.js"></script>
+    <script src="js/adal-angular.js"></script>
+    <script src="js/AdalCommon.js"></script>
+    <script src="js/angular-animate.js"></script>
+    <script src="js/treasure-overlay-spinner.js"></script>
+    <!-- AI CORE JAVASCRIPT -->
+    <script src="/scripts/cloud.common.js"></script>
+
+</body>
+</html>

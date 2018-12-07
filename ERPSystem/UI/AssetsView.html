@@ -1,0 +1,368 @@
+﻿<!DOCTYPE html>
+<html lang="en" ng-app="myApp" ng-controller="myCtrl">
+<head>
+    <title>ERPSystem Equipments</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="images/icons/favicon.ico">
+    <link rel="apple-touch-icon" href="images/icons/favicon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/icons/favicon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/icons/favicon-114x114.png">
+    <!--Loading bootstrap css-->
+    <link type="text/css" rel="stylesheet" href="vendors/font-awesome/css/font-awesome.min.css">
+    <link type="text/css" rel="stylesheet" href="vendors/bootstrap/css/bootstrap.min.css">
+    <!--LOADING STYLESHEET FOR PAGE-->
+    <!--Loading style vendors-->
+    <link type="text/css" rel="stylesheet" href="vendors/animate.css/animate.css">
+    <link type="text/css" rel="stylesheet" href="vendors/iCheck/skins/all.css">
+    <link rel="stylesheet" type="text/css" href="css/treasure-overlay-spinner.css">
+    <link type="text/css" rel="stylesheet" href="vendors/jstree/dist/themes/default/style.min.css">
+    <link type="text/css" rel="stylesheet" href="vendors/jquery-treetable/stylesheets/jquery.treetable.css">
+    <link type="text/css" rel="stylesheet" href="vendors/jquery-treetable/stylesheets/jquery.treetable.theme.custom.css">
+    <!--Loading style-->
+    <link type="text/css" rel="stylesheet" href="css/themes/Custom.css" id="theme-change" class="style-change color-change">
+    <link type="text/css" rel="stylesheet" href="css/style-responsive.css">
+</head>
+<body ng-init="GetAssetModels();">
+    <div>
+        <!--BEGIN BACK TO TOP--><a id="totop" href="#"><i class="fa fa-angle-up"></i></a><!--END BACK TO TOP--><!--BEGIN TOPBAR-->
+        <div id="header-topbar-option-demo" class="page-header-topbar">
+            <nav id="topbar" role="navigation" style="margin-bottom: 0;" data-step="3" class="navbar navbar-default navbar-static-top">
+                <div class="navbar-header">
+                    <button type="button" data-toggle="collapse" data-target=".sidebar-collapse" class="navbar-toggle"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
+                    <!--<a id="logo" href="index.html" class="navbar-brand"><span class="fa fa-rocket"></span><span class="logo-text">EES EM Portal</span><span style="display: none" class="logo-text-icon">µ</span></a>-->
+                </div>
+                <div class="topbar-main">
+                    <a id="menu-toggle" href="#" class="hidden-xs"><i class="fa fa-bars"></i></a>
+                    <ul class="nav navbar navbar-top-links navbar-right mbn">
+                        <li class="dropdown topbar-user">
+                            <a data-hover="dropdown" href="#" class="dropdown-toggle"><img src="images/user.jpg" alt="" class="img-responsive img-circle" />&nbsp;<span class="hidden-xs">{{uname}}</span>&nbsp;<span class="caret"></span></a>
+                            <ul class="dropdown-menu dropdown-user pull-right">
+                                <!--<li><a href="Users.html" data-toggle="tooltip" data-placement="right" title="Configurable list of all users in the application"><i class="fa fa-user"></i>My Profile</a></li>
+                                <li class="divider"></li>-->
+                                <li ng-controller="logoutCtrl"><a href="#" ng-click="Logout();"><i class="fa fa-sign-out"></i>Log Out</a></li>
+                                <li><a href="https://account.activedirectory.windowsazure.com/ChangePassword.aspx"><i class="fa fa-key"></i>Change Password</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <!--END TOPBAR-->
+        <div id="wrapper">
+            <!--BEGIN SIDEBAR MENU-->
+            <nav id="sidebar" role="navigation" data-step="2" data-position="right" class="navbar-default navbar-static-side">
+                <div class="sidebar-collapse menu-scroll">
+                    <ul id="side-menu" class="nav">
+                        <li class="user-panel">
+                            <div class="thumb"><img src="images/user.jpg" alt="" class="img-circle" /></div>
+                            <div class="info">
+                                <p>{{uname}}</p>
+                                <ul class="list-inline list-unstyled">
+                                    <!--<li><a href="Users.html" data-hover="tooltip" title="Profile"><i class="fa fa-user"></i></a></li>-->
+                                    <li><a href="../login.html" data-hover="tooltip" title="Logout"><i class="fa fa-sign-out"></i></a></li>
+                                </ul>
+                            </div>
+                            <div class="clearfix"></div>
+                        </li>
+                        <li>
+                            <a href="index.html" data-toggle="tooltip" data-placement="right" title="Application Dashboard for Equipment, Types, and Jobs">
+                                <i class="fa fa-tachometer fa-fw">
+                                    <div class="icon-bg bg-orange"></div>
+                                </i><span class="menu-title">Dashboard</span>
+                            </a>
+                        </li>
+                        <li class="active">
+                            <a href="#">
+                                <i class="fa fa-cubes fa-fw">
+                                    <div class="icon-bg bg-pink"></div>
+                                </i><span class="menu-title">Equipment</span><span class="fa arrow"></span>
+                            </a>
+                            <ul class="nav nav-second-level">
+                                <li ng-hide="isSuperUser == 0">
+                                    <a href="AssetModels.html" data-toggle="tooltip" data-placement="right" title="Manage Equipment Type"><i class="fa fa-align-left"></i><span class="submenu-title">Equipment Type</span></a>
+                                </li>
+                                <li ng-hide="isSuperUser == 0">
+                                    <a href="AssetModelDetails.html" data-toggle="tooltip" data-placement="right" title="Manage Equipment Type model details"><i class="fa fa-cubes"></i><span class="submenu-title">Type Details</span></a>
+                                </li>
+                                <li><a href="Assets.html" data-toggle="tooltip" data-placement="right" title="Manage list of equipment across locations"><i class="fa fa-align-left"></i><span class="submenu-title">Equipments List</span></a></li>
+                                <li class="active"><a href="AssetsView.html" data-toggle="tooltip" data-placement="right" title="Equipment Tree Views by location and asset type"><i class="fa fa-align-left"></i><span class="submenu-title">Equipments View</span></a></li>
+                                <li><a href="AssetDetails.html" data-toggle="tooltip" data-placement="right" title="Manage equipment details and documents"><i class="fa fa-cubes"></i><span class="submenu-title">Equipment Details</span></a></li>
+
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="fa fa-list fa-fw">
+                                    <div class="icon-bg bg-violet"></div>
+                                </i><span class="menu-title">Jobs</span><span class="fa arrow"></span>
+                            </a>
+                            <ul class="nav nav-second-level">
+                                <li><a href="JobsList.html" data-toggle="tooltip" data-placement="right" title="List of all active and pending jobs by location, status, or customer"><i class="fa fa-list fa-fw"></i><span class="submenu-title">Job List</span></a></li>
+                                <li><a href="JobDetails.html" data-toggle="tooltip" data-placement="right" title="Job specific details: Equipment, Personnel, 3rd Party, and Job Documents"><i class="fa fa-file-text-o"></i><span class="submenu-title">Job Details</span></a></li>
+                                <li><a href="CompletedJobList.html" data-toggle="tooltip" data-placement="right" title="Jobs marked as completed"><i class="fa fa-list fa-fw"></i><span class="submenu-title">Completed Jobs</span></a></li>
+                                <li><a href="JobPersonnel.html" data-toggle="tooltip" data-placement="right" title="Tree view of all people assigned to all jobs, by location, customer status"><i class="fa fa-file-text-o"></i><span class="submenu-title"></span>Job Personnel</a></li>
+                                <li><a href="JobEquipment.html" data-toggle="tooltip" data-placement="right" title="Tree view of all equipment assigned to all jobs, by location, customer status"><i class="fa fa-cubes"></i><span class="submenu-title"></span>Job Equipment</a></li>
+                                <li><a href="JobDocuments.html" data-toggle="tooltip" data-placement="right" title="Job specific documents"><i class="fa fa-cubes"></i><span class="submenu-title"></span>Job Documents</a></li>
+                                <!--<li><a href="Jobs.html"><i class="fa fa-exclamation"></i><span class="submenu-title"></span>Job Alerts</a></li>-->
+                                <!--<li><a href="Jobs.html"><i class="fa fa-upload"></i><span class="submenu-title">Job Notifications</span></a></li>-->
+                                <!--<li><a href="Jobs.html"><i class="fa fa-cloud-upload"></i><span class="submenu-title">Job Reports</span></a></li>-->
+                            </ul>
+                        </li>
+
+                        <li ng-hide="hidereports=1">
+                            <a href="#">
+                                <i class="fa fa-bar-chart-o fa-fw">
+                                    <div class="icon-bg bg-violet"></div>
+                                </i><span class="menu-title">Reports</span><span class="fa arrow"></span>
+                            </a>
+                            <ul class="nav nav-second-level">
+                                <li><a href="ReportsList.html" data-toggle="tooltip" data-placement="right" title="List of reports for the application"><i class="fa fa-file-text-o"></i><span class="submenu-title"></span>Reports List</a></li>
+                            </ul>
+                        </li>
+                        <li ng-hide="isSuperUser == 0">
+                            <a href="#">
+                                <i class="fa fa-group fa-fw">
+                                    <div class="icon-bg bg-red"></div>
+                                </i><span class="menu-title">Users & Roles</span><span class="fa arrow"></span>
+                            </a>
+                            <ul class="nav nav-second-level">
+                                <li><a href="UserDetails.html" data-toggle="tooltip" data-placement="right" title="User details for application"><i class="fa fa-user"></i><span class="submenu-title">User Details</span></a></li>
+                                <li><a href="Users.html" data-toggle="tooltip" data-placement="right" title="Configurable list of all users in the application"><i class="fa fa-user"></i><span class="submenu-title">Users List</span></a></li>
+                                <li><a href="UserRoles.html" data-toggle="tooltip" data-placement="right" title="Configurable list of all roles assigned to users in the application"><i class="fa fa-sitemap fa-fw"></i><span class="submenu-title">User Roles</span></a></li>
+
+                            </ul>
+                        </li>
+                        <!--<li>
+                            <a href="UI/#">
+                                <i class="fa fa-book fa-fw">
+                                    <div class="icon-bg bg-violet"></div>
+                                </i><span class="menu-title">Help</span><span class="fa arrow"></span>
+                            </a>
+                            <ul class="nav nav-second-level">
+                                <li><a href="UI/HelpResources.html"><i class="fa fa-columns"></i><span class="submenu-title"></span>Resources</a></li>
+                                <li><a href="UI/HelpSupport.html"><i class="fa fa-file-text-o"></i><span class="submenu-title"></span>Support</a></li>
+                                <li><a href="UI/HelpFAQs.html"><i class="fa fa-file-text-o"></i><span class="submenu-title"></span>FAQs</a></li>
+                            </ul>
+                        </li>-->
+                        <li>
+                            <a href="PPDocuments.html" data-toggle="tooltip" data-placement="right" title="Common document repository for documents across company.">
+                                <i class="fa fa-file-text-o">
+                                    <div class="icon-bg bg-orange"></div>
+                                </i><span class="menu-title">Procedure Documents</span>
+                            </a>
+                        </li>
+                        <li ng-hide="isSuperUser == 0">
+                            <a href="#">
+                                <i class="fa fa-edit fa-fw">
+                                    <div class="icon-bg bg-violet"></div>
+                                </i><span class="menu-title">Administration</span><span class="fa arrow"></span>
+                            </a>
+                            <ul class="nav nav-second-level">
+                                <li><a href="TypeGroups.html" data-toggle="tooltip" data-placement="right" title="Common groups used across application"><i class="fa fa-cubes"></i><span class="submenu-title"></span>Master Data Groups</a></li>
+                                <li><a href="ObjectTypes.html" data-toggle="tooltip" data-placement="right" title="Common objects used across application"><i class="fa fa-cubes"></i><span class="submenu-title"></span>Object Types</a></li>
+                                <li><a href="Locations.html" data-toggle="tooltip" data-placement="right" title="List of operational locations"><i class="fa fa-cubes"></i><span class="submenu-title"></span>Locations</a></li>
+                                <li><a href="Types.html" data-toggle="tooltip" data-placement="right" title="Common data used across application"><i class="fa fa-cubes"></i><span class="submenu-title"></span>Master Data</a></li>
+                                <li><a href="Roles.html" data-toggle="tooltip" data-placement="right" title="Roles for the application"><i class="fa fa-cubes"></i><span class="submenu-title"></span>Roles</a></li>
+                                <!--<li><a href="ThirdParty.html"><i class="fa fa-cubes"></i><span class="submenu-title"></span>Third Party Resources</a></li>-->
+                                <li><a href="Company.html" data-toggle="tooltip" data-placement="right" title="Company specific details"><i class="fa fa-file-text-o"></i><span class="submenu-title">Company Details</span></a></li>
+                                <!--<li><a href="CompanyRoles.html"><i class="fa fa-sitemap fa-fw"></i><span class="submenu-title">Company Roles</span></a></li>-->
+                                <li><a href="Customers.html" data-toggle="tooltip" data-placement="right" title="List of all customers"><i class="fa fa-group fa-fw"></i><span class="submenu-title">Customers</span></a></li>
+                                <li><a href="DataLoad.html" data-toggle="tooltip" data-placement="right" title="List of all customers"><i class=" fa fa-tachometer fa-fw"></i><span class="submenu-title">Data Load</span></a></li>
+                                <li><a href="Manufacturer.html" data-toggle="tooltip" data-placement="right" title="List of all Manufacturer"><i class=" fa fa-tachometer fa-fw"></i><span class="submenu-title">Manufacturer</span></a></li>
+                                <li><a href="MaintenanceVendors.html" data-toggle="tooltip" data-placement="right" title="List of all Maintenance Vendors"><i class=" fa fa-tachometer fa-fw"></i><span class="submenu-title">Maintenance Vendor</span></a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <!--END SIDEBAR MENU--><!--BEGIN CHAT FORM-->
+            <!--END CHAT FORM--><!--BEGIN PAGE WRAPPER-->
+          
+                <div id="page-wrapper">
+                    <!--BEGIN TITLE & BREADCRUMB PAGE-->
+                    <div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
+                        <div class="page-header pull-left">
+                            <div class="page-title">Equipment List</div>
+                        </div>
+                        <ol class="breadcrumb page-breadcrumb pull-right">
+                            <li><i class="fa fa-home"></i>&nbsp;<a href="index.html">Home</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+                            <li class="hidden"><a href="#">Dashboard</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+                            <li class="active">Dashboard</li>
+                        </ol>
+                        <div class="clearfix"></div>
+                    </div>
+                    <!--END TITLE & BREADCRUMB PAGE--><!--BEGIN CONTENT-->
+                    <div class="page-content" id="assetsview-content" style="display:none;">
+                        <div id="table-action" class="row">
+                            <div class="col-lg-12">
+                                <div id="tableactionTabContent" class="tab-content">
+                                    <div id="table-table-tab" class="tab-pane fade in active">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="table-container">
+                                                    <div class="row mbm">
+                                                        <!--<div class="col-md-2 pull-left" style="text-align:left">
+                                                            <button ng-disabled="isSuperUser == 0" type="button" data-target="#Modal-header-new" data-toggle="modal" class="btn btn-info btn-sm" ng-click="setLocation();">New Equipment</button>
+                                                        </div>-->
+                                                        <div class="col-md-4">
+                                                            Location: <select ng-options="l.name for l in Locations track by l.id" ng-model="l" ng-change="GetAllAssetsWithDocs()" style="width:80%">
+                                                                <option value="">All</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            Equipment Type: <select ng-options="s.name for s in Models track by s.id" ng-model="s" ng-change="GetAllAssetsWithDocs()" style="width:80%">
+                                                                <option value="">All</option>
+                                                            </select>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            
+                                                    <div id="treetable-tab" class="tab-pane fade in active">
+                                                        <div class="row mbl">
+                                                            <div class="col-lg-12">
+                                                              
+                                                                    <h4>List of all equipments and their Sub-Assets </h4>
+                                                                    <table id="example-advanced">
+                                                                        <!--<caption class="mbl mtl"><a href="#" onclick="jQuery('#example-advanced').treetable('expandAll'); return false;">Expand all</a>&nbsp; | &nbsp;<a href="#" onclick="jQuery('#example-advanced').treetable('collapseAll'); return false;">Collapse all</a></caption>-->
+                                                                        <thead>
+                                                                            <tr ng-hide="assetsWithDocs.length == 0">
+                                                                                <th>Equipment Name</th>
+                                                                                <th>Type</th>
+                                                                                <th>Originating Office</th>
+                                                                                <th>Current Location</th>
+                                                                                <th>Assigned To Job</th>
+                                                                                <th>Job Location</th>
+                                                                                <th>Expiry Date</th>
+                                                                                <th>Return Date</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <!---->
+                                                                            <tr ng-repeat="a in assetsWithDocs" data-tt-id="{{a.ID}}" data-tt-parent-id="{{a.ParentId}}" on-finish-render
+                                                                                ng-style="(a.IsExpired == '1') ? {'background-color':'#F2DEDE'}:(a.IsExpired == '2') ?{'background-color':'#FCF8E3'}:''">
+                                                                                <td>
+                                                                                    <span ng-if="a.isDoc == 0" class="folder">
+                                                                                    <!--<a href="AssetDetails.html?assetId={{a.ID}}"><font color="blue"> <u>{{a.Name}}</u></font></a>-->
+                                                                                        <a href="#" ng-click="GotToAssetDetails(a.ID);"><font color="blue"> <u>{{a.Name}}</u></font></a>
+                                                                                    </span>
+                                                                                    <span ng-if="a.isDoc == 1" class="file"><a href="#" ng-click="GetFileContent(a)"><font color="blue"> <u>{{a.Name}}</u></font></a></span>
+                                                                                </td>
+                                                                                <td>{{a.eType}}</td>
+                                                                                <td>{{a.location}}</td>
+                                                                                <td>{{a.CurrLocation}}</td>
+                                                                                <td><a href="#" ng-click="GoToJobDetails(a.jid)"><font color="blue"> <u> {{a.JobID}}</u></font></a></td>
+                                                                                <td>{{a.JobLocation}}</td>
+                                                                                <td><span ng-if="a.isDoc == 1">{{a.ExpiryDate | date:'MM-dd-yyyy' }}</span></td>
+                                                                                <td>{{a.ReturnDate}}</td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                               
+                                                                    <div ng-repeat="P in assetssvie" ng-model="assetsWithDocs" class="form-actions" ng-show="assetsWithDocs.length>0">
+                                                                        <div style="margin-top: -10px; margin-left: 10px">
+                                                                            {{page}} of {{P.totalpages}} pages
+                                                                        </div>
+                                                                        <div style="text-align: center; margin-top: -15px;">
+                                                                            <button type="button" class="btn btn-green btn-lg" ng-click="GetAllAssetsWithDocs('p')" ng-disabled="page == 1">
+                                                                                <!--<span class="glyphicon glyphicon-chevron-left"></span>--> Prev page
+                                                                            </button>
+                                                                            <!--<button class="btn btn-primary btn-lg" ng-click="GetAllAssetsWithDocs('p')" ng-disabled="page == 1">Prev page </button>-->
+                                                                            <button class="btn btn-green btn-lg" ng-click="GetAllAssetsWithDocs('n')" ng-disabled="page == P.totalpages">
+                                                                                <!--<span class="glyphicon glyphicon-chevron-right"></span>-->
+                                                                                Next page
+                                                                            </button>
+                                                                        </div>
+                                                                        <div style="float:right;margin-top:-20px;margin-right:10px">
+                                                                            {{assetsWithDocs.length}} of total {{P.recordcount }} results
+                                                                        </div>
+                                                                    </div>
+</div>
+                                                        </div>
+                                                    </div>
+
+                                               </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--END CONTENT--><!--BEGIN FOOTER-->
+                        <div id="footer">
+                            <div class="copyright">2018 © ERPSystem</div>
+                        </div>
+                        <!--END FOOTER-->
+                    </div>
+                    <!--END PAGE WRAPPER-->
+                </div>
+           
+        </div>
+
+
+    </div>
+    <script type="text/ng-template" id="myModalContent.html" data-backdrop="static" style="z-index:1055">
+        <div class="modal-header">
+            <h3 class="modal-title">Save confirmation!</h3>
+        </div>
+        <div class="modal-body">
+            <!--<ul>
+                <li ng-repeat="item in items">
+                    <a href="#" ng-click="$event.preventDefault(); selected.item = item">{{ item }}</a>
+                </li>
+            </ul>
+            Selected: <b>{{ selected.item }}</b>-->
+            {{mssg}}
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+            <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
+    <script src="js/jquery-1.10.2.min.js"></script>
+    <script src="js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="js/jquery-ui.js"></script>
+    <!--loading bootstrap js-->
+    <script src="vendors/bootstrap/js/bootstrap.min.js"></script>
+    <script src="vendors/bootstrap-hover-dropdown/bootstrap-hover-dropdown.js"></script>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <script src="vendors/metisMenu/jquery.metisMenu.js"></script>
+    <script src="vendors/slimScroll/jquery.slimscroll.js"></script>
+    <script src="vendors/jquery-cookie/jquery.cookie.js"></script>
+    <script src="vendors/iCheck/icheck.min.js"></script>
+    <script src="vendors/iCheck/custom.min.js"></script>
+    <script src="vendors/jquery-news-ticker/jquery.news-ticker.js"></script>
+    <script src="js/jquery.menu.js"></script>
+    <script src="vendors/jquery-pace/pace.min.js"></script>
+    <script src="vendors/holder/holder.js"></script>
+    <script src="vendors/responsive-tabs/responsive-tabs.js"></script>
+    <script src="vendors/jstree/dist/jstree.min.js"></script>
+    <script src="vendors/jquery-treetable/javascripts/src/jquery.treetable.js"></script>
+    <script>
+    $("#example-advanced tbody").on("mousedown", "tr", function() {
+    $(".selected").not(this).removeClass("selected");
+    $(this).toggleClass("selected");
+    });
+    </script>
+    <!--LOADING SCRIPTS FOR PAGE-->
+    <script src="js/index.js"></script>
+    <!--CORE JAVASCRIPT-->
+    <script src="js/main.js"></script>
+    <script src="js/angular.js"></script>
+    <script src="js/ui-bootstrap-tpls-1.3.3.js"></script>
+    <script src="js/angular-animate.js"></script>
+    <script src="js/ngStorage.js"></script>
+    <!--<script src="js/TreeView/nd.js"></script>-->
+    <script src="js/AssetsView.js"></script>
+    <script src="js/adal.js"></script>
+    <script src="js/adal-angular.js"></script>
+    <script src="js/AdalCommon.js"></script>
+    <!--<script src="js/ui-treeview.js"></script>-->
+    <script src="js/treasure-overlay-spinner.js"></script>
+    <!-- AI CORE JAVASCRIPT -->
+    <script src="/scripts/cloud.common.js"></script>
+    <script src="js/FileSaver.js"></script>
+</body>
+</html>

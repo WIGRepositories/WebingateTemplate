@@ -1,0 +1,3 @@
+﻿1,Super User,Responsible for managing PTS application,users, roles, jobs, scheduling and application configuration,1,1
+2,Location Admin,Manages location specific jobs, assets etc., Can only view and cannot modify the details of other locations,1,0
+3,Location Supervisor,Manages location specific jobs, assets etc., Can only view and cannot modify the details of other locations ,1,0
